@@ -1,0 +1,23 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+body{
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' width='1440' height='560' preserveAspectRatio='none' viewBox='0 0 1440 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1013%26quot%3b)' fill='none'%3e%3crect width='1440' height='560' x='0' y='0' fill='rgba(164%2c 181%2c 198%2c 1)'%3e%3c/rect%3e%3cpath d='M317.2142189193638-13.023610186413364L185.80898620037436-74.29887652491792 124.53371986186983 57.10635619407155 255.93895258085928 118.38162253257609z' fill='rgba(239%2c 239%2c 239%2c 0.4)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M533.9747548619101 455.67845301522243L532.2206141901518 556.1731047952132 632.7152659701426 557.9272454669716 634.469406641901 457.4325936869808z' fill='rgba(239%2c 239%2c 239%2c 0.4)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M-97.58 102.65 a139.16 139.16 0 1 0 278.32 0 a139.16 139.16 0 1 0 -278.32 0z' fill='rgba(239%2c 239%2c 239%2c 0.4)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M387.7776749384466 64.92587639119725L341.7334226011119 30.22904355844362 312.7102995206488 116.6438384808225z' fill='rgba(239%2c 239%2c 239%2c 0.4)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M617.54 312.18 a101.29 101.29 0 1 0 202.58 0 a101.29 101.29 0 1 0 -202.58 0z' fill='rgba(239%2c 239%2c 239%2c 0.4)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M632.455132579634 76.31693177725529L520.8473562793503 42.19501027288385 486.72543477497885 153.8027865731675 598.3332110752625 187.92470807753898z' fill='rgba(239%2c 239%2c 239%2c 0.4)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M1022.9074185827047 357.8676757012226L1028.988616284581 270.9024969256057 942.0234375089641 264.8212992237294 935.9422398070878 351.7864779993463z' fill='rgba(239%2c 239%2c 239%2c 0.4)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M873.57 378.92 a146.59 146.59 0 1 0 293.18 0 a146.59 146.59 0 1 0 -293.18 0z' fill='rgba(239%2c 239%2c 239%2c 0.4)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M755.413%2c291.666C773.89%2c291.357%2c791.795%2c284.422%2c801.878%2c268.935C812.972%2c251.895%2c816.928%2c230.067%2c807.109%2c212.262C797%2c193.931%2c776.295%2c183.208%2c755.413%2c184.677C736.561%2c186.003%2c724.347%2c202.349%2c714.946%2c218.744C705.611%2c235.023%2c697.074%2c254.124%2c706.18%2c270.533C715.468%2c287.27%2c736.275%2c291.986%2c755.413%2c291.666' fill='rgba(239%2c 239%2c 239%2c 0.4)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M509.017%2c644.179C539.702%2c643.349%2c559.466%2c614.039%2c572.444%2c586.222C583.252%2c563.056%2c580.727%2c537.656%2c569.408%2c514.736C556.277%2c488.148%2c538.67%2c458.053%2c509.017%2c457.792C479.133%2c457.529%2c460.703%2c487.226%2c446.757%2c513.657C433.998%2c537.837%2c427.581%2c565.148%2c439.352%2c589.824C452.943%2c618.316%2c477.461%2c645.033%2c509.017%2c644.179' fill='rgba(239%2c 239%2c 239%2c 0.4)' class='triangle-float1'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1013'%3e%3crect width='1440' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3cstyle%3e %40keyframes float1 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(-10px%2c 0)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float1 %7b animation: float1 5s infinite%3b %7d %40keyframes float2 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(-5px%2c -5px)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float2 %7b animation: float2 4s infinite%3b %7d %40keyframes float3 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(0%2c -10px)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float3 %7b animation: float3 6s infinite%3b %7d %3c/style%3e%3c/defs%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+}
+.item_action_header {
+    width: 25%;
+}
+
+/* Create quiz form  */
+.input_form {
+    width: 70%;
+    margin: 0 auto;
+}
+.quiz_container {
+    outline: none;
+    border: none;
+}
