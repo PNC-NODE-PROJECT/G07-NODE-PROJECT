@@ -60,6 +60,16 @@ router.put("/:quizID", (req, res) => {
         })
 })
 
-
+// +++++++++++++ GET ALL QUESTIONS IN ONE QUIZ ++++++++++++++//
+router.get("/:quizID", (req, res) => {
+    questionModel.find({ quizID: req.params.quizID })
+        .populate("quizID")
+        .then((result) => {
+            res.send(result);
+        })
+        .catch((error) => {
+            res.send(error);
+        })
+})
 
 module.exports = router;
