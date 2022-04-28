@@ -4,7 +4,6 @@ const URL = 'http://localhost:' + 3000;
 
 // create list answer
 function createAnswerList(){
-    // tempAnswerCon.classList = 'answer_temp row mb-3';
     let label = document.createElement('label');
     label.classList = 'col-sm-2 col-form-label';
     label.textContent = 'Answer';
@@ -38,48 +37,62 @@ function createAnswerList(){
 }
 
 // Create list of question created 
-function questionContainer(){
-    addQuiz()
-    let list = document.createElement('div');
-    list.classList = 'list create_question_con input_form mb-3'
-    questionCon.appendChild(list);
-
-    let headerList = document.createElement('div');
-    headerList.classList = 'header_list row';
-    list.appendChild(headerList);
-
-    let question = document.createElement('div');
-    question.classList = 'title_question col-sm-10';
-    question.textContent = 'What is present Simple?';
-    headerList.appendChild(question);
-
-    let btnGroup = document.createElement('div');
-    btnGroup.classList = 'col-sm-2';
-    headerList.appendChild(btnGroup);
-    // Edit action
-    let edit = document.createElement('button');
-    edit.classList = 'edit_question';
-    let editIcon = document.createElement('i');
-    editIcon.classList = 'bi bi-pencil-square';
-    edit.appendChild(editIcon);
-    btnGroup.appendChild(edit);
-    // Edit action
-    let deleteBtn = document.createElement('button');
-    deleteBtn.classList = 'delete_question';
-    let deleteIcon = document.createElement('i');
-    deleteIcon.classList = 'bi bi-trash-fill';
-    deleteBtn.appendChild(deleteIcon);
-    btnGroup.appendChild(deleteBtn);
-
-    // Answer display
-    let body_list = document.createElement('div');
-    list.appendChild(body_list);
-    body_list.classList = 'body_list';
-    for(let i=0; i<4;i++){
-        let answer = document.createElement('div');
-        answer.classList = 'answer_con';
-        answer.textContent = 'I am going to school';
-        body_list.appendChild(answer);
+function questionContainer(temp_answers){
+    while(questionCon.firstChild){
+        questionCon.removeChild(questionCon.lastChild);
+    }
+    for(let data of temp_answers){
+        let list = document.createElement('div');
+        list.classList = 'list create_question_con input_form mb-3'
+        questionCon.appendChild(list);
+    
+        let headerList = document.createElement('div');
+        headerList.classList = 'header_list row';
+        list.appendChild(headerList);
+    
+        let question = document.createElement('div');
+        question.classList = 'title_question col-sm-10';
+        question.textContent = data.title;
+        headerList.appendChild(question);
+    
+        let btnGroup = document.createElement('div');
+        btnGroup.classList = 'col-sm-2';
+        headerList.appendChild(btnGroup);
+        // Edit action
+        let edit = document.createElement('button');
+        edit.classList = 'edit_question';
+        let editIcon = document.createElement('i');
+        editIcon.classList = 'bi bi-pencil-square';
+        edit.appendChild(editIcon);
+        btnGroup.appendChild(edit);
+        // Edit action
+        let deleteBtn = document.createElement('button');
+        deleteBtn.classList = 'delete_question';
+        let deleteIcon = document.createElement('i');
+        deleteIcon.classList = 'bi bi-trash-fill';
+        deleteBtn.appendChild(deleteIcon);
+        btnGroup.appendChild(deleteBtn);
+        // Score display
+        let score = document.createElement('div');
+        score.classList = 'show_score col-sm-2';
+        score.textContent = data.score;
+        btnGroup.appendChild(score);
+    
+        // Answer display
+        let body_list = document.createElement('div');
+        list.appendChild(body_list);
+        body_list.classList = 'body_list';
+        for(let i=0; i<data.choices.length;i++){
+            let answer = document.createElement('div');
+            answer.classList = 'answer_con';
+            for(let j=0; j<data.correct.length;j++){
+                if(i==data.correct[j]){
+                    answer.classList = 'checked answer_con';
+                }
+            }
+            answer.textContent = data.choices[i];
+            body_list.appendChild(answer);
+        }
     }
 }
 
@@ -127,6 +140,7 @@ function addQustionTemp(){
     temp_answer['score'] = scoreInput.value;
     temp_answer['quizID'] = '6269df2fc383bd7392adb517';
     temp_answers.push(temp_answer);
+    questionContainer(temp_answers);
     resetForm();
 }
 
@@ -142,7 +156,10 @@ function resetForm(){
             correctionInput[i].checked = false;
         }
     }
-    tempAnswerCon.remove();
+    // Question container to remove
+    while(tempAnswerCon.firstChild){
+        tempAnswerCon.removeChild(tempAnswerCon.lastChild);
+    }
 }
 
 
