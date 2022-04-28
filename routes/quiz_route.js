@@ -48,7 +48,17 @@ router.delete("/:quizID", (req, res) => {
 })
 
 
-
+// +++++++++++++ UPDATE A QUIZ ++++++++++++++//
+router.put("/:quizID", (req, res) => {
+    quizModel.updateOne({ _id: req.params.quizID},
+        { "title": req.body.title })
+        .then((result) => {
+            res.send(result);
+        })
+        .catch((error) => {
+            res.send(error);
+        })
+})
 
 
 
