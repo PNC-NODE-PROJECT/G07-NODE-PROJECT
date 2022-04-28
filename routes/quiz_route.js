@@ -73,7 +73,7 @@ router.get("/:quizID", (req, res) => {
 })
 
 // +++++++++++++ CREATE A NEW QUESTION ++++++++++++++//
-router.post("question", (req, res) => {
+router.post("/question", (req, res) => {
     questionModel.create(req.body)
         .then((result) => {
             res.send(result);

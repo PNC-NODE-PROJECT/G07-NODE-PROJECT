@@ -1,5 +1,5 @@
-const PORT = process.env.PORT || 3000
-const URL = 'http://localhost:' + PORT;
+// const PORT = process.env.PORT || 3000
+const URL = 'http://localhost:' + 3000;
 
 
 // create list answer
@@ -28,13 +28,18 @@ function createAnswerList(){
     let checkBox = document.createElement('input');
     checkBox.type = 'checkbox';
     checkBox.classList = 'select_answer_btn';
+    if(answerCheck.checked){
+        checkBox.checked = true;
+    }
     checkBoxCon.appendChild(checkBox);
 
     answer.value = '';
+    answerCheck.checked = false;
 }
 
 // Create list of question created 
-function questionCone(){
+function questionContainer(){
+    addQuiz()
     let list = document.createElement('div');
     list.classList = 'list create_question_con input_form mb-3'
     questionCon.appendChild(list);
@@ -78,6 +83,68 @@ function questionCone(){
     }
 }
 
+let temp_quiz = {};
+let temp_answers = [];
+
+
+function addQuiz(){
+    // add quiz title to database
+    axios.post(URL+'/quiz/create', temp_quiz)
+    .then((result)=>{
+        console.log(result);
+    })
+    // add quetion to database
+    axios.post(URL+'/quiz/question', temp_answers)
+    .then((result)=>{
+        console.log(result);
+    })
+    temp_quiz = {};
+    temp_answers = [];
+}
+
+function addQustionTemp(){
+    // get title of quiz 
+    temp_quiz['title'] = titleInput.value;
+    temp_quiz['authorID'] = '6269df2fc383bd7392adb517';
+
+    // get value from question form;
+    let temp_answer = {};
+    let answers = [];
+    for(let i=0; i<answerInputs.length;i++){
+        if(answerInputs[i].value.length != 0){
+            answers.push(answerInputs[i].value);
+        }
+    }
+    let correct = [];
+    for(let i=0; i<correctionInput.length;i++){
+        if(correctionInput[i].checked){
+            correct.push(i);
+        }
+    }
+    temp_answer['title'] = questionInput.value;
+    temp_answer['choices'] = answers;
+    temp_answer['correct'] = correct;
+    temp_answer['score'] = scoreInput.value;
+    temp_answer['quizID'] = '6269df2fc383bd7392adb517';
+    temp_answers.push(temp_answer);
+    resetForm();
+}
+
+function resetForm(){
+    questionInput.value = '';
+    scoreInput.value = 0;
+    for(let i=0; i<answerInputs.length;i++){
+        answerInputs[i].value = '';
+    }
+    let correct = [];
+    for(let i=0; i<correctionInput.length;i++){
+        if(correctionInput[i].checked){
+            correctionInput[i].checked = false;
+        }
+    }
+    tempAnswerCon.remove();
+}
+
 
 
 
@@ -85,7 +152,19 @@ let tempAnswerCon = document.querySelector('.answer_temp');
 let addMoreAnBtn = document.querySelector('.add_answer_more');
 let questionCon = document.querySelector('.list_of_questions');
 let answer = document.querySelector('.answer_input');
+let answerCheck = document.querySelector('.select_answer_btn');
 let btnSaveQuestion = document.getElementById('save_question');
+let btnSaveQuiz = document.getElementById('submit_quiz');
+
+// Title of Quiz 
+let titleInput = document.getElementById('inputTitle');
+
+// Question form input
+let scoreInput = document.getElementById('inputScore');
+let questionInput = document.getElementById('inputQuestion');
+let answerInputs = document.getElementsByClassName('answer_input');
+let correctionInput = document.getElementsByClassName('select_answer_btn');
 
 addMoreAnBtn.addEventListener('click', createAnswerList);
-btnSaveQuestion.addEventListener('click', questionCone);
+btnSaveQuestion.addEventListener('click', addQustionTemp);
+btnSaveQuiz.addEventListener('click', addQuiz);
