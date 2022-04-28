@@ -30,7 +30,22 @@ router.get("/", (req, res) => {
 })
 
 
+// +++++++++++++ DELETE A QUIZ ++++++++++++++//
+router.delete("/:quizID", (req, res) => {
+    quizModel.deleteOne({ _id: req.params.quizID}).then(
 
+        questionModel.deleteMany({ quizID: req.params.quizID})
+            .then((result) => {
+                res.send(result);
+            })
+            .catch((error) => {
+                res.send(error);
+            })
+    ).catch((error) => {
+        res.send(error);
+    })
+
+})
 
 
 
