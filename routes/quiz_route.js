@@ -17,7 +17,17 @@ router.post("/create", (req, res) => {
         })
 })
 
-
+// +++++++++++++ GET ALL QUIZZES ++++++++++++++//
+router.get("/", (req, res) => {
+    quizModel.find()
+        .populate("authorID")
+        .then((result) => {
+            res.send(result);
+        })
+        .catch((error) => {
+            res.send(error);
+        })
+})
 
 
 
