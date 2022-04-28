@@ -93,4 +93,16 @@ router.delete("/question/:questionID", (req, res) => {
         res.send(error);
     })
 })
+
+// +++++++++++++ DELETE A QUESTION ++++++++++++++//
+router.put("question/:questionID", (req, res) => {
+    quizModel.updateOne({ _id: req.params.questionID},
+        { "title": req.body.title,"choices":req.body.choices,"correct":req.body.correct,"scores":req.body.scores,})
+        .then((result) => {
+            res.send(result);
+        })
+        .catch((error) => {
+            res.send(error);
+        })
+})
 module.exports = router;
