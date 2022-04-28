@@ -82,4 +82,15 @@ router.post("question", (req, res) => {
             res.send(error);
         })
 })
+
+// +++++++++++++ DELETE A QUESTION ++++++++++++++//
+router.delete("/question/:questionID", (req, res) => {
+    questionModel.deleteOne({ _id: req.params.questionID})
+    .then((result) => {
+        res.send(result);
+    })
+    .catch((error) => {
+        res.send(error);
+    })
+})
 module.exports = router;
