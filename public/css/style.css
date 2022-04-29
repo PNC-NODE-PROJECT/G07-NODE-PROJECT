@@ -153,6 +153,7 @@ body{
     background: var(--editColor);
     color: #fff;
     padding: 1rem;
+    position: relative;
     /* To avoid from copy text  */
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -161,6 +162,45 @@ body{
     -ms-user-select: none;
     user-select: none;
 }
+/* progress Bar  */
+.progress {
+    border-radius: 0;
+}
+.progress-bar {
+    background: #000;
+}
+
+
+
+.progress {
+    width: 100%;
+    max-width: 100%;
+    height: 6px;
+    background: #e1e4e8;
+    position: absolute;
+    overflow: hidden;
+    bottom: 0;
+    left: 0;
+}
+  
+.progress-bar {
+    display: block;
+    height: 100%;
+    width: 100%;
+    background-color: red;
+    background-size: 300% 100%;
+    animation: progress-animation 2s linear infinite;
+}
+progress::-webkit-progress-bar {
+    background-color: #fff;
+}
+progress::-webkit-progress-value {
+    background: #f04853;
+}
+
+
+
+
 .body_quiz {
     background: var(--bgGrey);
     padding: 0.5rem;
@@ -222,6 +262,7 @@ body{
     transform: scaleX(1.4) scaleY(1.6);
     opacity: 0;
 }
+
 
 
 .view_all_quizzes .list-group-item{

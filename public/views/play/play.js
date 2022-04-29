@@ -27,6 +27,16 @@ function createDomPlay(result){
     title.classList = 'title_quiz h3';
     title.textContent = data.title;
     headerQuiz.appendChild(title);
+    let progres_bar = document.createElement('div');
+    progres_bar.classList = 'progress';
+    headerQuiz.appendChild(progres_bar);
+    let progress = document.createElement('progress');
+    progress.classList = 'progress-bar';
+    progres_bar.appendChild(progress);
+
+    // <div class="progress">
+    //             <progress class="progress-bar" value="50" max="100"></progres>
+    //         </div>
 
     const QUESTION_NOW = indexToPlay + 1 + '/' + result.length;
     let numberOfQuestion = document.createElement('div');
@@ -43,13 +53,13 @@ function createDomPlay(result){
     console.log(NUMBER_OF_LOOP);
     // Define correct answer number
     correctAnwser = data.correct.length;
-    console.log(correctAnwser);
+    console.log(NUMBER_OF_LOOP);
     let indexOfAn = 0;
     for(let i=0;i<NUMBER_OF_LOOP;i++){
         let answerCon = document.createElement('div');
         answerCon.classList = 'd-flex';
         bodyQuiz.appendChild(answerCon);
-        for(let j=0;j<NUMBER_OF_LOOP;j++){
+        for(let j=0;j<2;j++){
             if(data.choices[indexOfAn]!=undefined){
                 let answer = document.createElement('div');
                 answer.classList = 'answer';
@@ -60,6 +70,10 @@ function createDomPlay(result){
             indexOfAn += 1;
         }
     }
+
+    // update progress bar
+    progress.value = indexToPlay+1;
+    progress.max = result.length;
     mainQuizContaier.appendChild(bodyQuiz);
 }
 
