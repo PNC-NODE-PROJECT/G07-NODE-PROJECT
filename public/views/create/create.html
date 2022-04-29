@@ -36,36 +36,17 @@
     <div class="container">
       <!-- Title of the quiz  -->
         <div class="title_quiz input_form">
-          <label for="inpuTitle">Title Quiz</label>
+          <label for="inpuTitle" class="h5">Quiz Title</label>
             <div class="mb-3 row input_type">
                 <input type="text" class="form-control quiz_container shadow-none" id="inputTitle" placeholder="e.g grammar">
             </div>
         </div>
         <!-- list of question container  -->
-        <div class="list_of_questions">
-          <div class="list create_question_con input_form mb-3">
-              <div class="header_list row">
-                  <div class="title_question col-sm-10">What is present Simple?</div>
-                  <div class="col-sm-2">
-                    <button class="edit_question">
-                      <i class="bi bi-pencil-square"></i>
-                    </button>
-                    <button class="delete_question">
-                      <i class="bi bi-trash-fill"></i>
-                    </button>
-                  </div>
-              </div>
-              <div class="body_list">
-                <div class="answer_con">I am going to school</div>
-                <div class="answer_con">I am going to school</div>
-                <div class="answer_con">I am going to school</div>
-                <div class="answer_con">I am going to school</div>
-              </div>
-          </div>
-        </div>
+        <div class="list_of_questions"></div>
         <!-- Question form  -->
-        <div class="input_form create_question_con mb-3">
-          <div class="row mb-3">
+        <div class="input_form create_question_con mb-3" id="action_form_input">
+          <label for="action_form_input" id="titleOfForm">Create Your Question</label>
+          <div class="row mb-3 mt-5">
             <label for="inputScore" class="col-sm-2 col-form-label">Score</label>
             <div class="col-sm-4">
                 <input type="number" class="form-control shadow-none" id="inputScore" placeholder="e.g 10">
@@ -95,15 +76,15 @@
             </button>
           </div>
           <div​ class="end_item">
-            <button class="cancal_btn">Cancel</button>
+            <button class="cancal_btn" id="calcel_question">Cancel</button>
             <button class="save_btn" id="save_question">Save</button>
+            <button class="save_btn" id="update_question">Update</button>
           </div​>
         </div>
         <div​ class="center_item input_form">
-          <button class="cancal_btn">Cancel</button>
+          <button class="cancal_btn" id="cancel_quiz">Cancel</button>
           <button class="save_btn" id="submit_quiz">Finish</button>
         </div​>
     </div>
-
 </body>
 </html>

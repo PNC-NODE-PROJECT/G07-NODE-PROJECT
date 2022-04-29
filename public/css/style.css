@@ -1,5 +1,5 @@
 :root {
-    --bgTitle: #4597c7;
+    --editColor: #4597c7;
     --editColor: #0275d8;
 }
 
@@ -17,22 +17,41 @@ body{
 .item_action_header {
     width: 25%;
 }
+/* Title quiz  */
+.title_question {
+    color: #fff;
+}
 
 /* Create quiz form  */
+#action_form_input {
+    position: relative;
+}
+#titleOfForm {
+    width: 100%;
+    padding: 0.5rem;
+    color: #fff;
+    background: var(--editColor);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
 .input_form {
     width: 70%;
     margin: 0 auto;
 }
 .input_type {
     padding: 10px 0;
-    background-color: var(--bgTitle);
+    background-color: var(--editColor);
+    color: #fff;
 }
 .quiz_container {
     border: none;
-    background: var(--bgTitle);
+    background: var(--editColor);
+    color: #fff;
 }
 .quiz_container:focus{
-    background: var(--bgTitle);
+    background: var(--editColor);
+    color: #fff;
 }
 .quiz_container::placeholder {
     color: rgb(108, 108, 108);
@@ -57,7 +76,7 @@ body{
 }
 
 .delete_question {
-    margin-left: 0.4rem;
+    /* margin-left: 0.4rem; */
     background: red;
 }
 .edit_question {
@@ -78,6 +97,13 @@ body{
 .cancal_btn {
     background: red;
 }
+/* Score display  */
+.show_score {
+    text-align: end;
+    color: #fff;
+    float: right;
+    margin-top: 8px;
+}
 .end_item,
 .center_item {
     display: flex;
@@ -94,7 +120,7 @@ body{
     padding: 0 0.8rem 1rem;
 }
 .header_list {
-    background: var(--bgTitle);
+    background: var(--editColor);
     align-items: center;
     padding: 0.5rem;
 }
@@ -106,6 +132,10 @@ body{
     padding: 0.5rem;
     background: rgba(255, 255, 255, 0.376);
     margin: 0.5rem;
+}
+/* Right answer Container  */
+.checked {
+    border: 2px solid #28a745 ;
 }
 
 

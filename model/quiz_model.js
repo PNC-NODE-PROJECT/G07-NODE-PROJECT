@@ -21,7 +21,7 @@ const questionSchema = new mongoose.Schema({
     title: String,
     choices:[String],
     correct:[Number],
-    scores: Number,
+    score: Number,
     "quizID":{
         type: mongoose.Schema.Types.ObjectId,
         ref: "quizzes"
