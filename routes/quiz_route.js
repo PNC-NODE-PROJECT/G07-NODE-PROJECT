@@ -60,6 +60,18 @@ router.put("/:quizID", (req, res) => {
         })
 })
 
+// +++++++++++++ GET A QUESTION IN ONE QUIZ ++++++++++++++//
+router.get("/question/:questionID", (req, res) => {
+    questionModel.findOne({ _id: req.params.questionID })
+        // .populate("quizID")
+        .then((result) => {
+            res.send(result);
+        })
+        .catch((error) => {
+            res.send(error);
+        })
+})
+
 // +++++++++++++ GET ALL QUESTIONS IN ONE QUIZ ++++++++++++++//
 router.get("/:quizID", (req, res) => {
     questionModel.find({ quizID: req.params.quizID })
@@ -94,10 +106,10 @@ router.delete("/question/:questionID", (req, res) => {
     })
 })
 
-// +++++++++++++ DELETE A QUESTION ++++++++++++++//
-router.put("question/:questionID", (req, res) => {
-    quizModel.updateOne({ _id: req.params.questionID},
-        { "title": req.body.title,"choices":req.body.choices,"correct":req.body.correct,"scores":req.body.scores,})
+// +++++++++++++ UPDATE A QUESTION ++++++++++++++//
+router.put("/question/:questionID", (req, res) => {
+    let data = { "title": req.body.title,"choices":req.body.choices,"correct":req.body.correct,"score":req.body.score, "quizID":req.body.quizID};
+    questionModel.updateOne({ _id: req.params.questionID}, data)
         .then((result) => {
             res.send(result);
         })
