@@ -22,6 +22,18 @@ body{
 }
 
 /* Create quiz form  */
+#action_form_input {
+    position: relative;
+}
+#titleOfForm {
+    width: 100%;
+    padding: 0.5rem;
+    color: #fff;
+    background: var(--editColor);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
 .input_form {
     width: 70%;
     margin: 0 auto;
