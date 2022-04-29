@@ -131,8 +131,46 @@ body{
 .view_all_quizzes .col-sm-2 a i{
     margin: 0 8px 0 8px;
 }
-.view_all_quizzes .show​​​​{
-    width: 96%;
+
+.view_all_quizzes ul .list-group-item:first-child{
+    width: 99.5%;
+    margin: 10px auto;
+}
+
+.correct{
+background: rgba(12, 225, 12, 0.91);}
+
+.quizzes{
+    background: white;
+    width: 70%;
     margin: auto;
-    margin-top: 10px;
+    position: relative;
+}
+.quiz_item{
+    width: 100%;
+    padding: 15px 30px;
+    background: white;
+
+}
+.quiz_item .col-sm-2{
+    margin-right: 60px;
+}
+.bar-down,.bar-up{
+    margin-left: 23px;
+
+}
+.bar-down, .bar-up{
+    position: absolute;
+    right: 15px;
+}
+.bar-up{
+    display: none;
+
+}
+.list-group{
+    padding: 10px;
+    /* display: none; */
+}
+.questions {
+    display: none;
 }

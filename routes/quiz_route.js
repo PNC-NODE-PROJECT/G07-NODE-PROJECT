@@ -73,7 +73,7 @@ router.get("/:quizID", (req, res) => {
 })
 
 // +++++++++++++ CREATE A NEW QUESTION ++++++++++++++//
-router.post("question", (req, res) => {
+router.post("/question", (req, res) => {
     questionModel.create(req.body)
         .then((result) => {
             res.send(result);
@@ -95,8 +95,8 @@ router.delete("/question/:questionID", (req, res) => {
 })
 
 // +++++++++++++ DELETE A QUESTION ++++++++++++++//
-router.put("question/:questionID", (req, res) => {
-    quizModel.updateOne({ _id: req.params.questionID},
+router.put("/question/:questionID", (req, res) => {
+    questionModel.updateOne({ _id: req.params.questionID},
         { "title": req.body.title,"choices":req.body.choices,"correct":req.body.correct,"scores":req.body.scores,})
         .then((result) => {
             res.send(result);
