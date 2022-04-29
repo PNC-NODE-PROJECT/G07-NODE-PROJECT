@@ -1,9 +1,13 @@
 const URL = 'http://localhost:' + 3000;
 
+// Get Quiz ID from localStorage
+const QUIZ_ID_KEY = 'playQuizId';
+var quiz_id = localStorage.getItem(QUIZ_ID_KEY);
+
 let correctAnwser = 0;
 
 function getQuestion(){
-    axios.get(URL+'/quiz/6269e951c383bd7392adb56e')
+    axios.get(URL+'/quiz/'+quiz_id)
     .then((result)=>{
         console.log(result);
         createDomPlay(result.data)
