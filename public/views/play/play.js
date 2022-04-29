@@ -1,5 +1,4 @@
 const URL = 'http://localhost:' + 3000;
-
 // Get Quiz ID from localStorage
 const QUIZ_ID_KEY = 'playQuizId';
 var quiz_id = localStorage.getItem(QUIZ_ID_KEY);
