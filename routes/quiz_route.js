@@ -29,6 +29,18 @@ router.get("/", (req, res) => {
         })
 })
 
+// +++++++++++++ GET A TITLE QUIZZES ++++++++++++++//
+router.get("/title/:_id", (req, res) => {
+    quizModel.findOne({"_id": req.params._id})
+        // .populate("authorID")
+        .then((result) => {
+            res.send(result);
+        })
+        .catch((error) => {
+            res.send(error);
+        })
+})
+
 
 // +++++++++++++ DELETE A QUIZ ++++++++++++++//
 router.delete("/:quizID", (req, res) => {
