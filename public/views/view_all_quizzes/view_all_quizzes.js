@@ -19,13 +19,16 @@ function getAllQuizzes() {
                 axios.get("http://localhost:3000/quiz/" + quizID)
                     .then((result) => {
                         let quizzes = result.data;
+                        console.log(quizzes)
                         displayAllQuizzes(quizzes)
                     })
             }
         })
 }
+
 getAllQuizzes();
 function displayAllQuizzes(quizzes) {
+    
     // console.log(quizzes)
     let quizmb = document.createElement("div");
     quizmb.setAttribute("class", "quizzes mb-2")
@@ -77,6 +80,7 @@ function displayAllQuizzes(quizzes) {
     let i3 = document.createElement("i");
     i3.setAttribute("class", "bi bi-trash-fill h3 text-danger")
     a3.appendChild(i3);
+    a3.addEventListener("click", deletQuiz)
 
     let a4 = document.createElement("a");
     a4.href = "#"
@@ -95,7 +99,8 @@ function displayAllQuizzes(quizzes) {
     a5.appendChild(i5);
 
     let questions = document.createElement("div");
-    questions.setAttribute("class","questions")
+    questions.setAttribute("class", "questions")
+
     quizmb.appendChild(questions);
     for (let index in quizzes) {
         let quiz = quizzes[index];
@@ -103,11 +108,11 @@ function displayAllQuizzes(quizzes) {
         let question = quiz.title;
         let choices = quiz.choices;
         let corrects = quiz.correct;
-
+        let quizID = quiz.quizID._id;
 
 
         quiz_name.textContent = title;
-
+        a3.setAttribute("id", quizID)
 
 
 
@@ -163,3 +168,13 @@ function hideQuestions(e) {
 let bar_up = document.getElementsByClassName("bar-up");
 let bar_down = document.getElementsByClassName("bar-down");
 
+function deletQuiz(e) {
+    console.log(e.target.parentNode.id)
+    let quizID = e.target.parentNode.id
+    axios.delete("http://localhost:3000/quiz/" + quizID)
+        .then((result) => {
+            console.log("Delete success !")
+            window.location.reload();
+            // getAllQuizzes();
+        })
+}
