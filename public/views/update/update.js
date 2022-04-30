@@ -187,6 +187,7 @@ function getQuestionValue(){
     temp_arr['correct'] = correct;
     temp_arr['score'] = scoreInput.value;
     temp_arr['quizID'] = quiz_id;
+    temp_arr['_id'] = id_question.value;
     console.log(temp_arr);
     return temp_arr;
 }
@@ -213,6 +214,7 @@ function resetForm(){
             correctionInput[i].checked = false;
         }
     }
+    saveActionBtn();
     resfreshAnswerInput();
 }
 // Refresh Answer Input Dom
@@ -228,14 +230,19 @@ function resfreshListQuestion(){
     }
 }
 // GET VALUE FROM ANSWER AND LIST IT DOWN BY INPUT AND CHECKBOX
-function listInputAnswer(answers, correction){
+function listInputAnswer(data){
     resfreshAnswerInput();
-    for(let i=0;i<answers.length;i++){
+    console.log(data);
+    for(let i=0;i<data.choices.length;i++){
         let label = document.createElement('label');
         label.classList = 'col-sm-2 col-form-label';
         label.textContent = 'Answer';
         tempAnswerCon.appendChild(label);
-    
+        // id_question.value = '';
+        if(id_question!==null || id_question.value==''){
+            id_question.value = data._id;
+        }
+
         let inputAnsCon = document.createElement('div');
         inputAnsCon.classList = 'col-sm-8 mb-3';
         tempAnswerCon.appendChild(inputAnsCon);
@@ -244,7 +251,7 @@ function listInputAnswer(answers, correction){
         inputAns.type = 'text';
         inputAns.classList = 'form-control shadow-none answer_input';
         inputAns.placeholder = 'e.g I go to school';
-        inputAns.value = answers[i];
+        inputAns.value = data.choices[i];
         inputAnsCon.appendChild(inputAns);
     
         let checkBoxCon = document.createElement('div');
@@ -254,8 +261,8 @@ function listInputAnswer(answers, correction){
         let checkBox = document.createElement('input');
         checkBox.type = 'checkbox';
         checkBox.classList = 'select_answer_btn';
-        for(let correct of correction){
-            if(i == correct){
+        for(let item of data.correct){
+            if(i == item){
                 checkBox.checked = true;
             }
 
@@ -268,7 +275,7 @@ function getValueFromQuestion(temp_answers){
     let data = temp_answers;
     scoreInput.value = data.score;
     questionInput.value = data.title;
-    listInputAnswer(data.choices, data.correct);
+    listInputAnswer(data);
 }
 
 let listIdToDelete = [];
@@ -291,6 +298,7 @@ function clickQuestion(e) {
         if(e.target.className === 'bi bi-pencil-square'){
             id = e.target.parentElement.parentElement.parentElement.id;
         }
+        window.location.href = "#action_form_input";
         updateActionBtn();
         titleOfAction.textContent = 'Update Your Question';
         getValueFromQuestion(temp_answers[id]);
@@ -302,14 +310,14 @@ function clickQuestion(e) {
 function updateQuestion(){
     let updated = temp_answers[indexToUpdate] = getQuestionValue();
     if(updated){
-        alert('Question Updated!')
+        console.log('Update!');
         resetForm();
         questionContainer(temp_answers);
     }
 }
 // Update Quiz to DB
 function updateQuiz(){
-    // Update Quiz
+    // Update Quiz title
     let data = {"title":titleInput.value}
     axios.put(URL+'/quiz/'+quiz_id, data)
     .then((result)=>{
@@ -318,6 +326,17 @@ function updateQuiz(){
     // delete quetion in database
     for(let id of listIdToDelete){
         axios.delete(URL+'/quiz/question/'+id)
+        .then((result)=>{
+            console.log(result);
+        })
+    }
+    // edit quetion to database
+    for(let item of temp_answers){
+        console.log(item._id);
+        console.log(item);
+        let questionId = item._id;
+        
+        axios.put(URL+'/quiz/question/'+questionId, item)
         .then((result)=>{
             console.log(result);
         })
@@ -350,6 +369,7 @@ let titleOfAction = document.getElementById('titleOfForm');
 
 // Question form input
 let questionForm = document.getElementById('action_form_input');
+let id_question = document.getElementById('input_id');
 let scoreInput = document.getElementById('inputScore');
 let questionInput = document.getElementById('inputQuestion');
 let answerInputs = document.getElementsByClassName('answer_input');
@@ -372,9 +392,10 @@ let temp_answers = [];
 
 
 
-if(quiz_id==''){
+if(quiz_id=='' || quiz_id == null){
     hide(questionForm);
     hide(btnSubmit);
+    show(btnSave)
 }else{
     hide(btnSave);
     hide(btnSubmit);
