@@ -88,7 +88,9 @@ function displayAllQuizzes(quizzes) {
 
     let i4 = document.createElement("i");
     i4.setAttribute("class", "bi bi-pencil-square h3")
+    a4.href = "../update/edit.html";
     a4.appendChild(i4);
+    a4.addEventListener('click', saveIdToLocalStorage)
 
     let a5 = document.createElement("a");
     a5.href = "../play/play.html";
@@ -149,6 +151,7 @@ function displayAllQuizzes(quizzes) {
 }
 // displayAllQuizzes();
 function showQuestions(e) {
+    e.preventDefault();
     e.target.parentNode.style.display = "none";
     let bar_up = e.target.parentNode.parentNode.children[1];
 
@@ -159,6 +162,7 @@ function showQuestions(e) {
 
 }
 function hideQuestions(e) {
+    e.preventDefault();
     e.target.parentNode.style.display = "none";
     let bar_down = e.target.parentNode.parentNode.children[0];
 
@@ -169,7 +173,12 @@ function hideQuestions(e) {
 
 function saveIdToLocalStorage(e){
     console.log(e.target.parentNode.id);
-    localStorage.setItem(QUIZ_ID_KEY, e.target.parentNode.id);
+    let idOfQuiz = e.target.parentNode.id
+    // if target === edit icon
+    if(e.target.className === 'bi bi-pencil-square h3'){
+        idOfQuiz = e.target.parentNode.nextSibling.id
+    }
+    localStorage.setItem(QUIZ_ID_KEY, idOfQuiz);
 }
 
 let bar_up = document.getElementsByClassName("bar-up");

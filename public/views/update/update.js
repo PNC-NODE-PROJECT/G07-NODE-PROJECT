@@ -1,4 +1,7 @@
 const URL = 'http://localhost:' + 3000;
+// Get Quiz ID from localStorage
+const QUIZ_ID_KEY = 'playQuizId';
+var quiz_id = localStorage.getItem(QUIZ_ID_KEY);
 
 // Edit Button
 let btnUpdate = document.querySelector('#update_question');
@@ -14,7 +17,7 @@ function show(e){
     e.style.display = '';
 }
 
-// Change action
+// Change action 
 function saveActionBtn(){
     hide(btnUpdate);
     show(btnSaveQuestion);
@@ -84,8 +87,6 @@ function questionContainer(temp_answers){
         // Edit action
         let edit = document.createElement('button');
         edit.classList = 'edit_question';
-        // edit.setAttribute('data-bs-toggle', 'modal');
-        // edit.setAttribute('data-bs-target', '#editModal');
         let editIcon = document.createElement('i');
         editIcon.classList = 'bi bi-pencil-square';
         edit.appendChild(editIcon);
@@ -122,8 +123,18 @@ function questionContainer(temp_answers){
     }
 }
 
-let quiz_id = '';
-let temp_answers = [];
+
+// GET ALL QUIZ FROM DATABASE
+function getQuizValue(){
+    axios.get(URL+'/quiz/'+quiz_id)
+    .then((result)=>{
+        console.log(result);
+        temp_answers = result.data;
+        questionContainer(temp_answers);
+        titleInput.value = result.data[0].quizID.title;
+        console.log(temp_answers);
+    })
+}
 
 
 function addQuestion(){
@@ -138,10 +149,7 @@ function addQuestion(){
     .then((result)=>{
         console.log(result);
     })
-    // resetForm();
-    // resfreshListQuestion();
     window.location.href = "../view_all_quizzes/view_all_quizzes.html";
-    temp_answers = [];
 }
 
 // Add quiz title to db
@@ -192,7 +200,7 @@ function addQustionTemp(){
 }
 
 function resetForm(){
-    saveActionBtn();
+    // saveActionBtn();
     titleOfAction.textContent = 'Create Your Question';
     questionInput.value = '';
     scoreInput.value = 0;
@@ -298,10 +306,8 @@ function updateQuestion(){
 }
 
 function resetQuiz(){
-    // resetForm();
     temp_answers = [];
     window.location.href = "/";
-    // questionContainer(temp_answers);
 }
 
 
@@ -340,6 +346,18 @@ btnCancelQuestion.addEventListener('click', resetForm)
 btnCalcelQuiz.addEventListener('click', resetQuiz)
 
 
-hide(questionForm);
-hide(btnSubmit);
+// let quiz_id = '';
+let temp_answers = [];
+
+
+
+if(quiz_id==''){
+    hide(questionForm);
+    hide(btnSubmit);
+}else{
+    hide(btnSubmit);
+    getQuizValue()
+}
+
+
 
