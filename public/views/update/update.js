@@ -1,3 +1,5 @@
+// const { get } = require("express/lib/request");
+
 const URL = 'http://localhost:' + 3000;
 // Get Quiz ID from localStorage
 const QUIZ_ID_KEY = 'playQuizId';
@@ -10,77 +12,88 @@ let btnUpdate = document.querySelector('#update_question');
 hide(btnUpdate);
 
 // Hide & Show element
-function hide(e){
+function hide(e) {
     e.style.display = 'none';
 }
-function show(e){
+function show(e) {
     e.style.display = '';
 }
 
 // Change action 
-function saveActionBtn(){
+function saveActionBtn() {
     hide(btnUpdate);
     show(btnSaveQuestion);
 }
-function updateActionBtn(){
+function updateActionBtn() {
     hide(btnSaveQuestion);
     show(btnUpdate);
 }
 
 // create list answer
-function createAnswerList(){
-    let label = document.createElement('label');
-    label.classList = 'col-sm-2 col-form-label';
-    label.textContent = 'Answer';
-    tempAnswerCon.appendChild(label);
+function createAnswerList(e) {
+    let alert = e.target.parentNode.parentNode.parentNode.parentNode.children[2];
+    let warining_text = alert.children[0];
+    console.log(warining_text)
+    if (answer.value != "") {
 
-    let inputAnsCon = document.createElement('div');
-    inputAnsCon.classList = 'col-sm-8 mb-3';
-    tempAnswerCon.appendChild(inputAnsCon);
 
-    let inputAns = document.createElement('input');
-    inputAns.type = 'text';
-    inputAns.classList = 'form-control shadow-none answer_input';
-    inputAns.placeholder = 'e.g I go to school';
-    inputAns.value = answer.value;
-    inputAnsCon.appendChild(inputAns);
+        let label = document.createElement('label');
+        label.classList = 'col-sm-2 col-form-label';
+        label.textContent = 'Answer';
+        tempAnswerCon.appendChild(label);
 
-    let checkBoxCon = document.createElement('div');
-    checkBoxCon.classList = 'col-sm-2';
-    tempAnswerCon.appendChild(checkBoxCon);
+        let inputAnsCon = document.createElement('div');
+        inputAnsCon.classList = 'col-sm-8 mb-3';
+        tempAnswerCon.appendChild(inputAnsCon);
 
-    let checkBox = document.createElement('input');
-    checkBox.type = 'checkbox';
-    checkBox.classList = 'select_answer_btn';
-    if(answerCheck.checked){
-        checkBox.checked = true;
+        let inputAns = document.createElement('input');
+        inputAns.type = 'text';
+        inputAns.classList = 'form-control shadow-none answer_input';
+        inputAns.placeholder = 'e.g I go to school';
+        inputAns.value = answer.value;
+        console.log(answer.value)
+        inputAnsCon.appendChild(inputAns);
+
+        let checkBoxCon = document.createElement('div');
+        checkBoxCon.classList = 'col-sm-2';
+        tempAnswerCon.appendChild(checkBoxCon);
+
+        let checkBox = document.createElement('input');
+        checkBox.type = 'checkbox';
+        checkBox.classList = 'select_answer_btn';
+        if (answerCheck.checked) {
+            checkBox.checked = true;
+        }
+        checkBoxCon.appendChild(checkBox);
+
+        answer.value = '';
+        answerCheck.checked = false;
+    } else {
+        alert.style.display = "flex"
+        warining_text.textContent = "Please input the answer !"
     }
-    checkBoxCon.appendChild(checkBox);
-
-    answer.value = '';
-    answerCheck.checked = false;
 }
 
 
 // Create list of question created 
-function questionContainer(temp_answers){
+function questionContainer(temp_answers) {
     resfreshListQuestion();
     let indexOfAn = 0;
-    for(let data of temp_answers){
+    for (let data of temp_answers) {
         let list = document.createElement('div');
         list.classList = 'list create_question_con input_form mb-3'
         questionCon.appendChild(list);
-    
+
         let headerList = document.createElement('div');
         headerList.classList = 'header_list row';
         headerList.id = indexOfAn;
         list.appendChild(headerList);
-    
+
         let question = document.createElement('div');
         question.classList = 'title_question col-sm-10';
         question.textContent = data.title;
         headerList.appendChild(question);
-    
+
         let btnGroup = document.createElement('div');
         btnGroup.classList = 'col-sm-2';
         headerList.appendChild(btnGroup);
@@ -103,82 +116,90 @@ function questionContainer(temp_answers){
         score.classList = 'show_score col-sm-2';
         score.textContent = data.score;
         btnGroup.appendChild(score);
-    
+
         // Answer display
         let body_list = document.createElement('div');
         list.appendChild(body_list);
         body_list.classList = 'body_list';
-        for(let i=0; i<data.choices.length;i++){
+        for (let i = 0; i < data.choices.length; i++) {
             let answer = document.createElement('div');
             answer.classList = 'answer_con';
-            for(let j=0; j<data.correct.length;j++){
-                if(i==data.correct[j]){
+            for (let j = 0; j < data.correct.length; j++) {
+                if (i == data.correct[j]) {
                     answer.classList = 'checked answer_con';
                 }
             }
             answer.textContent = data.choices[i];
             body_list.appendChild(answer);
         }
-        indexOfAn+=1;
+        indexOfAn += 1;
     }
 }
 
 
 // GET ALL QUIZ FROM DATABASE
-function getQuizValue(){
-    axios.get(URL+'/quiz/'+quiz_id)
-    .then((result)=>{
-        console.log(result);
-        temp_answers = result.data;
-        questionContainer(temp_answers);
-        titleInput.value = result.data[0].quizID.title;
-        console.log(temp_answers);
-    })
+function getQuizValue() {
+    axios.get(URL + '/quiz/' + quiz_id)
+        .then((result) => {
+            console.log(result);
+            temp_answers = result.data;
+            questionContainer(temp_answers);
+            titleInput.value = result.data[0].quizID.title;
+            console.log(temp_answers);
+        })
 }
 
 
-function addQuestion(){
+function addQuestion() {
     // Update Quiz
-    let data = {"title":titleInput.value}
-    axios.put(URL+'/quiz/'+quiz_id, data)
-    .then((result)=>{
-        console.log(result);
-    })
+    let data = { "title": titleInput.value }
+    axios.put(URL + '/quiz/' + quiz_id, data)
+        .then((result) => {
+            console.log(result);
+        })
     // add quetion to database
-    axios.post(URL+'/quiz/question', temp_answers)
-    .then((result)=>{
-        console.log(result);
-    })
+    axios.post(URL + '/quiz/question', temp_answers)
+        .then((result) => {
+            console.log(result);
+        })
     window.location.href = "../view_all_quizzes/view_all_quizzes.html";
 }
 
 // Add quiz title to db
-function addQuiz(){
+function addQuiz(e) {
     // add quiz title to database
-    let data = {'title': titleInput.value, 'authorID': '6269df2fc383bd7392adb517'}
-    axios.post(URL+'/quiz/create', data)
-    .then((result)=>{
-        console.log(result.data._id);
-        quiz_id = result.data._id;
-        show(questionForm);
-        show(btnSubmit);
-        hide(btnSave);
-    })
+    let data = { 'title': titleInput.value, 'authorID': '6269df2fc383bd7392adb517' }
+    let alert = e.target.parentNode.parentNode.children[0].children[2]
+    let warining_text = alert.children[0];
+    if (titleInput.value != "") {
+        alert.style.display = "none";
+        axios.post(URL + '/quiz/create', data)
+            .then((result) => {
+                quiz_id = result.data._id;
+                show(questionForm);
+                show(btnSubmit);
+                hide(btnSave);
+            })
+    } else {
+        alert.style.display = "flex";
+        warining_text.textContent = "Please input the title of the quiz"
+    }
+
 }
 
 // Get all value of question form 
-function getQuestionValue(){
+function getQuestionValue() {
     let temp_arr = {};
     // get value from question form;
     let answers = [];
-    for(let i=0; i<answerInputs.length;i++){
-        if(answerInputs[i].value.length != 0){
+    for (let i = 0; i < answerInputs.length; i++) {
+        if (answerInputs[i].value.length != 0) {
             answers.push(answerInputs[i].value);
         }
     }
     let correct = [];
-    for(let i=0; i<correctionInput.length;i++){
-        if(correctionInput[i].checked){
+    for (let i = 0; i < correctionInput.length; i++) {
+        if (correctionInput[i].checked) {
             correct.push(i);
         }
     }
@@ -187,75 +208,101 @@ function getQuestionValue(){
     temp_arr['correct'] = correct;
     temp_arr['score'] = scoreInput.value;
     temp_arr['quizID'] = quiz_id;
-    console.log(temp_arr);
     return temp_arr;
 }
 
-function addQustionTemp(){
+function addQustionTemp(e) {
     // get value from question form and push to temp_answers 
-    temp_answers.push(getQuestionValue());
-    console.log(getQuestionValue());
-    questionContainer(temp_answers);
-    resetForm();
+    let alert = e.target.parentNode.parentNode.parentNode.children[2];
+    let warining_text = alert.children[0];
+    console.log(getQuestionValue())
+    let score = getQuestionValue().score;
+    let questionTitle = getQuestionValue().title;
+    let choices = getQuestionValue().choices;
+    let correct = getQuestionValue().correct;
+
+    if ((questionTitle == "" && score == "") && (choices.length == 0 && correct.length == 0)) {
+        console.log()
+        alert.style.display = "flex"
+        warining_text.textContent = "Please input question, answer, score and add correct answer !"
+    } else if (score == "") {
+        alert.style.display = "flex"
+        warining_text.textContent = "Please input the score of the question !"
+    } else if (questionTitle == "") {
+        alert.style.display = "flex"
+        warining_text.textContent = "Please input the title of the question !"
+    } else if (choices.length == 0) {
+        alert.style.display = "flex"
+        warining_text.textContent = "Please input the answer of the question !"
+    } else if (correct.length == 0) {
+        alert.style.display = "flex"
+        warining_text.textContent = "Please choose the correct of the question !"
+    } else {
+        alert.style.display = "none"
+        temp_answers.push(getQuestionValue());
+
+        questionContainer(temp_answers);
+        resetForm();
+    }
 }
 
-function resetForm(){
+function resetForm() {
     // saveActionBtn();
     titleOfAction.textContent = 'Create Your Question';
     questionInput.value = '';
     scoreInput.value = 0;
-    for(let i=0; i<answerInputs.length;i++){
+    for (let i = 0; i < answerInputs.length; i++) {
         answerInputs[i].value = '';
     }
     let correct = [];
-    for(let i=0; i<correctionInput.length;i++){
-        if(correctionInput[i].checked){
+    for (let i = 0; i < correctionInput.length; i++) {
+        if (correctionInput[i].checked) {
             correctionInput[i].checked = false;
         }
     }
     resfreshAnswerInput();
 }
 // Refresh Answer Input Dom
-function resfreshAnswerInput(){
-    while(tempAnswerCon.firstChild){
+function resfreshAnswerInput() {
+    while (tempAnswerCon.firstChild) {
         tempAnswerCon.removeChild(tempAnswerCon.lastChild);
     }
 }
 // Refresh Question List
-function resfreshListQuestion(){
-    while(questionCon.firstChild){
+function resfreshListQuestion() {
+    while (questionCon.firstChild) {
         questionCon.removeChild(questionCon.lastChild);
     }
 }
 // GET VALUE FROM ANSWER AND LIST IT DOWN BY INPUT AND CHECKBOX
-function listInputAnswer(answers, correction){
+function listInputAnswer(answers, correction) {
     resfreshAnswerInput();
-    for(let i=0;i<answers.length;i++){
+    for (let i = 0; i < answers.length; i++) {
         let label = document.createElement('label');
         label.classList = 'col-sm-2 col-form-label';
         label.textContent = 'Answer';
         tempAnswerCon.appendChild(label);
-    
+
         let inputAnsCon = document.createElement('div');
         inputAnsCon.classList = 'col-sm-8 mb-3';
         tempAnswerCon.appendChild(inputAnsCon);
-    
+
         let inputAns = document.createElement('input');
         inputAns.type = 'text';
         inputAns.classList = 'form-control shadow-none answer_input';
         inputAns.placeholder = 'e.g I go to school';
         inputAns.value = answers[i];
         inputAnsCon.appendChild(inputAns);
-    
+
         let checkBoxCon = document.createElement('div');
         checkBoxCon.classList = 'col-sm-2';
         tempAnswerCon.appendChild(checkBoxCon);
-    
+
         let checkBox = document.createElement('input');
         checkBox.type = 'checkbox';
         checkBox.classList = 'select_answer_btn';
-        for(let correct of correction){
-            if(i == correct){
+        for (let correct of correction) {
+            if (i == correct) {
                 checkBox.checked = true;
             }
 
@@ -264,7 +311,7 @@ function listInputAnswer(answers, correction){
     }
 }
 // GET VALUE FROM QUESTION FORM FOR UPDATE
-function getValueFromQuestion(temp_answers){
+function getValueFromQuestion(temp_answers) {
     let data = temp_answers;
     scoreInput.value = data.score;
     questionInput.value = data.title;
@@ -273,44 +320,47 @@ function getValueFromQuestion(temp_answers){
 
 let indexToUpdate = 0;
 function clickQuestion(e) {
-  e.preventDefault();
-  if (e.target.className === "delete_question" || e.target.className === 'bi bi-trash-fill') {
-    let id = e.target.parentElement.parentElement.id;
-    if(e.target.className === 'bi bi-trash-fill'){
-        id = e.target.parentElement.parentElement.parentElement.id;
-    }
-    let isExecuted = confirm("Are you sure to delete this task?");
-    if (isExecuted) {
-        temp_answers.splice(id, 1);
-        questionContainer(temp_answers);
-    }
-  } else if (e.target.className === "edit_question" || e.target.className === "bi bi-pencil-square") {
+    e.preventDefault();
+    if (e.target.className === "delete_question" || e.target.className === 'bi bi-trash-fill') {
         let id = e.target.parentElement.parentElement.id;
-        if(e.target.className === 'bi bi-pencil-square'){
+        if (e.target.className === 'bi bi-trash-fill') {
+            id = e.target.parentElement.parentElement.parentElement.id;
+        }
+        let isExecuted = confirm("Are you sure to delete this task?");
+        if (isExecuted) {
+            temp_answers.splice(id, 1);
+            questionContainer(temp_answers);
+        }
+    } else if (e.target.className === "edit_question" || e.target.className === "bi bi-pencil-square") {
+        let id = e.target.parentElement.parentElement.id;
+        if (e.target.className === 'bi bi-pencil-square') {
             id = e.target.parentElement.parentElement.parentElement.id;
         }
         updateActionBtn();
         titleOfAction.textContent = 'Update Your Question';
         getValueFromQuestion(temp_answers[id]);
         indexToUpdate = id;
-  }
+    }
 }
 
-function updateQuestion(){
+function updateQuestion() {
     let updated = temp_answers[indexToUpdate] = getQuestionValue();
-    if(updated){
+    if (updated) {
         alert('Question Updated!')
         resetForm();
         questionContainer(temp_answers);
     }
 }
 
-function resetQuiz(){
+function resetQuiz() {
     temp_answers = [];
     window.location.href = "/";
 }
 
-
+function closeWarning(e) {
+    e.target.parentNode.style.display = "none";
+    console.log(e.target.parentNode)
+}
 
 let tempAnswerCon = document.querySelector('.answer_temp');
 let addMoreAnBtn = document.querySelector('.add_answer_more');
@@ -338,23 +388,26 @@ let correctionInput = document.getElementsByClassName('select_answer_btn');
 
 addMoreAnBtn.addEventListener('click', createAnswerList);
 btnSaveQuestion.addEventListener('click', addQustionTemp);
-btnSave.addEventListener('click', addQuiz); 
+btnSave.addEventListener('click', addQuiz);
 btnSubmit.addEventListener('click', addQuestion);
 questionCon.addEventListener('click', clickQuestion);
 btnUpdate.addEventListener('click', updateQuestion)
 btnCancelQuestion.addEventListener('click', resetForm)
 btnCalcelQuiz.addEventListener('click', resetQuiz)
-
-
+let closewarning = document.getElementsByClassName("close")
+// .addEventListener("click", closeWarning)
+for (let close of closewarning) {
+    close.addEventListener("click", closeWarning)
+}
 // let quiz_id = '';
 let temp_answers = [];
 
 
 
-if(quiz_id==''){
+if (quiz_id == '') {
     hide(questionForm);
     hide(btnSubmit);
-}else{
+} else {
     hide(btnSubmit);
     getQuizValue()
 }

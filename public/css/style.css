@@ -338,3 +338,28 @@ div {
         -ms-user-select: none;
         user-select: none;
 }
+
+.alert {
+    background: #fd938c;
+    width: 100%;
+    display: none;
+    height: 6vh;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 6px;
+    font-size: large;
+    color: rgb(192, 1, 1);
+    cursor: pointer;
+}
+.inpuTitle .alert{
+    width: 100%;
+
+}
+.alert i {
+    color: red;
+    margin-right: 10px;
+    font-size: larger;
+}
+.alert p{
+    margin-top: 15px;
+}
