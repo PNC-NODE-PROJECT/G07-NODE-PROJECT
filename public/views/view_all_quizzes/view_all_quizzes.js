@@ -4,35 +4,26 @@ localStorage.removeItem(QUIZ_ID_KEY);
 
 const container = document.getElementById("container");
 const quizmb = document.getElementById("quizzes");
-// console.log(quizmb)
 
-// bar_down.style.display = "none"
-// bar_up.style.display = "block"
-// console.log(bar_up)
-// console.log(bar_down)
 let URL = 'http://localhost:' + 3000;
 
 function getAllQuizzes() {
 
     axios.get(URL + '/quiz')
         .then((result) => {
-            // console.log(result.data[0]._id);
             for (let item of result.data) {
-                // console.log(item._id)
                 let quizID = item._id;
+                let title = item.title;
                 axios.get("http://localhost:3000/quiz/" + quizID)
                     .then((result) => {
                         let quizzes = result.data;
-                        console.log(quizzes)
-                        displayAllQuizzes(quizzes)
+                        displayAllQuizzes(quizzes, title,quizID)
                     })
             }
         })
 }
+function displayAllQuizzes(quizzes, title, quizID) {
 
-getAllQuizzes();
-function displayAllQuizzes(quizzes) {
-    
     // console.log(quizzes)
     let quizmb = document.createElement("div");
     quizmb.setAttribute("class", "quizzes mb-2")
@@ -70,6 +61,7 @@ function displayAllQuizzes(quizzes) {
 
     let quiz_name = document.createElement("div");
     quiz_name.setAttribute("class", "quiz_name h5")
+    quiz_name.textContent = title;
     quiz_item.appendChild(quiz_name);
 
     let col_sm_2 = document.createElement("div");
@@ -85,7 +77,8 @@ function displayAllQuizzes(quizzes) {
     i3.setAttribute("class", "bi bi-trash-fill h3 text-danger")
     a3.appendChild(i3);
     a3.addEventListener("click", deletQuiz)
-
+    // Set id of delete icon to id of quiz 
+    a3.setAttribute("id", quizID)
     let a4 = document.createElement("a");
     a4.href = "#"
     col_sm_2.appendChild(a4);
@@ -102,26 +95,18 @@ function displayAllQuizzes(quizzes) {
     let i5 = document.createElement("i");
     i5.setAttribute("class", "bi bi-play-circle h3")
     a5.appendChild(i5);
+    // Set id of play icon to id of quiz 
+    a5.id = quizID;
     let questions = document.createElement("div");
     questions.setAttribute("class", "questions")
 
     quizmb.appendChild(questions);
     for (let index in quizzes) {
         let quiz = quizzes[index];
-        let title = quiz.quizID.title;
+
         let question = quiz.title;
         let choices = quiz.choices;
         let corrects = quiz.correct;
-        let quizID = quiz.quizID._id;
-
-        // Set id of play icon to id of quiz 
-        a5.id = quiz.quizID._id;
-
-
-        quiz_name.textContent = title;
-        a3.setAttribute("id", quizID)
-
-
 
         let list_group = document.createElement("ul");
         list_group.setAttribute("class", "list-group w-100 mx-auto");
@@ -129,9 +114,7 @@ function displayAllQuizzes(quizzes) {
 
         let i = 0;
         while (i < choices.length + 1) {
-
             let list_group_item = document.createElement("li");
-
             if (i == 0) {
                 list_group_item.setAttribute("class", "list-group-item  h5 active");
                 list_group_item.textContent = question;
@@ -141,7 +124,6 @@ function displayAllQuizzes(quizzes) {
                 list_group_item.textContent = choices[i - 1]
                 for (let correct of corrects) {
                     if (correct == i - 1) {
-
                         list_group_item.setAttribute("class", "list-group-item  h6 correct");
                     }
                 }
@@ -161,33 +143,38 @@ function showQuestions(e) {
     bar_up.style.display = "block"
     let div = e.target.parentNode.parentNode.parentNode.children[1];
     div.style.display = "block"
-
-
 }
 function hideQuestions(e) {
     e.target.parentNode.style.display = "none";
     let bar_down = e.target.parentNode.parentNode.children[0];
-
     bar_down.style.display = "block"
     let div = e.target.parentNode.parentNode.parentNode.children[1];
     div.style.display = "none";
 }
 
-function saveIdToLocalStorage(e){
+function saveIdToLocalStorage(e) {
     console.log(e.target.parentNode.id);
     localStorage.setItem(QUIZ_ID_KEY, e.target.parentNode.id);
 }
 
 let bar_up = document.getElementsByClassName("bar-up");
 let bar_down = document.getElementsByClassName("bar-down");
-
 function deletQuiz(e) {
+    e.preventDefault();
+    while (container.firstChild) {
+        container.removeChild(container.lastChild);
+      }
     console.log(e.target.parentNode.id)
     let quizID = e.target.parentNode.id
-    axios.delete("http://localhost:3000/quiz/" + quizID)
-        .then((result) => {
-            console.log("Delete success !")
-            window.location.reload();
-            // getAllQuizzes();
-        })
+    console.log(quizID)
+    if(confirm("Are you sure to delete this quiz? ")){
+        axios.delete("http://localhost:3000/quiz/" + quizID)
+            .then((result) => {
+                console.log("Delete success !")
+                getAllQuizzes();
+            })
+    }else{
+        getAllQuizzes();
+    }
 }
+getAllQuizzes();
