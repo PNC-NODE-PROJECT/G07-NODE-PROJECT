@@ -271,6 +271,7 @@ function getValueFromQuestion(temp_answers){
     listInputAnswer(data.choices, data.correct);
 }
 
+let listIdToDelete = [];
 let indexToUpdate = 0;
 function clickQuestion(e) {
   e.preventDefault();
@@ -281,6 +282,7 @@ function clickQuestion(e) {
     }
     let isExecuted = confirm("Are you sure to delete this task?");
     if (isExecuted) {
+        listIdToDelete.push(temp_answers[id]._id);
         temp_answers.splice(id, 1);
         questionContainer(temp_answers);
     }
@@ -296,6 +298,7 @@ function clickQuestion(e) {
   }
 }
 
+// Update Question in temporay object 
 function updateQuestion(){
     let updated = temp_answers[indexToUpdate] = getQuestionValue();
     if(updated){
@@ -303,6 +306,23 @@ function updateQuestion(){
         resetForm();
         questionContainer(temp_answers);
     }
+}
+// Update Quiz to DB
+function updateQuiz(){
+    // Update Quiz
+    let data = {"title":titleInput.value}
+    axios.put(URL+'/quiz/'+quiz_id, data)
+    .then((result)=>{
+        console.log(result);
+    })
+    // delete quetion in database
+    for(let id of listIdToDelete){
+        axios.delete(URL+'/quiz/question/'+id)
+        .then((result)=>{
+            console.log(result);
+        })
+    }
+    window.location.href = "../view_all_quizzes/view_all_quizzes.html";
 }
 
 function resetQuiz(){
@@ -319,6 +339,7 @@ let answer = document.querySelector('.answer_input');
 let answerCheck = document.querySelector('.select_answer_btn');
 let btnSaveQuestion = document.getElementById('save_question');
 let btnSubmit = document.getElementById('submit_quiz');
+let btnUpdateQuiz = document.getElementById('update_quiz');
 let btnSave = document.getElementById('save_quiz');
 let btnCancelQuestion = document.getElementById('calcel_question');
 let btnCalcelQuiz = document.getElementById('cancel_quiz');
@@ -355,8 +376,10 @@ if(quiz_id==''){
     hide(questionForm);
     hide(btnSubmit);
 }else{
+    hide(btnSave);
     hide(btnSubmit);
     getQuizValue()
+    btnUpdateQuiz.addEventListener('click', updateQuiz)
 }
 
 
