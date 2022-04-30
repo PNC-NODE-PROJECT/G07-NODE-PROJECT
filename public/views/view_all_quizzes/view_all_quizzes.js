@@ -1,3 +1,7 @@
+// Remove id of Quiz from LocalStorage
+const QUIZ_ID_KEY = 'playQuizId';
+localStorage.removeItem(QUIZ_ID_KEY);
+
 const container = document.getElementById("container");
 const quizmb = document.getElementById("quizzes");
 // console.log(quizmb)
@@ -91,13 +95,13 @@ function displayAllQuizzes(quizzes) {
     a4.appendChild(i4);
 
     let a5 = document.createElement("a");
-    a5.href = "#"
+    a5.href = "../play/play.html";
     col_sm_2.appendChild(a5);
+    a5.addEventListener('click', saveIdToLocalStorage)
 
     let i5 = document.createElement("i");
     i5.setAttribute("class", "bi bi-play-circle h3")
     a5.appendChild(i5);
-
     let questions = document.createElement("div");
     questions.setAttribute("class", "questions")
 
@@ -109,6 +113,9 @@ function displayAllQuizzes(quizzes) {
         let choices = quiz.choices;
         let corrects = quiz.correct;
         let quizID = quiz.quizID._id;
+
+        // Set id of play icon to id of quiz 
+        a5.id = quiz.quizID._id;
 
 
         quiz_name.textContent = title;
@@ -165,6 +172,12 @@ function hideQuestions(e) {
     let div = e.target.parentNode.parentNode.parentNode.children[1];
     div.style.display = "none";
 }
+
+function saveIdToLocalStorage(e){
+    console.log(e.target.parentNode.id);
+    localStorage.setItem(QUIZ_ID_KEY, e.target.parentNode.id);
+}
+
 let bar_up = document.getElementsByClassName("bar-up");
 let bar_down = document.getElementsByClassName("bar-down");
 

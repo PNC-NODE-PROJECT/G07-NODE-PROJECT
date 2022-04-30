@@ -122,13 +122,14 @@ function questionContainer(temp_answers){
     }
 }
 
-let temp_quiz = {};
+let quiz_id = '';
 let temp_answers = [];
 
 
-function addQuiz(){
-    // add quiz title to database
-    axios.post(URL+'/quiz/create', temp_quiz)
+function addQuestion(){
+    // Update Quiz
+    let data = {"title":titleInput.value}
+    axios.put(URL+'/quiz/'+quiz_id, data)
     .then((result)=>{
         console.log(result);
     })
@@ -137,8 +138,24 @@ function addQuiz(){
     .then((result)=>{
         console.log(result);
     })
-    temp_quiz = {};
+    // resetForm();
+    // resfreshListQuestion();
+    window.location.href = "../view_all_quizzes/view_all_quizzes.html";
     temp_answers = [];
+}
+
+// Add quiz title to db
+function addQuiz(){
+    // add quiz title to database
+    let data = {'title': titleInput.value, 'authorID': '6269df2fc383bd7392adb517'}
+    axios.post(URL+'/quiz/create', data)
+    .then((result)=>{
+        console.log(result.data._id);
+        quiz_id = result.data._id;
+        show(questionForm);
+        show(btnSubmit);
+        hide(btnSave);
+    })
 }
 
 // Get all value of question form 
@@ -161,16 +178,12 @@ function getQuestionValue(){
     temp_arr['choices'] = answers;
     temp_arr['correct'] = correct;
     temp_arr['score'] = scoreInput.value;
-    temp_arr['quizID'] = '6269df2fc383bd7392adb517';
+    temp_arr['quizID'] = quiz_id;
     console.log(temp_arr);
     return temp_arr;
 }
 
 function addQustionTemp(){
-    // get title of quiz 
-    temp_quiz['title'] = titleInput.value;
-    temp_quiz['authorID'] = '6269df2fc383bd7392adb517';
-
     // get value from question form and push to temp_answers 
     temp_answers.push(getQuestionValue());
     console.log(getQuestionValue());
@@ -285,11 +298,13 @@ function updateQuestion(){
 }
 
 function resetQuiz(){
-    resetForm();
+    // resetForm();
     temp_answers = [];
-    temp_quiz = {};
-    questionContainer(temp_answers);
+    window.location.href = "/";
+    // questionContainer(temp_answers);
 }
+
+
 
 let tempAnswerCon = document.querySelector('.answer_temp');
 let addMoreAnBtn = document.querySelector('.add_answer_more');
@@ -297,7 +312,8 @@ let questionCon = document.querySelector('.list_of_questions');
 let answer = document.querySelector('.answer_input');
 let answerCheck = document.querySelector('.select_answer_btn');
 let btnSaveQuestion = document.getElementById('save_question');
-let btnSaveQuiz = document.getElementById('submit_quiz');
+let btnSubmit = document.getElementById('submit_quiz');
+let btnSave = document.getElementById('save_quiz');
 let btnCancelQuestion = document.getElementById('calcel_question');
 let btnCalcelQuiz = document.getElementById('cancel_quiz');
 
@@ -306,6 +322,7 @@ let titleInput = document.getElementById('inputTitle');
 let titleOfAction = document.getElementById('titleOfForm');
 
 // Question form input
+let questionForm = document.getElementById('action_form_input');
 let scoreInput = document.getElementById('inputScore');
 let questionInput = document.getElementById('inputQuestion');
 let answerInputs = document.getElementsByClassName('answer_input');
@@ -315,8 +332,14 @@ let correctionInput = document.getElementsByClassName('select_answer_btn');
 
 addMoreAnBtn.addEventListener('click', createAnswerList);
 btnSaveQuestion.addEventListener('click', addQustionTemp);
-btnSaveQuiz.addEventListener('click', addQuiz);
+btnSave.addEventListener('click', addQuiz); 
+btnSubmit.addEventListener('click', addQuestion);
 questionCon.addEventListener('click', clickQuestion);
 btnUpdate.addEventListener('click', updateQuestion)
 btnCancelQuestion.addEventListener('click', resetForm)
 btnCalcelQuiz.addEventListener('click', resetQuiz)
+
+
+hide(questionForm);
+hide(btnSubmit);
+

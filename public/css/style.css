@@ -1,5 +1,5 @@
 :root {
-    --editColor: #4597c7;
+    --bgGrey: rgba(255, 255, 255, 0.376);
     --editColor: #0275d8;
 }
 
@@ -57,7 +57,7 @@ body{
     color: rgb(108, 108, 108);
 }
 .create_question_con {
-    background: rgba(255, 255, 255, 0.376);
+    background: var(--bgGrey);
     padding: 1rem;
 }
 /* Edit icon  */
@@ -130,7 +130,7 @@ body{
 }
 .answer_con {
     padding: 0.5rem;
-    background: rgba(255, 255, 255, 0.376);
+    background: var(--bgGrey);
     margin: 0.5rem;
 }
 /* Right answer Container  */
@@ -138,8 +138,133 @@ body{
     border: 2px solid #28a745 ;
 }
 
+#play_quiz_container {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
+.quiz_score {
+    text-align: end;
+    float: right;
+    margin-top: -32px;
+    font-size: 20px;
+}
+.header_quiz {
+    background: var(--editColor);
+    color: #fff;
+    padding: 1rem;
+    position: relative;
+    /* To avoid from copy text  */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+/* progress Bar  */
+.progress {
+    border-radius: 0;
+}
+.progress-bar {
+    background: #000;
+}
 
-/* +++++++++++++++++++ VIEW ALL QUIZZES ++++++++++++++++ */
+
+
+.progress {
+    width: 100%;
+    max-width: 100%;
+    height: 6px;
+    background: #e1e4e8;
+    position: absolute;
+    overflow: hidden;
+    bottom: 0;
+    left: 0;
+}
+  
+.progress-bar {
+    display: block;
+    height: 100%;
+    width: 100%;
+    background-color: red;
+    background-size: 300% 100%;
+    animation: progress-animation 2s linear infinite;
+}
+progress::-webkit-progress-bar {
+    background-color: #fff;
+}
+progress::-webkit-progress-value {
+    background: #f04853;
+}
+
+
+
+
+.body_quiz {
+    background: var(--bgGrey);
+    padding: 0.5rem;
+    font-size: 20px;
+}
+
+.answer {
+    flex: 1;
+    padding: 1rem;
+    margin: 0.5rem;
+    cursor: pointer;
+    position: relative;
+    font-size: 17px;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1em 2.5em;
+    display: inline-block;
+    transition: all .2s;
+    border: none;
+    font-family: inherit;
+    font-weight: 500;
+    color: black;
+    background-color: white;
+    /* To avoid from copy text  */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.answer:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    background-color: rgba(255, 255, 255, 0.39);
+}
+
+.answer:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.answer::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all .4s;
+}
+
+.answer::after {
+    background-color: rgb(46, 177, 221);
+}
+
+.answer:hover::after {
+    transform: scaleX(1.4) scaleY(1.6);
+    opacity: 0;
+}
+
+
+
 .view_all_quizzes .list-group-item{
     margin: 10px;
     display: flex;
