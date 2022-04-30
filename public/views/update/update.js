@@ -345,16 +345,6 @@ function clickQuestion(e) {
     }
   } else if (e.target.className === "edit_question" || e.target.className === "bi bi-pencil-square") {
         let id = e.target.parentElement.parentElement.id;
-        if (e.target.className === 'bi bi-trash-fill') {
-            id = e.target.parentElement.parentElement.parentElement.id;
-        }
-        let isExecuted = confirm("Are you sure to delete this task?");
-        if (isExecuted) {
-            temp_answers.splice(id, 1);
-            questionContainer(temp_answers);
-        }
-    } else if (e.target.className === "edit_question" || e.target.className === "bi bi-pencil-square") {
-        let id = e.target.parentElement.parentElement.id;
         if (e.target.className === 'bi bi-pencil-square') {
             id = e.target.parentElement.parentElement.parentElement.id;
         }
@@ -363,7 +353,7 @@ function clickQuestion(e) {
         titleOfAction.textContent = 'Update Your Question';
         getValueFromQuestion(temp_answers[id]);
         indexToUpdate = id;
-    }
+    } 
 }
 
 // Update Question in temporay object 
