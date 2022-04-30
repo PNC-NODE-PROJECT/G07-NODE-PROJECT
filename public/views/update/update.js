@@ -32,8 +32,7 @@ function updateActionBtn() {
 // create list answer
 function createAnswerList(e) {
     let alert = e.target.parentNode.parentNode.parentNode.parentNode.children[2];
-    let warining_text = alert.children[0];
-    console.log(warining_text)
+
     if (answer.value != "") {
 
 
@@ -69,6 +68,8 @@ function createAnswerList(e) {
         answer.value = '';
         answerCheck.checked = false;
     } else {
+        let warining_text = alert.children[0];
+        console.log(warining_text)
         alert.style.display = "flex"
         warining_text.textContent = "Please input the answer !"
     }
@@ -209,7 +210,7 @@ function getQuestionValue() {
     temp_arr['correct'] = correct;
     temp_arr['score'] = scoreInput.value;
     temp_arr['quizID'] = quiz_id;
-    if (localStorage['playQuizId'].length !== 0) {
+    if(localStorage['playQuizId'].length!==0 || localStorage['playQuizId']!==undefined){
         temp_arr['_id'] = id_question.value;
     }
     console.log(temp_arr);
@@ -290,7 +291,7 @@ function listInputAnswer(data) {
         label.textContent = 'Answer';
         tempAnswerCon.appendChild(label);
         // id_question.value = '';
-        if (localStorage['playQuizId'].length !== 0) {
+        if(localStorage['playQuizId']!=='' || localStorage['playQuizId']!==undefined){
             id_question.value = data._id;
         }
 
@@ -335,18 +336,6 @@ function clickQuestion(e) {
     e.preventDefault();
     if (e.target.className === "delete_question" || e.target.className === 'bi bi-trash-fill') {
         let id = e.target.parentElement.parentElement.id;
-        if (e.target.className === 'bi bi-trash-fill') {
-            id = e.target.parentElement.parentElement.parentElement.id;
-        }
-        let isExecuted = confirm("Are you sure to delete this task?");
-        if (isExecuted) {
-            listIdToDelete.push(temp_answers[id]._id);
-            temp_answers.splice(id, 1);
-            questionContainer(temp_answers);
-        }
-    }
-    else if (e.target.className === "edit_question" || e.target.className === "bi bi-pencil-square") {
-        let id = e.target.parentElement.parentElement.id;
         if (e.target.className === 'bi bi-pencil-square') {
             id = e.target.parentElement.parentElement.parentElement.id;
         }
@@ -355,7 +344,7 @@ function clickQuestion(e) {
         titleOfAction.textContent = 'Update Your Question';
         getValueFromQuestion(temp_answers[id]);
         indexToUpdate = id;
-    }
+    } 
 }
 
 // Update Question in temporay object 

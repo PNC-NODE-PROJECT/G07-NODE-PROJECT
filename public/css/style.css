@@ -342,7 +342,7 @@ div {
         -ms-user-select: none;
         user-select: none;
 }
-
+/* ++++++++++++++++++++++++ VALIDATION INPUT +++++++++++++++++++++ */
 .alert {
     background: #fd938c;
     width: 100%;
@@ -366,4 +366,19 @@ div {
 }
 .alert p{
     margin-top: 15px;
+}
+
+/* +++++++++++++++++++++++++++ SHOW RESULT ++++++++++++++++++++++++++ */
+
+.result .list-group-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.result .right_wronge {
+    display: flex;
+    align-items: center;
+}
+.result .right_wronge p:last-child {
+    margin-left: 20px;
 }
