@@ -158,6 +158,7 @@ function addQuestion() {
             console.log(result);
         })
     // add quetion to database
+    console.log(temp_answers)
     axios.post(URL + '/quiz/question', temp_answers)
         .then((result) => {
             console.log(result);
