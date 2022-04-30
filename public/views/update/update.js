@@ -209,7 +209,9 @@ function getQuestionValue() {
     temp_arr['correct'] = correct;
     temp_arr['score'] = scoreInput.value;
     temp_arr['quizID'] = quiz_id;
-    temp_arr['_id'] = id_question.value;
+    if(localStorage['playQuizId'].length!==0){
+        temp_arr['_id'] = id_question.value;
+    }
     console.log(temp_arr);
     return temp_arr;
 }
@@ -288,7 +290,7 @@ function listInputAnswer(data){
         label.textContent = 'Answer';
         tempAnswerCon.appendChild(label);
         // id_question.value = '';
-        if(id_question!==null || id_question.value==''){
+        if(localStorage['playQuizId'].length!==0){
             id_question.value = data._id;
         }
 
