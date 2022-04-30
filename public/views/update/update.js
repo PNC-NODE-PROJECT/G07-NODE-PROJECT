@@ -209,7 +209,7 @@ function getQuestionValue() {
     temp_arr['correct'] = correct;
     temp_arr['score'] = scoreInput.value;
     temp_arr['quizID'] = quiz_id;
-    if(localStorage['playQuizId'].length!==0){
+    if(localStorage['playQuizId'].length!==0 || localStorage['playQuizId']!==undefined){
         temp_arr['_id'] = id_question.value;
     }
     console.log(temp_arr);
@@ -290,7 +290,7 @@ function listInputAnswer(data){
         label.textContent = 'Answer';
         tempAnswerCon.appendChild(label);
         // id_question.value = '';
-        if(localStorage['playQuizId'].length!==0){
+        if(localStorage['playQuizId']!=='' || localStorage['playQuizId']!==undefined){
             id_question.value = data._id;
         }
 
