@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+
+* {
+    margin: 0;
+    padding: 0
+}
+
+.container {
+    min-height: 100vh;
+    background-color: #e3e9ee;
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+.main {
+    width: 100%;
+    background-color: #fff;
+    padding: 10px 10px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif
+}
+
+.card {
+    width: 50%;
+}
+
+.top-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column
+}
+.group-2 {
+    display: flex;
+}
+
+.msg-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 10px
+}
+
+.msg-img img {
+    width: 40px
+}
+
+.msg-img h3 {
+    margin-left: 5px
+}
+
+.top-div p {
+    font-size: 12px;
+    font-weight: 700;
+    margin-top: 10px
+}
+
+.top-div h2 {
+    color: #82848a
+}
+
+.input-text {
+    width: 100%;
+    padding: 0 5px;
+    margin: 5px 0;
+    position: relative
+}
+
+input {
+    width: 100%;
+    height: 35px;
+    border: none;
+    background-color: #eef5ff;
+    padding: 0 20px;
+    box-sizing: border-box;
+    outline: none;
+    border: 1px solid #eef5ff;
+    font-size: 12px
+}
+
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 10px;
+    margin: 5px 0;
+    gap: 20px
+}
+
+.buttons button {
+    height: 35px;
+    width: 100%;
+    border: none;
+    outline: 0;
+    background-color: #0099ff;
+    color: #fff;
+    font-size: 12px;
+    cursor: pointer
+}
+
+
+.main {
+    display: none
+}
+
+.active {
+    display: block !important
+}
+
+.sign-in {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    font-size: 12px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600
+}
+
+.sign-in p {
+    color: #8593a6
+}
+
+.sign-in a {
+    text-decoration: none;
+    color: #0099ff
+}
+
+.warning {
+    border: 1px solid red !important
+}
+
+.checkmark {
+    display: flex;
+    justify-content: center;
+    align-items: center
+}

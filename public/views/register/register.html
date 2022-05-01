@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="main.js" defer></script>
+</head>
+<body>
+    <form class="container" id="signup_form">
+        <div class="card">
+            <div class="main active">
+                <div class="top-div">
+                    <h2>Sign Up</h2>
+                </div>
+                <div class="group-2">
+                    <div class="input-text"> <input type="text" placeholder="First Name" required id="f_name"> </div>
+                    <div class="input-text"> <input type="text" placeholder="Last Name" required id="l_name"> </div>
+                </div>
+                <div class="group-2">
+                    <div class="input-text"> <input type="text" placeholder="Email" id="email_r" required> </div>
+                </div>
+                <div class="group-2">
+                    <div class="input-text"> <input type="password" placeholder="Password" id="psw_1" required> </div>
+                </div>
+                <div class="group-2">
+                    <div class="input-text"> <input type="password" placeholder="Confirm Password" id="psw_2" required> </div>
+                </div>
+                <div class="buttons"> <button class="next-btn" id="sign_in">Register</button> </div>
+            </div>
+            <div class="sign-in">
+                <p>Already have an account?<a href="#" id="link_signin"> Sign in</a></p>
+            </div>
+        </div>
+    </form>
+    <form class="container" id="signin_form">
+        <div class="card">
+            <div class="main active">
+                <div class="top-div">
+                    <h2>Sign In</h2>
+                </div>
+                <div class="group-2">
+                    <div class="input-text"> <input type="email" placeholder="Email" id="email_l" required> </div>
+                </div>
+                <div class="group-2">
+                    <div class="input-text"> <input type="password" placeholder="Password" id="psw_l" required> </div>
+                </div>
+                <div class="buttons"> <button type="submit" class="next-btn" id="login">Login</button> </div>
+            </div>
+            <div class="sign-in">
+                <p>Don't have an account?<a href="#" id="link_signup"> Sign up</a></p>
+            </div>
+        </div>
+    </fo>
+</body>
+</html>
