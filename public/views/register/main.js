@@ -1,35 +1,36 @@
 const URL = 'http://localhost:3000';
 let userId = localStorage.getItem('userId');
+let validEmail = document.getElementById("validEmail");
+console.log(validEmail)
 
-
-function hide(e){
+function hide(e) {
     e.style.display = 'none';
 }
 
-function show(e){
+function show(e) {
     e.style.display = '';
 }
 
-function showLogin(){
+function showLogin() {
     hide(signupForm);
     show(loginForm);
 }
 
-function showSignup(){
+function showSignup() {
     hide(loginForm);
     show(signupForm);
 }
 
-function getValueFromSignUp(){
+function getValueFromSignUp() {
     let signInValue = {};
     signInValue['first_name'] = firstName.value;
     signInValue['last_name'] = lastName.value;
     signInValue['email'] = emailSignUp.value;
-    if(pS1.value == pS2.value && (pS1.value !== '' && pS2.value!=='')){
+    if (pS1.value == pS2.value && (pS1.value !== '' && pS2.value !== '')) {
         signInValue['password'] = pS1.value;
         pS1.style.border = '1px solid #73f362';
         pS2.style.border = '1px solid #73f362';
-    }else{
+    } else {
         pS1.style.border = '1px solid #fa0000';
         pS2.style.border = '1px solid #fa0000';
     }
@@ -37,15 +38,15 @@ function getValueFromSignUp(){
     return signInValue;
 }
 
-function checkIsValidInput(){
+function checkIsValidInput() {
     let isValid = false;
-    if(firstName.value!==''&&lastName.value!==''&emailSignUp.value!==''&& (pS1.value == pS2.value && (pS1.value !== '' && pS2.value!==''))){
+    if (firstName.value !== '' && lastName.value !== '' & emailSignUp.value !== '' && (pS1.value == pS2.value && (pS1.value !== '' && pS2.value !== ''))) {
         isValid = true;
     }
     return isValid;
 }
 
-function getValueFromSignIn(){
+function getValueFromSignIn() {
     let loginValue = {};
     loginValue['email'] = emailLogin.value;
     loginValue['password'] = pswLogin.value;
@@ -53,40 +54,47 @@ function getValueFromSignIn(){
     return loginValue;
 }
 
-function registerAccount(e){
+function registerAccount(e) {
     // e.preventDefault();
     let data = getValueFromSignUp();
-    axios.post(URL+'/user/register', data)
-    .then((result)=>{
-        if(checkIsValidInput()){
-            window.location.href = '/views/register/register.html'
+
+    axios.get('http://localhost:' + 3000 + '/user/email/' + data.email).then((result) => {
+        if (result.data != "") {
+            validEmail.style.display = "block";
+        } else {
+            axios.post(URL + '/user/register', data)
+                .then((result) => {
+                    if (checkIsValidInput()) {
+                        window.location.href = '/views/register/register.html'
+                    }
+                })
         }
     })
 }
 
-function loginAccount(){
+function loginAccount() {
     let data = getValueFromSignIn();
-    console.log(data);
-    axios.post(URL+'/user/login', data)
-    .then((result)=>{
-        console.log(result);
-        window.location.href = '/'
-    })
+    console.log("login");
+    axios.post(URL + '/user/login', data)
+        .then((result) => {
+            console.log(result);
+            window.location.href = '/'
+        })
 }
 
-function logoutAccount(){
+function logoutAccount() {
     localStorage.setItem("userId", '');
-    axios.get(URL+"/user/logout")
+    axios.get(URL + "/user/logout")
 }
 
 let user = {};
-axios.get(URL+'/user/id/'+userId)
-.then((result)=>{
-    console.log(result);
-    user = result.data;
-})
+axios.get(URL + '/user/id/' + userId)
+    .then((result) => {
+        console.log(result);
+        user = result.data;
+    })
 
-function listUserInfo(){
+function listUserInfo() {
     userInfo[0].value = user['first_name']
     userInfo[1].value = user['last_name']
     userInfo[2].value = user['email']
@@ -128,9 +136,9 @@ linkSignup.addEventListener('click', showSignup);
 
 
 hide(signupForm);
-if(userId!=''){
+if (userId != '') {
     setTimeout(listUserInfo, 100)
     hide(loginForm)
-}else{
+} else {
     hide(userForm)
 }

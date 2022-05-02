@@ -2,7 +2,7 @@
 const QUIZ_ID_KEYS = 'playQuizId';
 const USER_ID = 'userId';
 localStorage.setItem(QUIZ_ID_KEYS, '');
-localStorage.setItem(USER_ID, '');
+// localStorage.setItem(USER_ID, '');
 const URLS = 'http://localhost:' + 3000;
 
 var key = '';
