@@ -26,10 +26,18 @@ router.post("/login", (req, res) => {
     userModel.find(req.body)
         .then((result) => {
             if(result.length > 0){
+                // res.send(result[0]);
                 session=req.session;
                 req.session.userId = result[0].email;
+                let id = ObjectId(result[0]._id).toString()
+                // console.log(id);
+                console.log(req.session)
+                // console.log(req.session.userId);
+                console.log('Session store');
+                // res.send(`Hey there, welcome <a href=\'/logout'>click to logout</a>`);
                 res.send('Successfull');
             }else{
+                // res.send('User not found!')
                 console.log('Session not store');
             }
         })
@@ -55,10 +63,12 @@ router.get('/id/:id', (req, res)=>{
 })
 
 
+
+
+
 // +++++++++++++ GET USER ++++++++++++++//
 router.get("/email", (req, res) => {
     res.send(req.session.userId)
-    console.log(req.session.userId);
 })
 // router.get('/hi',(req,res) => {
 //     session=req.session;

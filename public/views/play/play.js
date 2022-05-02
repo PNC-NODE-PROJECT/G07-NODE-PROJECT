@@ -2,6 +2,7 @@
 if(!localStorage['userId']){
     window.location.href = '../register/register.html';
 }
+
 const URL = 'http://localhost:' + 3000;
 // Get Quiz ID from localStorage
 const QUIZ_ID_KEY = 'playQuizId';
@@ -41,10 +42,6 @@ function getQuestion() {
             createDomPlay(result.data)
             return result.data;
         })
-        // .then((result) => {
-        //     displayWrongeRightAnswers(quiz)
-        //     return result.data;
-        // })
 }
 
 
