@@ -2,7 +2,6 @@ const URL = 'http://localhost:3000';
 let userId = localStorage.getItem('userId');
 
 
-
 function hide(e){
     e.style.display = 'none';
 }
@@ -26,8 +25,10 @@ function getValueFromSignUp(){
     signInValue['first_name'] = firstName.value;
     signInValue['last_name'] = lastName.value;
     signInValue['email'] = emailSignUp.value;
-    if(pS1.value == pS2.value){
+    if(pS1.value == pS2.value && (pS1.value !== '' && pS2.value!=='')){
         signInValue['password'] = pS1.value;
+        pS1.style.border = '1px solid #73f362';
+        pS2.style.border = '1px solid #73f362';
     }else{
         pS1.style.border = '1px solid #fa0000';
         pS2.style.border = '1px solid #fa0000';
@@ -36,6 +37,13 @@ function getValueFromSignUp(){
     return signInValue;
 }
 
+function checkIsValidInput(){
+    let isValid = false;
+    if(firstName.value!==''&&lastName.value!==''&emailSignUp.value!==''&& (pS1.value == pS2.value && (pS1.value !== '' && pS2.value!==''))){
+        isValid = true;
+    }
+    return isValid;
+}
 
 function getValueFromSignIn(){
     let loginValue = {};
@@ -45,11 +53,14 @@ function getValueFromSignIn(){
     return loginValue;
 }
 
-function registerAccount(){
+function registerAccount(e){
+    // e.preventDefault();
     let data = getValueFromSignUp();
     axios.post(URL+'/user/register', data)
     .then((result)=>{
-        console.log(result);
+        if(checkIsValidInput()){
+            window.location.href = '/views/register/register.html'
+        }
     })
 }
 
@@ -74,8 +85,6 @@ axios.get(URL+'/user/id/'+userId)
     console.log(result);
     user = result.data;
 })
-// function getValueUserById(){
-// }
 
 function listUserInfo(){
     userInfo[0].value = user['first_name']

@@ -26,16 +26,10 @@ router.post("/login", (req, res) => {
     userModel.find(req.body)
         .then((result) => {
             if(result.length > 0){
-                // res.send(result[0]);
                 session=req.session;
                 req.session.userId = result[0].email;
-                console.log(req.session)
-                // console.log(req.session.userId);
-                console.log('Session store');
-                // res.send(`Hey there, welcome <a href=\'/logout'>click to logout</a>`);
                 res.send('Successfull');
             }else{
-                // res.send('User not found!')
                 console.log('Session not store');
             }
         })

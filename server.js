@@ -29,11 +29,8 @@ app.use(express.static(__dirname));
 app.use(cookieParser());
 
 app.get('/',(req,res) => {
-    var session;
-    session=req.session;
+    var session = req.session;
     if(session.userId){
-        // res.send("Welcome User <a href=\'/logout'>click to logout</a>");
-        // res.redirect('/')
         res.sendFile('public',{root:__dirname})
     }else
     res.sendFile('public',{root:__dirname})

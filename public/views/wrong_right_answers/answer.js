@@ -1,3 +1,6 @@
+if(!localStorage['userId']){
+    window.location.href = '../register/register.html';
+}
 const URL = 'http://localhost:' + 3000;
 // Get Quiz ID from localStorage
 const QUIZ_ID_KEY = 'playQuizId';

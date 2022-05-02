@@ -1,3 +1,6 @@
+if(!localStorage['userId']){
+    window.location.href = '../register/register.html';
+}
 // Remove id of Quiz from LocalStorage
 const QUIZ_ID_KEY = 'playQuizId';
 localStorage.removeItem(QUIZ_ID_KEY);

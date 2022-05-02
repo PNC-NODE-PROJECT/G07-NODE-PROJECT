@@ -1,9 +1,13 @@
-// const { get } = require("express/lib/request");
+if(!localStorage['userId']){
+    window.location.href = '../register/register.html';
+}
 
 const URL = 'http://localhost:' + 3000;
 // Get Quiz ID from localStorage
-const QUIZ_ID_KEY = 'playQuizId';
-var quiz_id = localStorage.getItem(QUIZ_ID_KEY);
+const KEY_ID_QUIZ = 'playQuizId';
+var quizId = localStorage.getItem(KEY_ID_QUIZ);
+let userId = localStorage.getItem('userId');
+
 
 // Edit Button
 let btnUpdate = document.querySelector('#update_question');
@@ -140,7 +144,7 @@ function questionContainer(temp_answers) {
 
 // GET ALL QUIZ FROM DATABASE
 function getQuizValue() {
-    axios.get(URL + '/quiz/' + quiz_id)
+    axios.get(URL + '/quiz/' + quizId)
         .then((result) => {
             console.log(result);
             temp_answers = result.data;
@@ -152,7 +156,7 @@ function getQuizValue() {
 }
 // GET TITLE OF QUIZ FROM DATABASE
 function getQuizTitle() {
-    axios.get(URL + '/quiz/title/' + quiz_id)
+    axios.get(URL + '/quiz/title/' + quizId)
     .then((result) => {
         titleQuiz = result.data.title;
         console.log(result);
@@ -167,7 +171,7 @@ getQuizTitle();
 function addQuestion() {
     // Update Quiz
     let data = { "title": titleInput.value }
-    axios.put(URL + '/quiz/' + quiz_id, data)
+    axios.put(URL + '/quiz/' + quizId, data)
         .then((result) => {
             console.log(result);
         })
@@ -182,14 +186,14 @@ function addQuestion() {
 // Add quiz title to db
 function addQuiz(e) {
     // add quiz title to database
-    let data = { 'title': titleInput.value, 'authorID': '6269df2fc383bd7392adb517' }
+    let data = { 'title': titleInput.value, 'authorID': userId }
     let alert = e.target.parentNode.parentNode.children[0].children[2]
     let warining_text = alert.children[0];
     if (titleInput.value != "") {
         alert.style.display = "none";
         axios.post(URL + '/quiz/create', data)
             .then((result) => {
-                quiz_id = result.data._id;
+                quizId = result.data._id;
                 show(questionForm);
                 show(btnSubmit);
                 hide(btnSave);
@@ -221,7 +225,7 @@ function getQuestionValue() {
     temp_arr['choices'] = answers;
     temp_arr['correct'] = correct;
     temp_arr['score'] = scoreInput.value;
-    temp_arr['quizID'] = quiz_id;
+    temp_arr['quizID'] = quizId;
     if(localStorage['playQuizId'] !== undefined){
         temp_arr['_id'] = id_question.value;
     }
@@ -381,7 +385,7 @@ function updateQuestion() {
 function updateQuiz() {
     // Update Quiz title
     let data = { "title": titleInput.value }
-    axios.put(URL + '/quiz/' + quiz_id, data)
+    axios.put(URL + '/quiz/' + quizId, data)
         .then((result) => {
             console.log(result);
         })
@@ -461,12 +465,12 @@ let closewarning = document.getElementsByClassName("close")
 for (let close of closewarning) {
     close.addEventListener("click", closeWarning)
 }
-// let quiz_id = '';
+// let quizId = '';
 let temp_answers = [];
 
 
 
-if (quiz_id == '' || quiz_id == null) {
+if (quizId == '' || quizId == null) {
     hide(questionForm);
     hide(btnSubmit);
     show(btnSave)

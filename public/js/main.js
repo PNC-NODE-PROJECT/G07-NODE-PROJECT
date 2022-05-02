@@ -1,6 +1,7 @@
-// const QUIZ_ID_KEYS = 'playQuizId';
+
+const QUIZ_ID_KEYS = 'playQuizId';
 const USER_ID = 'userId';
-// localStorage.setItem(QUIZ_ID_KEYS, '');
+localStorage.setItem(QUIZ_ID_KEYS, '');
 localStorage.setItem(USER_ID, '');
 const URLS = 'http://localhost:' + 3000;
 
@@ -12,17 +13,17 @@ axios.get(URLS+'/user/email')
 })
 
 
-var user = '';
+var userTemp = '';
 function getValueFromUser(){
     axios.get(URLS+'/user/email/'+key)
     .then((result)=>{
         console.log(result);
-        user = result.data._id 
+        userTemp = result.data._id 
         let firstN = result.data.first_name
         let lastN = result.data.last_name
-        if(user!==undefined){
+        if(userTemp!==undefined){
             account.textContent = firstN + " " + lastN
-            localStorage.setItem(USER_ID, user);
+            localStorage.setItem(USER_ID, userTemp);
         }else{
             account.textContent = "Account"
         }
