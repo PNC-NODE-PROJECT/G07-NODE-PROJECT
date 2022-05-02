@@ -16,24 +16,25 @@
 
     <script src="update.js" defer></script>
     <script src="../../js/main.js" defer></script>
+    <script src="../../js/clear.js" defer></script>
 
 </head>
 <body>
     <!-- Header  -->
     <header class="container-fluid">
-        <div class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+        <div class="d-flex align-items-center flex-wrap justify-content-center py-3 mb-4 border-bottom">
           <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
             <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-            <span class="fs-4">Logo</span>
+            <span class="fs-4"><img src="../../image/logo.png" alt="" width="15%"></span>
           </a>
     
           <ul class="nav nav-pills item_action_header">
-            <li class="nav-item"><a href="#" class="nav-link active">Create</a></li>
-            <li class="nav-item"><a href="../view_all_quizzes/view_all_quizzes.html" class="nav-link active mx-2">Play</a></li>
+            <li class="nav-item"><a href="#" class="button_style">Create</a></li>
+            <li class="nav-item"><a href="../view_all_quizzes/view_all_quizzes.html" class="button_style mx-2">Play</a></li>
           </ul>
 
           <div class="d-flex align-items-center mx-5">
-              <a href="views/register/register.html" id="account_name">Account</a>
+              <a href="../register/register.html" class="text-decoration-none" id="account_name">Account</a>
           </div>
         </div>
     </header>
@@ -89,15 +90,15 @@
             </button>
           </div>
           <div​ class="end_item">
-            <button class="cancal_btn" id="calcel_question">Cancel</button>
-            <button class="save_btn" id="save_question">Save</button>
-            <button class="save_btn" id="update_question">Update</button>
+            <button class="button_style cancal_btn" id="calcel_question">Cancel</button>
+            <button class="save_btn button_style" id="save_question">Save</button>
+            <button class="save_btn button_style" id="update_question">Update</button>
           </div​>
         </div>
         <div​ class="center_item input_form">
-          <button class="cancal_btn" id="cancel_quiz">Cancel</button>
-          <button href="../view_all_quizzes/view_all_quizzes.html" class="save_btn" id="submit_quiz">Finish</button>
-          <button class="save_btn" id="save_quiz">Save</button>
+          <button class="cancal_btn button_style" id="cancel_quiz">Cancel</button>
+          <button href="../view_all_quizzes/view_all_quizzes.html" class="save_btn button_style" id="submit_quiz">Finish</button>
+          <button class="save_btn button_style" id="save_quiz">Save</button>
         </div​>
     </div>
 </body>

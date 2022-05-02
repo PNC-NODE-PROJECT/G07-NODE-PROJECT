@@ -96,11 +96,11 @@ function questionContainer(temp_answers) {
 
         let question = document.createElement('div');
         question.classList = 'title_question col-sm-10';
-        question.textContent = data.title;
+        question.textContent = "("+ data.score + " pt) " +  data.title;
         headerList.appendChild(question);
 
         let btnGroup = document.createElement('div');
-        btnGroup.classList = 'col-sm-2';
+        btnGroup.classList = 'col-sm-2 flex-end';
         headerList.appendChild(btnGroup);
         // Edit action
         let edit = document.createElement('button');
@@ -116,11 +116,11 @@ function questionContainer(temp_answers) {
         deleteIcon.classList = 'bi bi-trash-fill';
         deleteBtn.appendChild(deleteIcon);
         btnGroup.appendChild(deleteBtn);
-        // Score display
-        let score = document.createElement('div');
-        score.classList = 'show_score col-sm-2';
-        score.textContent = data.score;
-        btnGroup.appendChild(score);
+        // // Score display
+        // let score = document.createElement('div');
+        // score.classList = 'show_score col-sm-2';
+        // score.textContent = data.score;
+        // btnGroup.appendChild(score);
 
         // Answer display
         let body_list = document.createElement('div');

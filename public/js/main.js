@@ -23,6 +23,7 @@ function getValueFromUser(){
         let lastN = result.data.last_name
         if(userTemp!==undefined){
             account.textContent = firstN + " " + lastN
+            account.style.fontSize = '20px';
             localStorage.setItem(USER_ID, userTemp);
         }else{
             account.textContent = "Account"

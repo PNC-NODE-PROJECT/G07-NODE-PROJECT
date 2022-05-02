@@ -23,38 +23,21 @@
 <body>
     <!-- Header  -->
     <header class="container-fluid">
-        <div class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+        <div class="d-flex align-items-center flex-wrap justify-content-center py-3 mb-4 border-bottom">
             <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
                 <svg class="bi me-2" width="40" height="32">
                     <use xlink:href="#bootstrap"></use>
                 </svg>
-                <span class="fs-4">Logo</span>
+                <span class="fs-4"><img src="../../image/logo.png" alt="" width="15%"></span>
             </a>
 
           <div class="d-flex align-items-center mx-5">
-                <a href="views/register/register.html" id="account_name">Account</a>
+                <a href="#" class="text-decoration-none" id="account_name">Account</a>
           </div>
         </div>
     </header>
     <!-- Question form  -->
     <div id="play_quiz_container">
-        <!-- <div class="header_quiz">
-            <div class="title_quiz h3">What is Present simple?</div>
-            <div class="quiz_score">1/30</div>
-            <div class="progress">
-                <progress class="progress-bar" value="50" max="100"></progres>
-            </div>
-        </div>
-        <div class="body_quiz">
-            <div class="d-flex">
-                <div class="answer">Lorem ipsum dolor sit.</div>
-                <div class="answer">Loxpedita ipsum nobis </div>
-            </div>
-            <div class="d-flex">
-                <div class="answer">Lorem ipsum dolor sit.</div>
-                <div class="answer">Loxpedita ipsum nobis </div>
-            </div>
-        </div> -->
     </div>
     <div class="result  m-auto" id="result" style="display: none;">
         <ul class="list-group">
@@ -63,15 +46,13 @@
                 <div class="right_wronge">
                     <p class="h5" id="incorrect">incorrect: 1</p>
                     <p class="h5" id="correct">correct: 1</p>
-
                 </div>
             </li>
             <li class="list-group-item h5 " id="total">Total Score: 50% </li>
-
         </ul>
     </div>
     <a href=""></a>
-    <div class="nav nav-pills d-flex ">
+    <div class="nav nav-pills d-flex my-4">
         <a href="../wrong_right_answers/answer.html" class="nav-link active view_answer" id="view_answer">View</a>
     </div>
 
