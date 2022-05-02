@@ -30,10 +30,10 @@
                 <span class="fs-4">Logo</span>
             </a>
 
-            <!-- <ul class="nav nav-pills item_action_header">
-            <li class="nav-item"><a href="../update/create.html" class="nav-link active">Create</a></li>
-            <li class="nav-item"><a href="#" class="nav-link active mx-2">Play</a></li>
-          </ul> -->
+            <ul class="nav nav-pills item_action_header">
+                <li class="nav-item"><a href="../update/create.html" class="nav-link active">Create</a></li>
+                <li class="nav-item"><a href="#" class="nav-link active mx-2">Play</a></li>
+            </ul>
 
             <div class="d-flex align-items-center mx-5">
                 Mengyi
@@ -60,20 +60,25 @@
             </div>
         </div> -->
     </div>
-    <div class="result w-50 m-auto" style="display: none;">
+    <div class="result  m-auto" id="result" style="display: none;">
         <ul class="list-group">
             <li class="list-group-item active " style="display: flex; ">
                 <p class="quiz_title h4">Present Simple</p>
                 <div class="right_wronge">
-                    <p class="h5">incorrect: 1</p>
-                    <p class="h5">correct: 1</p>
+                    <p class="h5" id="incorrect">incorrect: 1</p>
+                    <p class="h5" id="correct">correct: 1</p>
 
                 </div>
             </li>
-            <li class="list-group-item h5">Total Score: 50% </li>
+            <li class="list-group-item h5 " id="total">Total Score: 50% </li>
 
         </ul>
     </div>
+    <a href=""></a>
+    <div class="nav nav-pills d-flex ">
+        <a href="../wrong_right_answers/answer.html" class="nav-link active view_answer" id="view_answer">View</a>
+    </div>
+
 </body>
 
 </html>

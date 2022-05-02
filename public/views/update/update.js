@@ -164,7 +164,7 @@ function addQuestion() {
         .then((result) => {
             console.log(result);
         })
-    window.location.href = "../view_all_quizzes/view_all_quizzes.html";
+    // window.location.href = "../view_all_quizzes/view_all_quizzes.html";
 }
 
 // Add quiz title to db
@@ -210,7 +210,7 @@ function getQuestionValue() {
     temp_arr['correct'] = correct;
     temp_arr['score'] = scoreInput.value;
     temp_arr['quizID'] = quiz_id;
-    if(localStorage['playQuizId'].length!==0 || localStorage['playQuizId']!==undefined){
+    if(localStorage['playQuizId']!==undefined){
         temp_arr['_id'] = id_question.value;
     }
     console.log(temp_arr);
@@ -335,17 +335,28 @@ let indexToUpdate = 0;
 function clickQuestion(e) {
     e.preventDefault();
     if (e.target.className === "delete_question" || e.target.className === 'bi bi-trash-fill') {
-        let id = e.target.parentElement.parentElement.id;
-        if (e.target.className === 'bi bi-pencil-square') {
-            id = e.target.parentElement.parentElement.parentElement.id;
-        }
-        window.location.href = "#action_form_input";
-        updateActionBtn();
-        titleOfAction.textContent = 'Update Your Question';
-        getValueFromQuestion(temp_answers[id]);
-        indexToUpdate = id;
-    } 
-}
+      let id = e.target.parentElement.parentElement.id;
+      if(e.target.className === 'bi bi-trash-fill'){
+          id = e.target.parentElement.parentElement.parentElement.id;
+      }
+      let isExecuted = confirm("Are you sure to delete this task?");
+      if (isExecuted) {
+          listIdToDelete.push(temp_answers[id]._id);
+          temp_answers.splice(id, 1);
+          questionContainer(temp_answers);
+      }
+    } else if (e.target.className === "edit_question" || e.target.className === "bi bi-pencil-square") {
+          let id = e.target.parentElement.parentElement.id;
+          if (e.target.className === 'bi bi-pencil-square') {
+              id = e.target.parentElement.parentElement.parentElement.id;
+          }
+          window.location.href = "#action_form_input";
+          updateActionBtn();
+          titleOfAction.textContent = 'Update Your Question';
+          getValueFromQuestion(temp_answers[id]);
+          indexToUpdate = id;
+      } 
+  }
 
 // Update Question in temporay object 
 function updateQuestion() {
