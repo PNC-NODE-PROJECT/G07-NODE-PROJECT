@@ -222,7 +222,7 @@ function getQuestionValue() {
     temp_arr['correct'] = correct;
     temp_arr['score'] = scoreInput.value;
     temp_arr['quizID'] = quiz_id;
-    if(localStorage['playQuizId']!==undefined){
+    if(localStorage['playQuizId'] !== undefined){
         temp_arr['_id'] = id_question.value;
     }
     return temp_arr;

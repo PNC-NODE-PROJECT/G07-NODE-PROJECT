@@ -32,9 +32,10 @@ router.post("/login", (req, res) => {
                 console.log(req.session)
                 // console.log(req.session.userId);
                 console.log('Session store');
-                res.send(`Hey there, welcome <a href=\'/logout'>click to logout</a>`);
+                // res.send(`Hey there, welcome <a href=\'/logout'>click to logout</a>`);
+                res.send('Successfull');
             }else{
-                res.send('User not found!')
+                // res.send('User not found!')
                 console.log('Session not store');
             }
         })
