@@ -145,10 +145,23 @@ function getQuizValue() {
             console.log(result);
             temp_answers = result.data;
             questionContainer(temp_answers);
-            titleInput.value = result.data[0].quizID.title;
+            getQuizTitle();
+            titleInput.value = titleQuiz;
             console.log(temp_answers);
         })
 }
+// GET TITLE OF QUIZ FROM DATABASE
+function getQuizTitle() {
+    axios.get(URL + '/quiz/title/' + quiz_id)
+    .then((result) => {
+        titleQuiz = result.data.title;
+        console.log(result);
+    })
+}
+
+let titleQuiz = '';
+getQuizTitle();
+
 
 
 function addQuestion() {
@@ -159,12 +172,11 @@ function addQuestion() {
             console.log(result);
         })
     // add quetion to database
-    console.log(temp_answers)
     axios.post(URL + '/quiz/question', temp_answers)
         .then((result) => {
             console.log(result);
-        })
-    // window.location.href = "../view_all_quizzes/view_all_quizzes.html";
+    })
+    window.location.href = "../view_all_quizzes/view_all_quizzes.html";
 }
 
 // Add quiz title to db
@@ -213,7 +225,6 @@ function getQuestionValue() {
     if(localStorage['playQuizId']!==undefined){
         temp_arr['_id'] = id_question.value;
     }
-    console.log(temp_arr);
     return temp_arr;
 }
 
@@ -221,7 +232,6 @@ function addQustionTemp(e) {
     // get value from question form and push to temp_answers 
     let alert = e.target.parentNode.parentNode.parentNode.children[2];
     let warining_text = alert.children[0];
-    console.log(getQuestionValue())
     let score = getQuestionValue().score;
     let questionTitle = getQuestionValue().title;
     let choices = getQuestionValue().choices;
@@ -383,15 +393,21 @@ function updateQuiz() {
             })
     }
     // edit quetion to database
-    for (let item of temp_answers) {
-        console.log(item._id);
-        console.log(item);
+    for(let item of temp_answers){
         let questionId = item._id;
+        axios.put(URL+'/quiz/question/'+questionId, item)
+        .then((result)=>{
+            console.log(result);
+        })
 
-        axios.put(URL + '/quiz/question/' + questionId, item)
+        if(item._id===''){
+            delete item._id
+            // post new answer to database
+            axios.post(URL + '/quiz/question', item)
             .then((result) => {
                 console.log(result);
             })
+        }
     }
     window.location.href = "../view_all_quizzes/view_all_quizzes.html";
 }
