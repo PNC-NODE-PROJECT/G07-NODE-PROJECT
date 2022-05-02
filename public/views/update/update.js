@@ -32,8 +32,7 @@ function updateActionBtn() {
 // create list answer
 function createAnswerList(e) {
     let alert = e.target.parentNode.parentNode.parentNode.parentNode.children[2];
-    let warining_text = alert.children[0];
-    console.log(warining_text)
+
     if (answer.value != "") {
 
 
@@ -69,6 +68,8 @@ function createAnswerList(e) {
         answer.value = '';
         answerCheck.checked = false;
     } else {
+        let warining_text = alert.children[0];
+        console.log(warining_text)
         alert.style.display = "flex"
         warining_text.textContent = "Please input the answer !"
     }
@@ -291,10 +292,10 @@ function resfreshListQuestion() {
     }
 }
 // GET VALUE FROM ANSWER AND LIST IT DOWN BY INPUT AND CHECKBOX
-function listInputAnswer(data){
+function listInputAnswer(data) {
     resfreshAnswerInput();
     console.log(data);
-    for(let i=0;i<data.choices.length;i++){
+    for (let i = 0; i < data.choices.length; i++) {
         let label = document.createElement('label');
         label.classList = 'col-sm-2 col-form-label';
         label.textContent = 'Answer';
@@ -322,8 +323,8 @@ function listInputAnswer(data){
         let checkBox = document.createElement('input');
         checkBox.type = 'checkbox';
         checkBox.classList = 'select_answer_btn';
-        for(let item of data.correct){
-            if(i == item){
+        for (let item of data.correct) {
+            if (i == item) {
                 checkBox.checked = true;
             }
 
@@ -342,54 +343,54 @@ function getValueFromQuestion(temp_answers) {
 let listIdToDelete = [];
 let indexToUpdate = 0;
 function clickQuestion(e) {
-  e.preventDefault();
-  if (e.target.className === "delete_question" || e.target.className === 'bi bi-trash-fill') {
-    let id = e.target.parentElement.parentElement.id;
-    if(e.target.className === 'bi bi-trash-fill'){
-        id = e.target.parentElement.parentElement.parentElement.id;
-    }
-    let isExecuted = confirm("Are you sure to delete this task?");
-    if (isExecuted) {
-        listIdToDelete.push(temp_answers[id]._id);
-        temp_answers.splice(id, 1);
-        questionContainer(temp_answers);
-    }
-  } else if (e.target.className === "edit_question" || e.target.className === "bi bi-pencil-square") {
-        let id = e.target.parentElement.parentElement.id;
-        if (e.target.className === 'bi bi-pencil-square') {
-            id = e.target.parentElement.parentElement.parentElement.id;
-        }
-        window.location.href = "#action_form_input";
-        updateActionBtn();
-        titleOfAction.textContent = 'Update Your Question';
-        getValueFromQuestion(temp_answers[id]);
-        indexToUpdate = id;
-    } 
-}
+    e.preventDefault();
+    if (e.target.className === "delete_question" || e.target.className === 'bi bi-trash-fill') {
+      let id = e.target.parentElement.parentElement.id;
+      if(e.target.className === 'bi bi-trash-fill'){
+          id = e.target.parentElement.parentElement.parentElement.id;
+      }
+      let isExecuted = confirm("Are you sure to delete this task?");
+      if (isExecuted) {
+          listIdToDelete.push(temp_answers[id]._id);
+          temp_answers.splice(id, 1);
+          questionContainer(temp_answers);
+      }
+    } else if (e.target.className === "edit_question" || e.target.className === "bi bi-pencil-square") {
+          let id = e.target.parentElement.parentElement.id;
+          if (e.target.className === 'bi bi-pencil-square') {
+              id = e.target.parentElement.parentElement.parentElement.id;
+          }
+          window.location.href = "#action_form_input";
+          updateActionBtn();
+          titleOfAction.textContent = 'Update Your Question';
+          getValueFromQuestion(temp_answers[id]);
+          indexToUpdate = id;
+      } 
+  }
 
 // Update Question in temporay object 
-function updateQuestion(){
+function updateQuestion() {
     let updated = temp_answers[indexToUpdate] = getQuestionValue();
-    if(updated){
+    if (updated) {
         console.log('Update!');
         resetForm();
         questionContainer(temp_answers);
     }
 }
 // Update Quiz to DB
-function updateQuiz(){
+function updateQuiz() {
     // Update Quiz title
-    let data = {"title":titleInput.value}
-    axios.put(URL+'/quiz/'+quiz_id, data)
-    .then((result)=>{
-        console.log(result);
-    })
-    // delete quetion in database
-    for(let id of listIdToDelete){
-        axios.delete(URL+'/quiz/question/'+id)
-        .then((result)=>{
+    let data = { "title": titleInput.value }
+    axios.put(URL + '/quiz/' + quiz_id, data)
+        .then((result) => {
             console.log(result);
         })
+    // delete quetion in database
+    for (let id of listIdToDelete) {
+        axios.delete(URL + '/quiz/question/' + id)
+            .then((result) => {
+                console.log(result);
+            })
     }
     // edit quetion to database
     for(let item of temp_answers){
@@ -465,11 +466,11 @@ let temp_answers = [];
 
 
 
-if(quiz_id=='' || quiz_id == null){
+if (quiz_id == '' || quiz_id == null) {
     hide(questionForm);
     hide(btnSubmit);
     show(btnSave)
-}else{
+} else {
     hide(btnSave);
     hide(btnSubmit);
     getQuizValue()

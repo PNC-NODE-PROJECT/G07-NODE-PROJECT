@@ -109,7 +109,7 @@ function displayAllQuizzes(quizzes, title, quizID) {
         let question = quiz.title;
         let choices = quiz.choices;
         let corrects = quiz.correct;
-
+        console.log(corrects)
         let list_group = document.createElement("ul");
         list_group.setAttribute("class", "list-group w-100 mx-auto");
         questions.appendChild(list_group);
@@ -145,6 +145,7 @@ function showQuestions(e) {
 
     bar_up.style.display = "block"
     let div = e.target.parentNode.parentNode.parentNode.children[1];
+    console.log(div)
     div.style.display = "block"
 }
 function hideQuestions(e) {

@@ -331,7 +331,9 @@ background: rgba(12, 225, 12, 0.91);}
 .questions {
     display: none;
 }
-
+.answers .questions {
+    display: block;
+}
 button {
     cursor: pointer;
 }
@@ -344,7 +346,7 @@ div {
         -ms-user-select: none;
         user-select: none;
 }
-
+/* ++++++++++++++++++++++++ VALIDATION INPUT +++++++++++++++++++++ */
 .alert {
     background: #fd938c;
     width: 100%;
@@ -368,4 +370,34 @@ div {
 }
 .alert p{
     margin-top: 15px;
+}
+
+/* +++++++++++++++++++++++++++ SHOW RESULT ++++++++++++++++++++++++++ */
+.result{
+    width: 60%;
+}
+.result .list-group-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.result .right_wronge {
+    display: flex;
+    align-items: center;
+}
+.result .right_wronge p:last-child {
+    margin-left: 20px;
+}
+
+.result ul li {
+    height: 70px;
+}
+
+.incorrect{
+    background: rgba(204, 6, 6, 0.795);
+}
+
+.view_answer{
+    margin-left: 20.7%;
+    display: none;
 }
