@@ -66,7 +66,6 @@ function loginAccount(){
 function logoutAccount(){
     localStorage.setItem("userId", '');
     axios.get(URL+"/user/logout")
-    window.location.href = "/user/logout";
 }
 
 let user = {};
