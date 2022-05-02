@@ -3,6 +3,7 @@ const URL = 'http://localhost:' + 3000;
 const QUIZ_ID_KEY = 'playQuizId';
 const USER_CORRECT = 'usercorrect';
 var quiz_id = localStorage.getItem(QUIZ_ID_KEY);
+console.log(quiz_id)
 var userAllCorrectAnswer = JSON.parse(localStorage.getItem(USER_CORRECT));
 
 let dom_correct = document.getElementById("correct");
@@ -14,7 +15,9 @@ function getQuestion() {
     axios.get(URL + '/quiz/' + quiz_id)
         .then((result) => {
             // console.log(result.data)
+            console.log(result.data)
             displayWrongeRightAnswers(result.data)
+
             return result.data;
         })
 }
@@ -71,7 +74,7 @@ function displayWrongeRightAnswers(quizzes) {
                     list_group_item.setAttribute("class", "list-group-item  h6 correct");
                 } else {
                     for (let j in userAllCorrectAnswer[index]) {
-                        if (!(corrects.includes(parseInt(userAllCorrectAnswer[index][j]))) && userAllCorrectAnswer[index][j]== i) {
+                        if (!(corrects.includes(parseInt(userAllCorrectAnswer[index][j]))) && userAllCorrectAnswer[index][j] == i) {
                             list_group_item.setAttribute("class", "list-group-item  h6 incorrect");
 
                         }

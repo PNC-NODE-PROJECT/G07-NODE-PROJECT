@@ -8,6 +8,8 @@ localStorage.removeItem(USER_CORRECT);
 
 
 var quiz_id = localStorage.getItem(QUIZ_ID_KEY);
+console.log(quiz_id)
+localStorage.setItem('playQuizId', quiz_id);
 let number_of_questions = 0;
 let total = document.getElementById("total");
 let dom_correct = document.getElementById("correct");

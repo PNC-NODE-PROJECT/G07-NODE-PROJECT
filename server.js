@@ -1,10 +1,43 @@
 const express = require('express')
 const app = express();
+// Additional
+const cookieParser = require("cookie-parser");
+const sessions = require('express-session');
+
+const oneDay = 1000 * 60 * 60 * 24;
+app.use(sessions({
+    secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+    saveUninitialized:true,
+    cookie: { maxAge: oneDay },
+    resave: false 
+}));
+
 const cors = require('cors');
 const PORT = process.env.PORT || 3000
 app.use(cors({origin: '*'}));
 app.use(express.json())
 
+
+// parsing the incoming data
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+//serving public file
+app.use(express.static(__dirname));
+
+// cookie parser middleware
+app.use(cookieParser());
+
+app.get('/',(req,res) => {
+    var session;
+    session=req.session;
+    if(session.userId){
+        // res.send("Welcome User <a href=\'/logout'>click to logout</a>");
+        // res.redirect('/')
+        res.sendFile('public',{root:__dirname})
+    }else
+    res.sendFile('public',{root:__dirname})
+});
 
 app.listen(PORT, () => {
     console.log('http://localhost:' + PORT);
@@ -17,6 +50,6 @@ const userRouter = require('./routes/user_route');
 
 app.use('/quiz', itemRouter);
 app.use('/user', userRouter);
-app.use(express.static("public"));
 
+app.use(express.static("public"));
 
