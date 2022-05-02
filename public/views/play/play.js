@@ -4,12 +4,9 @@ const QUIZ_ID_KEY = 'playQuizId';
 const USER_CORRECT = 'usercorrect';
 localStorage.removeItem(USER_CORRECT);
 
-
-
-
 var quiz_id = localStorage.getItem(QUIZ_ID_KEY);
-console.log(quiz_id)
-localStorage.setItem('playQuizId', quiz_id);
+
+// localStorage.setItem('playQuizId', quiz_id);
 let number_of_questions = 0;
 let total = document.getElementById("total");
 let dom_correct = document.getElementById("correct");
@@ -253,6 +250,7 @@ playQuiz()
 
 let mainQuizContaier = document.getElementById('play_quiz_container');
 mainQuizContaier.addEventListener('click', clickAnswer);
+
 
 
 
