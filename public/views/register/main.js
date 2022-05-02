@@ -1,6 +1,6 @@
-const USER_ID = 'userId';
-localStorage.setItem(USER_ID, '');
-const URLS = 'http://localhost:' + 3000;
+const URL = 'http://localhost:3000';
+let userId = localStorage.getItem('userId');
+
 
 
 function hide(e){
