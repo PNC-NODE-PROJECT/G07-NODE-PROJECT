@@ -26,8 +26,6 @@ function getAllQuizzes() {
         })
 }
 function displayAllQuizzes(quizzes, title, quizID) {
-
-    // console.log(quizzes)
     let quizmb = document.createElement("div");
     quizmb.setAttribute("class", "quizzes mb-2")
     quizmb.setAttribute("id", "quizzes")

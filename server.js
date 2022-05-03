@@ -51,4 +51,4 @@ app.use('/user', userRouter);
 app.use(express.static("public"));
 app.use(function(req, res, next) {
     res.status(404).redirect('/public/404/index.html');
-  });
+});
