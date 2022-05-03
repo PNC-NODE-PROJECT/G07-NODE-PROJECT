@@ -10,6 +10,7 @@ const USER_CORRECT = 'usercorrect';
 localStorage.removeItem(USER_CORRECT);
 
 var quiz_id = localStorage.getItem(QUIZ_ID_KEY);
+var userId = localStorage.getItem("userId");
 
 // localStorage.setItem('playQuizId', quiz_id);
 let number_of_questions = 0;
@@ -18,7 +19,7 @@ let dom_correct = document.getElementById("correct");
 
 let dom_incorrect = document.getElementById("incorrect");
 let quiz_title = document.getElementsByClassName("quiz_title")[0];
-
+let quizTitle = '';
 let correct = [];
 let allCorrectAnswers = [];
 let result = document.getElementById("result");
@@ -36,6 +37,14 @@ let numberOfInorrect = 0;
 
 const container = document.getElementById("container");
 const quizmb = document.getElementById("quizzes");
+
+
+function saveScore(data) {
+    axios.post(URL + '/score/', data)
+        .then((result) => {
+            return result.data;
+        })
+}
 function getQuestion() {
     axios.get(URL + '/quiz/' + quiz_id)
         .then((result) => {
@@ -55,7 +64,9 @@ function createDomPlay(result) {
     let data = result[indexToPlay];
     console.log(data.quizID.title)
     question_score = data.score;
-    quiz_title.textContent = data.quizID.title;
+    quizTitle =  data.quizID.title;
+
+    quiz_title.textContent = quizTitle;
 
 
     let headerQuiz = document.createElement('div');
@@ -177,6 +188,9 @@ function computeScore() {
 
         totalScore += quizScore[n];
     }
+    let TOTAL = quizResult + "/" + totalScore;
+    let data = {score:TOTAL,quizTitle:quizTitle,userID:userId}
+    saveScore(data)
     total.textContent = "Total Score: " + quizResult + "/" + totalScore;
     dom_correct.textContent = "correct: " + numberOfCorrect;
     dom_incorrect.textContent = "incorrect: " + numberOfInorrect;
