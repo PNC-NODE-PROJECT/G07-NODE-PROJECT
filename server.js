@@ -1,6 +1,5 @@
 const express = require('express')
 const app = express();
-// Additional
 const cookieParser = require("cookie-parser");
 const sessions = require('express-session');
 
@@ -43,7 +42,6 @@ app.listen(PORT, () => {
 
 const itemRouter = require('./routes/quiz_route');
 const userRouter = require('./routes/user_route');
-
 
 app.use('/quiz', itemRouter);
 app.use('/user', userRouter);
