@@ -15,7 +15,7 @@ axios.get(URLS+'/user/email')
 
 var userTemp = '';
 function getValueFromUser(){
-    axios.get(URLS+'/user/email/'+key)
+    axios.get(URLS+'/user/id/'+key)
     .then((result)=>{
         console.log(result);
         userTemp = result.data._id 
@@ -31,6 +31,6 @@ function getValueFromUser(){
     })
 }
 
-setTimeout(getValueFromUser, 100);
+setTimeout(getValueFromUser, 150);
 
 let account = document.getElementById('account_name');

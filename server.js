@@ -29,9 +29,8 @@ app.use(express.static(__dirname));
 app.use(cookieParser());
 
 app.get('/',(req,res) => {
-    var session = req.session;
-    if(session.userId){
-        res.sendFile('public',{root:__dirname})
+    if(!req.session.userId){
+        res.redirect('public/views/register/register.html')
     }else
     res.sendFile('public',{root:__dirname})
 });
@@ -50,4 +49,6 @@ app.use('/quiz', itemRouter);
 app.use('/user', userRouter);
 
 app.use(express.static("public"));
-
+app.use(function(req, res, next) {
+    res.status(404).redirect('/public/404/index.html');
+  });

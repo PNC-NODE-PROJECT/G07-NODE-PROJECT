@@ -28,9 +28,9 @@ router.post("/login", (req, res) => {
             if(result.length > 0){
                 // res.send(result[0]);
                 session=req.session;
-                req.session.userId = result[0].email;
-                let id = ObjectId(result[0]._id).toString()
-                // console.log(id);
+                let userId  = result[0]._id.toHexString();
+                req.session.userId = userId;
+                console.log(userId);
                 console.log(req.session)
                 // console.log(req.session.userId);
                 console.log('Session store');
@@ -70,6 +70,7 @@ router.get('/id/:id', (req, res)=>{
 router.get("/email", (req, res) => {
     res.send(req.session.userId)
 })
+
 // router.get('/hi',(req,res) => {
 //     session=req.session;
 //     console.log(session.userId);

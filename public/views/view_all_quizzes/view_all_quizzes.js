@@ -109,7 +109,7 @@ function displayAllQuizzes(quizzes, title, quizID) {
     for (let index in quizzes) {
         let quiz = quizzes[index];
 
-        let question = quiz.title;
+        let question = "("+quiz.score+"pt) "+ quiz.title;
         let choices = quiz.choices;
         let corrects = quiz.correct;
         console.log(corrects)
