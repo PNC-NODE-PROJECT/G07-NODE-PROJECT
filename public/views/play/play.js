@@ -1,5 +1,5 @@
 
-if(!localStorage['userId']){
+if (!localStorage['userId']) {
     window.location.href = '../register/register.html';
 }
 
@@ -118,23 +118,28 @@ function createDomPlay(result) {
     progress.value = indexToPlay + 1;
     progress.max = result.length;
     mainQuizContaier.appendChild(bodyQuiz);
-    
+
 
 }
 
 
 
 let numberOfClick = 0;
+let preindex = null;
 let index = null;
 function clickAnswer(e) {
     e.preventDefault();
     if (e.target.className === "answer") {
         index = e.target.id;
-        numberOfClick += 1;
-        e.target.style.backgroundColor = '#1E90FF';
-        //   console.log(correctAnwser);
-        userCorrect.push(index);
+        if (index != preindex) {
+            preindex = index
+            numberOfClick += 1;
+            e.target.style.backgroundColor = '#1E90FF';
+            userCorrect.push(index);
+        }
         if (numberOfClick == correctAnwser) {
+            preindex = null;
+            index = null;
             allCorrectAnswers.push(correct)
             userAllCorrect.push(userCorrect);
             userCorrect = [];
@@ -149,7 +154,6 @@ function clickAnswer(e) {
                 // TO STOP USER FROM REFRESH PAGE 
                 window.onbeforeunload = function() {
                     sendScoreByEmail();
-                    return "You can't refresh the page";
                 }
                 // container.style.display = "block"
                 document.getElementById("view_answer").style.display = "block";
@@ -241,7 +245,7 @@ function displayWrongeRightAnswers(quizzes) {
                 for (let correct of corrects) {
                     if (correct == i - 1) {
                         list_group_item.setAttribute("class", "list-group-item  h6 correct");
-                    }else{
+                    } else {
                         list_group_item.setAttribute("class", "list-group-item  h6 incorrect");
                     }
                 }
