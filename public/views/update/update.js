@@ -54,7 +54,6 @@ function createAnswerList(e) {
         inputAns.classList = 'form-control shadow-none answer_input';
         inputAns.placeholder = 'e.g I go to school';
         inputAns.value = answer.value;
-        console.log(answer.value)
         inputAnsCon.appendChild(inputAns);
 
         let checkBoxCon = document.createElement('div');
@@ -73,7 +72,6 @@ function createAnswerList(e) {
         answerCheck.checked = false;
     } else {
         let warining_text = alert.children[0];
-        console.log(warining_text)
         alert.style.display = "flex"
         warining_text.textContent = "Please input the answer !"
     }
@@ -147,12 +145,10 @@ function questionContainer(temp_answers) {
 function getQuizValue() {
     axios.get(URL + '/quiz/' + quizId)
         .then((result) => {
-            console.log(result);
             temp_answers = result.data;
             questionContainer(temp_answers);
             getQuizTitle();
             titleInput.value = titleQuiz;
-            console.log(temp_answers);
         })
 }
 // GET TITLE OF QUIZ FROM DATABASE
@@ -160,7 +156,6 @@ function getQuizTitle() {
     axios.get(URL + '/quiz/title/' + quizId)
         .then((result) => {
             titleQuiz = result.data.title;
-            console.log(result);
         })
 }
 
@@ -173,14 +168,8 @@ function addQuestion() {
     // Update Quiz
     let data = { "title": titleInput.value }
     axios.put(URL + '/quiz/' + quizId, data)
-        .then((result) => {
-            console.log(result);
-        })
     // add quetion to database
     axios.post(URL + '/quiz/question', temp_answers)
-        .then((result) => {
-            console.log(result);
-        })
     window.location.href = "../view_all_quizzes/view_all_quizzes.html";
 }
 
@@ -312,7 +301,6 @@ function resfreshListQuestion() {
 // GET VALUE FROM ANSWER AND LIST IT DOWN BY INPUT AND CHECKBOX
 function listInputAnswer(data) {
     resfreshAnswerInput();
-    console.log(data);
     for (let i = 0; i < data.choices.length; i++) {
         let label = document.createElement('label');
         label.classList = 'col-sm-2 col-form-label';
@@ -390,7 +378,6 @@ function clickQuestion(e) {
 function updateQuestion() {
     let updated = temp_answers[indexToUpdate] = getQuestionValue();
     if (updated) {
-        console.log('Update!');
         resetForm();
         questionContainer(temp_answers);
     }
@@ -400,31 +387,18 @@ function updateQuiz() {
     // Update Quiz title
     let data = { "title": titleInput.value }
     axios.put(URL + '/quiz/' + quizId, data)
-        .then((result) => {
-            console.log(result);
-        })
     // delete quetion in database
     for (let id of listIdToDelete) {
         axios.delete(URL + '/quiz/question/' + id)
-            .then((result) => {
-                console.log(result);
-            })
     }
     // edit quetion to database
     for (let item of temp_answers) {
         let questionId = item._id;
         axios.put(URL + '/quiz/question/' + questionId, item)
-            .then((result) => {
-                console.log(result);
-            })
-
         if (item._id === '') {
             delete item._id
             // post new answer to database
             axios.post(URL + '/quiz/question', item)
-                .then((result) => {
-                    console.log(result);
-                })
         }
     }
     window.location.href = "../view_all_quizzes/view_all_quizzes.html";
@@ -440,7 +414,6 @@ function resetQuiz() {
 
 function closeWarning(e) {
     e.target.parentNode.style.display = "none";
-    console.log(e.target.parentNode)
 }
 
 let tempAnswerCon = document.querySelector('.answer_temp');

@@ -27,6 +27,15 @@ const questionSchema = new mongoose.Schema({
         ref: "quizzes"
     }
 })
+
+const quizCode = new mongoose.Schema({
+    code: String,
+    "quizID":{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "quizzes"
+    }
+})
+
 const userSchema = new mongoose.Schema({
     first_name:{
         type: String,
@@ -61,6 +70,7 @@ const scoreSchema = new mongoose.Schema({
     
 })
 const quizModel = mongoose.model("quizzes",quizSchema);
+const quizCodeModel = mongoose.model("quizCode",quizCode);
 const questionModel = mongoose.model("questions",questionSchema);
 const userModel = mongoose.model("users",userSchema);
 const scoreModel = mongoose.model("scores",scoreSchema);

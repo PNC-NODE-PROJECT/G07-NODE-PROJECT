@@ -1,7 +1,6 @@
 const URL = 'http://localhost:3000';
 let userId = localStorage.getItem('userId');
 let validEmail = document.getElementById("validEmail");
-console.log(validEmail)
 
 function hide(e) {
     e.style.display = 'none';
@@ -34,7 +33,6 @@ function getValueFromSignUp() {
         pS1.style.border = '1px solid #fa0000';
         pS2.style.border = '1px solid #fa0000';
     }
-    console.log(signInValue);
     return signInValue;
 }
 
@@ -50,7 +48,6 @@ function getValueFromSignIn() {
     let loginValue = {};
     loginValue['email'] = emailLogin.value;
     loginValue['password'] = pswLogin.value;
-    console.log(loginValue);
     return loginValue;
 }
 
@@ -74,10 +71,8 @@ function registerAccount(e) {
 
 function loginAccount() {
     let data = getValueFromSignIn();
-    console.log("login");
     axios.post(URL + '/user/login', data)
         .then((result) => {
-            console.log(result);
             window.location.href = '/'
         })
 }
@@ -90,7 +85,6 @@ function logoutAccount() {
 let user = {};
 axios.get(URL + '/user/id/' + userId)
 .then((result) => {
-    console.log(result);
     user = result.data;
 })
 

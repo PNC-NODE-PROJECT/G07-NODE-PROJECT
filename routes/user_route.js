@@ -26,18 +26,12 @@ router.post("/login", (req, res) => {
     userModel.find(req.body)
         .then((result) => {
             if(result.length > 0){
-                // res.send(result[0]);
                 session=req.session;
                 let userId  = result[0]._id.toHexString();
                 req.session.userId = userId;
-                console.log(userId);
-                console.log(req.session)
-                // console.log(req.session.userId);
-                console.log('Session store');
-                // res.send(`Hey there, welcome <a href=\'/logout'>click to logout</a>`);
+                console.log('Session stored');
                 res.send('Successfull');
             }else{
-                // res.send('User not found!')
                 console.log('Session not store');
             }
         })
@@ -61,8 +55,6 @@ router.get('/id/:id', (req, res)=>{
         res.send(result);
     })
 })
-
-
 
 
 

@@ -102,11 +102,8 @@ function createDomPlay(result) {
     let numberOfAnswer = data.choices.length;
     let numberOfHalfAn = numberOfAnswer / 2;
     const NUMBER_OF_LOOP = Math.round(numberOfHalfAn / 1) * 1;
-    // console.log(NUMBER_OF_LOOP);
     // Define correct answer number
     correctAnwser = data.correct.length;
-    // console.log(NUMBER_OF_LOOP);
-
     correct = result[indexToPlay].correct;
     let indexOfAn = 0;
     for (let i = 0; i < NUMBER_OF_LOOP; i++) {
@@ -177,7 +174,6 @@ function clickAnswer(e) {
 
         }
     }
-    console.log(userAllCorrect)
     saveUserAnwerToLocalStorage(userAllCorrect)
 
 }
@@ -211,8 +207,6 @@ function computeScore() {
 
 }
 function displayWrongeRightAnswers(quizzes) {
-
-    console.log(quizzes)
     let quizmb = document.createElement("div");
     quizmb.setAttribute("class", "quizzes mb-2")
     quizmb.setAttribute("id", "quizzes")
@@ -273,7 +267,6 @@ function displayWrongeRightAnswers(quizzes) {
 
 }
 function saveUserAnwerToLocalStorage(userCorrectAnswer) {
-    console.log(userCorrectAnswer)
     localStorage.setItem(USER_CORRECT, JSON.stringify(userCorrectAnswer));
 }
 function playQuiz() {
@@ -283,13 +276,11 @@ playQuiz()
 
 axios.get(URL+'/user/id/'+localStorage['userId'])
 .then((result)=>{
-    console.log(result.data.email);
     userEmail = result.data.email;
 })
 
 function sendScoreByEmail(){
     let data = {"email": userEmail, "score": quizResult, "totalScore": totalScore, "title": quizTitle}
-    console.log(data);
     axios.post(URL+'/quiz/send/score/', data);
 }
 
