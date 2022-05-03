@@ -70,8 +70,8 @@ const scoreSchema = new mongoose.Schema({
     
 })
 const quizModel = mongoose.model("quizzes",quizSchema);
-const quizCodeModel = mongoose.model("quizCode",quizCode);
+const quizCodeModel = mongoose.model("quizcodes",quizCode);
 const questionModel = mongoose.model("questions",questionSchema);
 const userModel = mongoose.model("users",userSchema);
 const scoreModel = mongoose.model("scores",scoreSchema);
-module.exports = {quizModel,questionModel,userModel,scoreModel};
+module.exports = {quizModel,questionModel,userModel,scoreModel,quizCodeModel};

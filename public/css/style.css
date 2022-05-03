@@ -543,3 +543,45 @@ div {
 #item_action_header{
     display: none;
 }
+
+/* Generate code  */
+#codeGenerate {
+    width: 60%;
+    border-radius: 10px;
+    background: rgb(236, 236, 236);
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+    padding: 1rem;
+}
+
+#codeGenerate button,
+#btn_enter_code {
+    border: none;
+}
+#codeGenerate h1 {
+    padding: 2rem;
+    font-size: 50px;
+}
+.search_con {
+    width: 50%;
+    margin: 0 auto;
+    display: flex;
+}
+
+.search_con {
+    background: rgb(236, 236, 236);
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+#code {
+    width: 100%;
+    border: none;
+    background-color: #eef5ff;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    outline: none;
+    border: 1px solid #eef5ff;
+    font-size: 20px;
+}

@@ -230,7 +230,8 @@ function generateCode(){
 
 function copyCode() {
     navigator.clipboard.writeText(copyText.textContent);
-    alert("Copied the text: " + copyText.textContent);
+    btnCopy.textContent = 'Copied';
+    btnCopy.style.backgroundColor = 'grey';
 }
 
 function playQuizWithCode(){

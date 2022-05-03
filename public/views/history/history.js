@@ -1,3 +1,7 @@
+if (!localStorage['userId']) {
+    window.location.href = '../register/register.html';
+}
+
 let userId = localStorage.getItem("userId")
 let history = document.getElementById('history')
 function getScore() {
