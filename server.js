@@ -1,6 +1,5 @@
 const express = require('express')
 const app = express();
-// Additional
 const cookieParser = require("cookie-parser");
 const sessions = require('express-session');
 
@@ -45,7 +44,6 @@ const itemRouter = require('./routes/quiz_route');
 const userRouter = require('./routes/user_route');
 const scoreRouter = require('./routes/score_route');
 
-
 app.use('/quiz', itemRouter);
 app.use('/user', userRouter);
 app.use('/score', scoreRouter);
@@ -53,4 +51,4 @@ app.use('/score', scoreRouter);
 app.use(express.static("public"));
 app.use(function(req, res, next) {
     res.status(404).redirect('/public/404/index.html');
-  });
+});

@@ -17,46 +17,28 @@ router.post("/", (req, res) => {
 })
 
 // // +++++++++++++ GET ALL QUIZZES ++++++++++++++//
-// router.get("/", (req, res) => {
-//     quizModel.find()
-//         .populate("authorID")
-//         .then((result) => {
-//             res.send(result);
-//         })
-//         .catch((error) => {
-//             res.send(error);
-//         })
-// })
-
-// // +++++++++++++ GET A TITLE QUIZZES ++++++++++++++//
-// router.get("/title/:_id", (req, res) => {
-//     quizModel.findOne({"_id": req.params._id})
-//         // .populate("authorID")
-//         .then((result) => {
-//             res.send(result);
-//         })
-//         .catch((error) => {
-//             res.send(error);
-//         })
-// })
+router.get("/:userID", (req, res) => {
+    scoreModel.find({ "userID": req.params.userID })
+        .populate("userID")
+        .then((result) => {
+            res.send(result);
+        })
+        .catch((error) => {
+            res.send(error);
+        })
+})
 
 
-// // +++++++++++++ DELETE A QUIZ ++++++++++++++//
-// router.delete("/:quizID", (req, res) => {
-//     quizModel.deleteOne({ _id: req.params.quizID}).then(
 
-//         questionModel.deleteMany({ quizID: req.params.quizID})
-//             .then((result) => {
-//                 res.send(result);
-//             })
-//             .catch((error) => {
-//                 res.send(error);
-//             })
-//     ).catch((error) => {
-//         res.send(error);
-//     })
+// // +++++++++++++ DELETE A SCORE HISTORY ++++++++++++++//
+router.delete("/:scoreID", (req, res) => {
+    scoreModel.deleteOne({ _id: req.params.scoreID }).then(
+        res.send("result")
+    ).catch((error) => {
+        res.send(error);
+    })
 
-// })
+})
 
 
 // // +++++++++++++ UPDATE A QUIZ ++++++++++++++//

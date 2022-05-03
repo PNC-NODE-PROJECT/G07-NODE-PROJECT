@@ -56,7 +56,7 @@ const scoreSchema = new mongoose.Schema({
     },
     "userID":{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "quizzes"
+        ref: "users"
     },
     
 })

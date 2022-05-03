@@ -130,4 +130,14 @@ router.put("/question/:questionID", (req, res) => {
         })
 })
 
+// send mail to user
+const sendMail = require('../mail/send_score');
+
+// SEND MAIL REQUEST
+router.post('/send/score', (req, res)=>{
+    let data = req.body;
+    sendMail.sendScoreToPlayer(data.title, data.score, data.totalScore, data.email)
+})
+
+
 module.exports = router;

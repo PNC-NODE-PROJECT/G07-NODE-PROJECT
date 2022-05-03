@@ -431,6 +431,9 @@ function updateQuiz() {
 }
 
 function resetQuiz() {
+    if(temp_answers.length==0){
+        axios.delete(URL+"/quiz/" + quizId)
+    }
     temp_answers = [];
     window.location.href = "/";
 }

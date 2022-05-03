@@ -5,6 +5,8 @@ if (!localStorage['userId']) {
 const QUIZ_ID_KEY = 'playQuizId';
 localStorage.removeItem(QUIZ_ID_KEY);
 
+let userId = localStorage['userId'];
+
 const container = document.getElementById("container");
 const quizmb = document.getElementById("quizzes");
 
@@ -24,7 +26,6 @@ function getAllQuizzes() {
                         if (quizzes.length > 0) {
                             displayAllQuizzes(quizzes, title, quizID)
                         } else {
-                            console.log("quizzes")
                             axios.delete("http://localhost:3000/quiz/" + quizID)
                                 .then((result) => {
                                     console.log("delete successful")
@@ -35,7 +36,6 @@ function getAllQuizzes() {
         })
 }
 function displayAllQuizzes(quizzes, title, quizID) {
-
     let quizmb = document.createElement("div");
     quizmb.setAttribute("class", "quizzes mb-2")
     quizmb.setAttribute("id", "quizzes")
@@ -44,7 +44,7 @@ function displayAllQuizzes(quizzes, title, quizID) {
     let quiz_item = document.createElement("div");
     quiz_item.setAttribute("class", "quiz_item")
     quizmb.appendChild(quiz_item);
-
+    
     let a1 = document.createElement("a");
     a1.href = "#"
     a1.setAttribute("class", "text-dark  bar-down")
@@ -56,7 +56,7 @@ function displayAllQuizzes(quizzes, title, quizID) {
     i1.setAttribute("class", "bi bi-chevron-bar-down h3")
     i1.setAttribute("id", "bar-down")
     a1.appendChild(i1);
-
+    
     let a2 = document.createElement("a");
     a2.href = "#"
     a2.setAttribute("class", "text-dark  bar-up")
@@ -76,7 +76,11 @@ function displayAllQuizzes(quizzes, title, quizID) {
     quiz_item.appendChild(quiz_name);
 
     let col_sm_2 = document.createElement("div");
-    col_sm_2.setAttribute("class", "col-sm-2")
+    if(quizzes[0].quizID.authorID == userId){
+        col_sm_2.classList = "col-sm-2";
+    }else{
+        col_sm_2.classList = "col-sm-2 item_end";
+    }
     quiz_item.appendChild(col_sm_2);
 
 
@@ -84,21 +88,30 @@ function displayAllQuizzes(quizzes, title, quizID) {
     a3.href = "#"
     col_sm_2.appendChild(a3);
 
-    let i3 = document.createElement("i");
-    i3.setAttribute("class", "bi bi-trash-fill h3 text-danger")
-    a3.appendChild(i3);
-    a3.addEventListener("click", deletQuiz)
-    // Set id of delete icon to id of quiz 
-    a3.setAttribute("id", quizID)
-    let a4 = document.createElement("a");
-    a4.href = "#"
-    col_sm_2.appendChild(a4);
+    if(quizzes[0].quizID.authorID == userId){
+        let i3 = document.createElement("i");
+        i3.setAttribute("class", "bi bi-trash-fill h3 text-danger")
+        a3.appendChild(i3);
+        a3.addEventListener("click", deletQuiz)
+        // Set id of delete icon to id of quiz 
+        a3.setAttribute("id", quizID)
+        let a4 = document.createElement("a");
+        a4.href = "#"
+        col_sm_2.appendChild(a4);
+    
+        let i4 = document.createElement("i");
+        i4.setAttribute("class", "bi bi-pencil-square h3")
+        a4.href = "../update/edit.html";
+        a4.appendChild(i4);
+        a4.addEventListener('click', saveIdToLocalStorage)
+    }
 
-    let i4 = document.createElement("i");
-    i4.setAttribute("class", "bi bi-pencil-square h3")
-    a4.href = "../update/edit.html";
-    a4.appendChild(i4);
-    a4.addEventListener('click', saveIdToLocalStorage)
+    let shareCode = document.createElement('a');
+    shareCode.href = "#";
+    let iconShare = document.createElement('i');
+    iconShare.classList = 'bi bi-share-fill h4';
+    shareCode.appendChild(iconShare);
+    col_sm_2.appendChild(shareCode);
 
     let a5 = document.createElement("a");
     a5.href = "../play/play.html";
@@ -134,9 +147,11 @@ function displayAllQuizzes(quizzes, title, quizID) {
             } else {
                 list_group_item.setAttribute("class", "list-group-item  h6");
                 list_group_item.textContent = choices[i - 1]
-                for (let correct of corrects) {
-                    if (correct == i - 1) {
-                        list_group_item.setAttribute("class", "list-group-item  h6 correct");
+                if(quizzes[0].quizID.authorID == userId){
+                    for (let correct of corrects) {
+                        if (correct == i - 1) {
+                            list_group_item.setAttribute("class", "list-group-item  h6 correct");
+                        }
                     }
                 }
             }
@@ -155,7 +170,6 @@ function showQuestions(e) {
 
     bar_up.style.display = "block"
     let div = e.target.parentNode.parentNode.parentNode.children[1];
-    console.log(div)
     div.style.display = "block"
 }
 function hideQuestions(e) {
@@ -198,3 +212,5 @@ function deletQuiz(e) {
     }
 }
 getAllQuizzes();
+
+// console.log(Math.floor(100000 + Math.random() * 900000));

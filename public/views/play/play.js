@@ -3,6 +3,11 @@ if (!localStorage['userId']) {
     window.location.href = '../register/register.html';
 }
 
+// To prevent from refresh page during play quiz
+if(window.performance.navigation.type == 1){
+    window.location.href = '/';
+}
+
 const URL = 'http://localhost:' + 3000;
 // Get Quiz ID from localStorage
 const QUIZ_ID_KEY = 'playQuizId';
@@ -19,6 +24,8 @@ let dom_correct = document.getElementById("correct");
 
 let dom_incorrect = document.getElementById("incorrect");
 let quiz_title = document.getElementsByClassName("quiz_title")[0];
+let item_action_header = document.getElementById("item_action_header")
+let userEmail = '';
 let quizTitle = '';
 let correct = [];
 let allCorrectAnswers = [];
@@ -62,7 +69,7 @@ function createDomPlay(result) {
     quiz = result;
     number_of_questions = result.length
     let data = result[indexToPlay];
-    console.log(data.quizID.title)
+    quizTitle = data.quizID.title;
     question_score = data.score;
     quizTitle =  data.quizID.title;
 
@@ -155,7 +162,14 @@ function clickAnswer(e) {
                 numberOfClick = 0;
             } else {
                 result.style.display = "block";
+                // TO STOP USER FROM REFRESH PAGE 
+                window.onbeforeunload = function() {
+                    sendScoreByEmail();
+                }
+                item_action_header.style.display = "flex";
+                // container.style.display = "block"
                 document.getElementById("view_answer").style.display = "block";
+                btnSendMail.style.display = "block";
                 mainQuizContaier.style.display = "none";
                 computeScore()
 
@@ -198,7 +212,7 @@ function computeScore() {
 }
 function displayWrongeRightAnswers(quizzes) {
 
-    // console.log(quizzes)
+    console.log(quizzes)
     let quizmb = document.createElement("div");
     quizmb.setAttribute("class", "quizzes mb-2")
     quizmb.setAttribute("id", "quizzes")
@@ -259,7 +273,6 @@ function displayWrongeRightAnswers(quizzes) {
 
 }
 function saveUserAnwerToLocalStorage(userCorrectAnswer) {
-
     console.log(userCorrectAnswer)
     localStorage.setItem(USER_CORRECT, JSON.stringify(userCorrectAnswer));
 }
@@ -268,9 +281,27 @@ function playQuiz() {
 }
 playQuiz()
 
+axios.get(URL+'/user/id/'+localStorage['userId'])
+.then((result)=>{
+    console.log(result.data.email);
+    userEmail = result.data.email;
+})
+
+function sendScoreByEmail(){
+    let data = {"email": userEmail, "score": quizResult, "totalScore": totalScore, "title": quizTitle}
+    console.log(data);
+    axios.post(URL+'/quiz/send/score/', data);
+}
+
+
 
 
 let mainQuizContaier = document.getElementById('play_quiz_container');
+let btnSendMail = document.getElementById('send_mail');
+btnSendMail.style.display = 'none';
+
+
+btnSendMail.addEventListener('click', sendScoreByEmail);
 mainQuizContaier.addEventListener('click', clickAnswer);
 
 

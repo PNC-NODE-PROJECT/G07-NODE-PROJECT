@@ -71,15 +71,6 @@ router.get("/email", (req, res) => {
     res.send(req.session.userId)
 })
 
-// router.get('/hi',(req,res) => {
-//     session=req.session;
-//     console.log(session.userId);
-//     if(session.userId){
-//         res.send("Welcome User <a href=\'/logout'>click to logout</a>");
-//     }else
-//     res.redirect('/views/register/register.html');
-// });
-
 router.get('/logout',(req,res) => {
     req.session.destroy();
     res.redirect('/');
