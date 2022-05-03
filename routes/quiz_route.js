@@ -3,6 +3,7 @@ const router = express.Router();
 const model = require("../model/quiz_model");
 const quizModel = model.quizModel;
 const questionModel = model.questionModel;
+const quizCodeModel = model.quizCodeModel;
 
 
 
@@ -139,5 +140,19 @@ router.post('/send/score', (req, res)=>{
     sendMail.sendScoreToPlayer(data.title, data.score, data.totalScore, data.email)
 })
 
+// Store Generate code of quiz
+router.post('/code', (req, res)=>{
+    quizCodeModel.create(req.body)
+    .then((result) => {
+        res.send(result);
+    })
+})
+
+router.get('/code/:code', (req, res)=>{
+    quizCodeModel.find({code: req.params.code})
+    .then((result) => {
+        res.send(result[0]);
+    })
+})
 
 module.exports = router;

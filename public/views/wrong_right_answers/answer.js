@@ -6,7 +6,6 @@ const URL = 'http://localhost:' + 3000;
 const QUIZ_ID_KEY = 'playQuizId';
 const USER_CORRECT = 'usercorrect';
 var quiz_id = localStorage.getItem(QUIZ_ID_KEY);
-console.log(quiz_id)
 var userAllCorrectAnswer = JSON.parse(localStorage.getItem(USER_CORRECT));
 
 let dom_correct = document.getElementById("correct");
@@ -17,16 +16,12 @@ let dom_incorrect = document.getElementById("incorrect");
 function getQuestion() {
     axios.get(URL + '/quiz/' + quiz_id)
         .then((result) => {
-            // console.log(result.data)
             displayWrongeRightAnswers(result.data)
-
             return result.data;
         })
 }
 
 function displayWrongeRightAnswers(quizzes) {
-
-    // console.log(quizzes)
     let quizmb = document.createElement("div");
     quizmb.setAttribute("class", "quizzes mb-2")
     quizmb.setAttribute("id", "quizzes")
@@ -51,7 +46,6 @@ function displayWrongeRightAnswers(quizzes) {
     quizmb.appendChild(questions);
     for (let index in quizzes) {
         let quiz = quizzes[index];
-        console.log(quiz.quizID.title)
         quiz_name.textContent = quiz.quizID.title;
 
         let question = quiz.title;

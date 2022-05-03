@@ -27,9 +27,6 @@ function getAllQuizzes() {
                             displayAllQuizzes(quizzes, title, quizID)
                         } else {
                             axios.delete("http://localhost:3000/quiz/" + quizID)
-                                .then((result) => {
-                                    console.log("delete successful")
-                                })
                         }
                     })
             }
@@ -108,9 +105,11 @@ function displayAllQuizzes(quizzes, title, quizID) {
 
     let shareCode = document.createElement('a');
     shareCode.href = "#";
+    shareCode.id = quizID;
     let iconShare = document.createElement('i');
     iconShare.classList = 'bi bi-share-fill h4';
     shareCode.appendChild(iconShare);
+    shareCode.addEventListener('click', sendCodeToDb)
     col_sm_2.appendChild(shareCode);
 
     let a5 = document.createElement("a");
@@ -182,7 +181,6 @@ function hideQuestions(e) {
 }
 
 function saveIdToLocalStorage(e) {
-    console.log(e.target.parentNode.id);
     let idOfQuiz = e.target.parentNode.id
     // if target === edit icon
     if (e.target.className === 'bi bi-pencil-square h3') {
@@ -198,13 +196,10 @@ function deletQuiz(e) {
     while (container.firstChild) {
         container.removeChild(container.lastChild);
     }
-    console.log(e.target.parentNode.id)
     let quizID = e.target.parentNode.id
-    console.log(quizID)
     if (confirm("Are you sure to delete this quiz? ")) {
         axios.delete("http://localhost:3000/quiz/" + quizID)
             .then((result) => {
-                console.log("Delete success !")
                 getAllQuizzes();
             })
     } else {
@@ -213,4 +208,49 @@ function deletQuiz(e) {
 }
 getAllQuizzes();
 
-// console.log(Math.floor(100000 + Math.random() * 900000));
+function showGenerateCon(){
+    generateCon.style.display = '';
+    container.style.display = 'none';
+}
+
+function sendCodeToDb(e){
+    generateCode();
+    showGenerateCon();
+    let idOfQuiz = '';
+    if (e.target.className === 'bi bi-share-fill h4') {
+        let idOfQuiz = e.target.parentNode.nextSibling.id
+        let data = {"code": copyText.textContent, "quizID": idOfQuiz}
+        axios.post(URL+'/quiz/code', data);
+    }
+}
+
+function generateCode(){
+    copyText.textContent = Math.floor(100000 + Math.random() * 900000);
+}
+
+function copyCode() {
+    navigator.clipboard.writeText(copyText.textContent);
+    alert("Copied the text: " + copyText.textContent);
+}
+
+function playQuizWithCode(){
+    axios.get(URL+'/quiz/code/'+ inputCode.value)
+    .then((result)=>{
+        localStorage.setItem(QUIZ_ID_KEY, result.data.quizID);
+        if(result.data.quizID){
+            window.location.href = "../play/play.html";
+        }
+    })
+}
+
+let generateCon = document.getElementById('codeGenerate');
+generateCon.style.display = 'none';
+
+let copyText = document.getElementById("codeGenerater");
+let inputCode = document.getElementById('code');
+let btnPlay = document.getElementById('btn_enter_code');
+let btnCopy = document.getElementById('btn_copy');
+
+
+btnPlay.addEventListener('click', playQuizWithCode)
+btnCopy.addEventListener('click', copyCode);

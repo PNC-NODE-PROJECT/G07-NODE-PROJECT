@@ -8,7 +8,6 @@ const URLS = 'http://localhost:' + 3000;
 var key = '';
 axios.get(URLS+'/user/email')
 .then((result)=>{
-    console.log(result.data);
     key = result.data
 })
 
@@ -17,7 +16,6 @@ var userTemp = '';
 function getValueFromUser(){
     axios.get(URLS+'/user/id/'+key)
     .then((result)=>{
-        console.log(result);
         userTemp = result.data._id 
         let firstN = result.data.first_name
         let lastN = result.data.last_name
