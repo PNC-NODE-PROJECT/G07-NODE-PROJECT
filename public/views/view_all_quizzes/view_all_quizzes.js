@@ -1,4 +1,4 @@
-if(!localStorage['userId']){
+if (!localStorage['userId']) {
     window.location.href = '../register/register.html';
 }
 // Remove id of Quiz from LocalStorage
@@ -20,14 +20,22 @@ function getAllQuizzes() {
                 axios.get("http://localhost:3000/quiz/" + quizID)
                     .then((result) => {
                         let quizzes = result.data;
-                        displayAllQuizzes(quizzes, title,quizID)
+
+                        if (quizzes.length > 0) {
+                            displayAllQuizzes(quizzes, title, quizID)
+                        } else {
+                            console.log("quizzes")
+                            axios.delete("http://localhost:3000/quiz/" + quizID)
+                                .then((result) => {
+                                    console.log("delete successful")
+                                })
+                        }
                     })
             }
         })
 }
 function displayAllQuizzes(quizzes, title, quizID) {
 
-    // console.log(quizzes)
     let quizmb = document.createElement("div");
     quizmb.setAttribute("class", "quizzes mb-2")
     quizmb.setAttribute("id", "quizzes")
@@ -109,10 +117,9 @@ function displayAllQuizzes(quizzes, title, quizID) {
     for (let index in quizzes) {
         let quiz = quizzes[index];
 
-        let question = "("+quiz.score+"pt) "+ quiz.title;
+        let question = "(" + quiz.score + "pt) " + quiz.title;
         let choices = quiz.choices;
         let corrects = quiz.correct;
-        console.log(corrects)
         let list_group = document.createElement("ul");
         list_group.setAttribute("class", "list-group w-100 mx-auto");
         questions.appendChild(list_group);
@@ -164,7 +171,7 @@ function saveIdToLocalStorage(e) {
     console.log(e.target.parentNode.id);
     let idOfQuiz = e.target.parentNode.id
     // if target === edit icon
-    if(e.target.className === 'bi bi-pencil-square h3'){
+    if (e.target.className === 'bi bi-pencil-square h3') {
         idOfQuiz = e.target.parentNode.nextSibling.id
     }
     localStorage.setItem(QUIZ_ID_KEY, idOfQuiz);
@@ -176,17 +183,17 @@ function deletQuiz(e) {
     e.preventDefault();
     while (container.firstChild) {
         container.removeChild(container.lastChild);
-      }
+    }
     console.log(e.target.parentNode.id)
     let quizID = e.target.parentNode.id
     console.log(quizID)
-    if(confirm("Are you sure to delete this quiz? ")){
+    if (confirm("Are you sure to delete this quiz? ")) {
         axios.delete("http://localhost:3000/quiz/" + quizID)
             .then((result) => {
                 console.log("Delete success !")
                 getAllQuizzes();
             })
-    }else{
+    } else {
         getAllQuizzes();
     }
 }

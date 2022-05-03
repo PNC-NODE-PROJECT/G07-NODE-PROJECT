@@ -59,7 +59,7 @@ function displayWrongeRightAnswers(quizzes) {
         let corrects = quiz.correct;
 
         let list_group = document.createElement("ul");
-        list_group.setAttribute("class", "list-group w-100 mx-auto");
+        list_group.setAttribute("class", "list-group w-100 mx-auto"); 
         questions.appendChild(list_group);
         let list_group_item = document.createElement("li");
         list_group_item.setAttribute("class", "list-group-item  h5 active");

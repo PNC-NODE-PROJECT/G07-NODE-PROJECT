@@ -1,4 +1,4 @@
-if(!localStorage['userId']){
+if (!localStorage['userId']) {
     window.location.href = '../register/register.html';
 }
 
@@ -7,7 +7,7 @@ const URL = 'http://localhost:' + 3000;
 const KEY_ID_QUIZ = 'playQuizId';
 var quizId = localStorage.getItem(KEY_ID_QUIZ);
 let userId = localStorage.getItem('userId');
-
+let checkAnswer = document.getElementsByClassName("select_answer_btn");
 
 // Edit Button
 let btnUpdate = document.querySelector('#update_question');
@@ -77,6 +77,7 @@ function createAnswerList(e) {
         alert.style.display = "flex"
         warining_text.textContent = "Please input the answer !"
     }
+
 }
 
 
@@ -96,7 +97,7 @@ function questionContainer(temp_answers) {
 
         let question = document.createElement('div');
         question.classList = 'title_question col-sm-10';
-        question.textContent = "("+ data.score + " pt) " +  data.title;
+        question.textContent = "(" + data.score + " pt) " + data.title;
         headerList.appendChild(question);
 
         let btnGroup = document.createElement('div');
@@ -157,10 +158,10 @@ function getQuizValue() {
 // GET TITLE OF QUIZ FROM DATABASE
 function getQuizTitle() {
     axios.get(URL + '/quiz/title/' + quizId)
-    .then((result) => {
-        titleQuiz = result.data.title;
-        console.log(result);
-    })
+        .then((result) => {
+            titleQuiz = result.data.title;
+            console.log(result);
+        })
 }
 
 let titleQuiz = '';
@@ -179,7 +180,7 @@ function addQuestion() {
     axios.post(URL + '/quiz/question', temp_answers)
         .then((result) => {
             console.log(result);
-    })
+        })
     window.location.href = "../view_all_quizzes/view_all_quizzes.html";
 }
 
@@ -226,7 +227,7 @@ function getQuestionValue() {
     temp_arr['correct'] = correct;
     temp_arr['score'] = scoreInput.value;
     temp_arr['quizID'] = quizId;
-    if(localStorage['playQuizId'] !== undefined){
+    if (localStorage['playQuizId'] !== undefined) {
         temp_arr['_id'] = id_question.value;
     }
     return temp_arr;
@@ -240,9 +241,18 @@ function addQustionTemp(e) {
     let questionTitle = getQuestionValue().title;
     let choices = getQuestionValue().choices;
     let correct = getQuestionValue().correct;
-
+    let isChecked = true;
+    for (let check of checkAnswer) {
+        if (isChecked) {
+            if (check.checked) {
+                let inputAnswer = check.parentNode.parentNode.children[1].children[0];
+                if (inputAnswer.value == "") {
+                    isChecked = false;
+                }
+            }
+        }
+    }
     if ((questionTitle == "" && score == "") && (choices.length == 0 && correct.length == 0)) {
-        console.log()
         alert.style.display = "flex"
         warining_text.textContent = "Please input question, answer, score and add correct answer !"
     } else if (score == "") {
@@ -251,12 +261,16 @@ function addQustionTemp(e) {
     } else if (questionTitle == "") {
         alert.style.display = "flex"
         warining_text.textContent = "Please input the title of the question !"
+    } else if (isChecked == false) {
+        alert.style.display = "flex"
+        warining_text.textContent = "Please input the correct answer of the question !"
     } else if (choices.length == 0) {
         alert.style.display = "flex"
         warining_text.textContent = "Please input the answer of the question !"
     } else if (correct.length == 0) {
         alert.style.display = "flex"
         warining_text.textContent = "Please choose the correct of the question !"
+
     } else {
         alert.style.display = "none"
         temp_answers.push(getQuestionValue());
@@ -305,7 +319,7 @@ function listInputAnswer(data) {
         label.textContent = 'Answer';
         tempAnswerCon.appendChild(label);
         // id_question.value = '';
-        if(localStorage['playQuizId']!=='' || localStorage['playQuizId']!==undefined){
+        if (localStorage['playQuizId'] !== '' || localStorage['playQuizId'] !== undefined) {
             id_question.value = data._id;
         }
 
@@ -349,28 +363,28 @@ let indexToUpdate = 0;
 function clickQuestion(e) {
     e.preventDefault();
     if (e.target.className === "delete_question" || e.target.className === 'bi bi-trash-fill') {
-      let id = e.target.parentElement.parentElement.id;
-      if(e.target.className === 'bi bi-trash-fill'){
-          id = e.target.parentElement.parentElement.parentElement.id;
-      }
-      let isExecuted = confirm("Are you sure to delete this task?");
-      if (isExecuted) {
-          listIdToDelete.push(temp_answers[id]._id);
-          temp_answers.splice(id, 1);
-          questionContainer(temp_answers);
-      }
+        let id = e.target.parentElement.parentElement.id;
+        if (e.target.className === 'bi bi-trash-fill') {
+            id = e.target.parentElement.parentElement.parentElement.id;
+        }
+        let isExecuted = confirm("Are you sure to delete this task?");
+        if (isExecuted) {
+            listIdToDelete.push(temp_answers[id]._id);
+            temp_answers.splice(id, 1);
+            questionContainer(temp_answers);
+        }
     } else if (e.target.className === "edit_question" || e.target.className === "bi bi-pencil-square") {
-          let id = e.target.parentElement.parentElement.id;
-          if (e.target.className === 'bi bi-pencil-square') {
-              id = e.target.parentElement.parentElement.parentElement.id;
-          }
-          window.location.href = "#action_form_input";
-          updateActionBtn();
-          titleOfAction.textContent = 'Update Your Question';
-          getValueFromQuestion(temp_answers[id]);
-          indexToUpdate = id;
-      } 
-  }
+        let id = e.target.parentElement.parentElement.id;
+        if (e.target.className === 'bi bi-pencil-square') {
+            id = e.target.parentElement.parentElement.parentElement.id;
+        }
+        window.location.href = "#action_form_input";
+        updateActionBtn();
+        titleOfAction.textContent = 'Update Your Question';
+        getValueFromQuestion(temp_answers[id]);
+        indexToUpdate = id;
+    }
+}
 
 // Update Question in temporay object 
 function updateQuestion() {
@@ -397,20 +411,20 @@ function updateQuiz() {
             })
     }
     // edit quetion to database
-    for(let item of temp_answers){
+    for (let item of temp_answers) {
         let questionId = item._id;
-        axios.put(URL+'/quiz/question/'+questionId, item)
-        .then((result)=>{
-            console.log(result);
-        })
-
-        if(item._id===''){
-            delete item._id
-            // post new answer to database
-            axios.post(URL + '/quiz/question', item)
+        axios.put(URL + '/quiz/question/' + questionId, item)
             .then((result) => {
                 console.log(result);
             })
+
+        if (item._id === '') {
+            delete item._id
+            // post new answer to database
+            axios.post(URL + '/quiz/question', item)
+                .then((result) => {
+                    console.log(result);
+                })
         }
     }
     window.location.href = "../view_all_quizzes/view_all_quizzes.html";
