@@ -1,4 +1,4 @@
-if(!localStorage['userId']){
+if (!localStorage['userId']) {
     window.location.href = '../register/register.html';
 }
 const URL = 'http://localhost:' + 3000;
@@ -18,7 +18,6 @@ function getQuestion() {
     axios.get(URL + '/quiz/' + quiz_id)
         .then((result) => {
             // console.log(result.data)
-            console.log(result.data)
             displayWrongeRightAnswers(result.data)
 
             return result.data;
@@ -39,7 +38,6 @@ function displayWrongeRightAnswers(quizzes) {
 
     let quiz_name = document.createElement("div");
     quiz_name.setAttribute("class", "quiz_name h5")
-    quiz_name.textContent = "Present Simple";
     quiz_item.appendChild(quiz_name);
 
     let col_sm_2 = document.createElement("div");
@@ -53,6 +51,8 @@ function displayWrongeRightAnswers(quizzes) {
     quizmb.appendChild(questions);
     for (let index in quizzes) {
         let quiz = quizzes[index];
+        console.log(quiz.quizID.title)
+        quiz_name.textContent = quiz.quizID.title;
 
         let question = quiz.title;
         let choices = quiz.choices;

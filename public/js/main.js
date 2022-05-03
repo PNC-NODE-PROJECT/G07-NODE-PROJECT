@@ -1,9 +1,9 @@
-
-const QUIZ_ID_KEYS = 'playQuizId';
+// const QUIZ_ID_KEYS = 'playQuizId';
 const USER_ID = 'userId';
-localStorage.setItem(QUIZ_ID_KEYS, '');
+// localStorage.setItem(QUIZ_ID_KEYS, '');
 localStorage.setItem(USER_ID, '');
 const URLS = 'http://localhost:' + 3000;
+
 
 var key = '';
 axios.get(URLS+'/user/email')
@@ -15,7 +15,7 @@ axios.get(URLS+'/user/email')
 
 var userTemp = '';
 function getValueFromUser(){
-    axios.get(URLS+'/user/email/'+key)
+    axios.get(URLS+'/user/id/'+key)
     .then((result)=>{
         console.log(result);
         userTemp = result.data._id 
@@ -23,6 +23,7 @@ function getValueFromUser(){
         let lastN = result.data.last_name
         if(userTemp!==undefined){
             account.textContent = firstN + " " + lastN
+            account.style.fontSize = '20px';
             localStorage.setItem(USER_ID, userTemp);
         }else{
             account.textContent = "Account"
@@ -30,6 +31,6 @@ function getValueFromUser(){
     })
 }
 
-setTimeout(getValueFromUser, 100);
+setTimeout(getValueFromUser, 150);
 
 let account = document.getElementById('account_name');

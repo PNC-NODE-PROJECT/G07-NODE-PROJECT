@@ -89,10 +89,10 @@ function logoutAccount() {
 
 let user = {};
 axios.get(URL + '/user/id/' + userId)
-    .then((result) => {
-        console.log(result);
-        user = result.data;
-    })
+.then((result) => {
+    console.log(result);
+    user = result.data;
+})
 
 function listUserInfo() {
     userInfo[0].value = user['first_name']
@@ -136,8 +136,8 @@ linkSignup.addEventListener('click', showSignup);
 
 
 hide(signupForm);
-if (userId != '') {
-    setTimeout(listUserInfo, 100)
+if(userId!=''){
+    setTimeout(listUserInfo, 200)
     hide(loginForm)
 } else {
     hide(userForm)
