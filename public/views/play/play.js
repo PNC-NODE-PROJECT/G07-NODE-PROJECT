@@ -17,7 +17,7 @@ let total = document.getElementById("total");
 let dom_correct = document.getElementById("correct");
 
 let dom_incorrect = document.getElementById("incorrect");
-
+let quiz_title = document.getElementsByClassName("quiz_title")[0];
 
 let correct = [];
 let allCorrectAnswers = [];
@@ -53,8 +53,9 @@ function createDomPlay(result) {
     quiz = result;
     number_of_questions = result.length
     let data = result[indexToPlay];
+    console.log(data.quizID.title)
     question_score = data.score;
-
+    quiz_title.textContent = data.quizID.title;
 
 
     let headerQuiz = document.createElement('div');
@@ -110,6 +111,8 @@ function createDomPlay(result) {
     progress.value = indexToPlay + 1;
     progress.max = result.length;
     mainQuizContaier.appendChild(bodyQuiz);
+    
+
 }
 
 
