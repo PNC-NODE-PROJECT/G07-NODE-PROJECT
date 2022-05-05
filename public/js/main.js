@@ -4,13 +4,11 @@ const USER_ID = 'userId';
 localStorage.setItem(USER_ID, '');
 const URLS = 'http://localhost:' + 3000;
 
-
 var key = '';
-axios.get(URLS+'/user/email')
+axios.get(URLS+'/user/session/stored')
 .then((result)=>{
     key = result.data
 })
-
 
 var userTemp = '';
 function getValueFromUser(){

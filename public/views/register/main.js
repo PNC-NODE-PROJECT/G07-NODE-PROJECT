@@ -54,7 +54,6 @@ function getValueFromSignIn() {
 function registerAccount(e) {
     // e.preventDefault();
     let data = getValueFromSignUp();
-
     axios.get('http://localhost:' + 3000 + '/user/email/' + data.email).then((result) => {
         if (result.data != "") {
             validEmail.style.display = "block";
@@ -82,11 +81,14 @@ function logoutAccount() {
     axios.get(URL + "/user/logout")
 }
 
+
 let user = {};
-axios.get(URL + '/user/id/' + userId)
-.then((result) => {
-    user = result.data;
-})
+if(userId!==''){
+    axios.get(URL + '/user/id/' + userId)
+    .then((result) => {
+        user = result.data;
+    })
+}
 
 function listUserInfo() {
     userInfo[0].value = user['first_name']
@@ -131,7 +133,7 @@ linkSignup.addEventListener('click', showSignup);
 
 hide(signupForm);
 if(userId!=''){
-    setTimeout(listUserInfo, 200)
+    setTimeout(listUserInfo, 100)
     hide(loginForm)
 } else {
     hide(userForm)

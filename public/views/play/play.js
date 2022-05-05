@@ -1,4 +1,3 @@
-
 if (!localStorage['userId']) {
     window.location.href = '../register/register.html';
 }
@@ -126,8 +125,6 @@ function createDomPlay(result) {
     progress.value = indexToPlay + 1;
     progress.max = result.length;
     mainQuizContaier.appendChild(bodyQuiz);
-
-
 }
 
 
@@ -169,7 +166,6 @@ function clickAnswer(e) {
                 btnSendMail.style.display = "block";
                 mainQuizContaier.style.display = "none";
                 computeScore()
-
             }
 
         }
