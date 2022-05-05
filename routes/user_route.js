@@ -3,7 +3,15 @@ const router = express.Router();
 const model = require("../model/quiz_model");
 
 const userModel = model.userModel;
-// var session;
+
+// ++++++++++ CHECK USER HAS LOGIN OR NOT ++++++++++ //
+const sessionChecker = (req, res, next) => {
+    if(!req.session.userId){
+        res.redirect('public/views/register/register.html')
+    }else{
+        next();
+    }
+}
 
 // +++++++++++++ CREATE A NEW USER ++++++++++++++//
 router.post("/register", (req, res) => {
@@ -26,7 +34,6 @@ router.post("/login", (req, res) => {
     userModel.find(req.body)
         .then((result) => {
             if(result.length > 0){
-                session=req.session;
                 let userId  = result[0]._id.toHexString();
                 req.session.userId = userId;
                 console.log('Session stored');
@@ -49,23 +56,22 @@ router.get('/email/:email', (req, res)=>{
 })
 
 // +++++++++++++ GET USER BY ID++++++++++++++//
-router.get('/id/:id', (req, res)=>{
+router.get('/id/:id',sessionChecker, (req, res)=>{
     userModel.findOne({"_id": req.params.id})
     .then((result)=>{
         res.send(result);
     })
 })
 
-
-
-// +++++++++++++ GET USER ++++++++++++++//
-router.get("/email", (req, res) => {
+// +++++ GET SESSION STORED ++++ //
+router.get("/session/stored", (req, res) => {
     res.send(req.session.userId)
 })
 
-router.get('/logout',(req,res) => {
+router.get('/logout',sessionChecker,(req,res) => {
     req.session.destroy();
     res.redirect('/');
 });
 
+// add this inside your route
 module.exports = router;
