@@ -585,3 +585,9 @@ div {
     border: 1px solid #eef5ff;
     font-size: 20px;
 }
+
+#codeGenerate p {
+    font-size: larger;
+    font-weight: bold;
+    color: red;
+}

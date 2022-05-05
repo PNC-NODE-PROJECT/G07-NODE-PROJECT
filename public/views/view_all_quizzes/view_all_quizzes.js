@@ -211,6 +211,16 @@ getAllQuizzes();
 function showGenerateCon(){
     generateCon.style.display = '';
     container.style.display = 'none';
+    document.getElementById("search_con ").style.display = "none";
+    window.onbeforeunload = function() {
+        let codegenerate = copyText.textContent ;
+        console.log(codegenerate)
+        axios.delete("http://localhost:3000/quiz/code/" + codegenerate)
+        .then((result)=>{
+            console.log(result)
+        })
+        return 'delete Generate Code !'
+    }
 }
 
 function sendCodeToDb(e){
@@ -232,6 +242,7 @@ function copyCode() {
     navigator.clipboard.writeText(copyText.textContent);
     btnCopy.textContent = 'Copied';
     btnCopy.style.backgroundColor = 'grey';
+    console.log("F")
 }
 
 function playQuizWithCode(){
@@ -255,3 +266,4 @@ let btnCopy = document.getElementById('btn_copy');
 
 btnPlay.addEventListener('click', playQuizWithCode)
 btnCopy.addEventListener('click', copyCode);
+

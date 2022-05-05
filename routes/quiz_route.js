@@ -154,5 +154,13 @@ router.get('/code/:code', (req, res)=>{
         res.send(result[0]);
     })
 })
+router.delete('/code/:code', (req, res)=>{
+    quizCodeModel.deleteOne({code: req.params.code})
+    .then((result) => {
+        res.send(result);
+    })
+})
+
+
 
 module.exports = router;
