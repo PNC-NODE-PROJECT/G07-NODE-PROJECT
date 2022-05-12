@@ -13,7 +13,7 @@ function getValueFromUser(){
         if(userTemp!==undefined){
             account.textContent = firstN + " " + lastN
             account.style.fontSize = '20px';
-            localStorage.setItem(USER_ID, userTemp);
+            localStorage.setItem('userId', userTemp);
         }else{
             account.textContent = "Account"
         }
