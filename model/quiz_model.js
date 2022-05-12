@@ -1,5 +1,7 @@
+require("dotenv").config();
+const DATA_BASES = process.env.DATA_BASES;
 const mongoose = require("mongoose");
-mongoose.connect('mongodb://127.0.0.1:27017/quiz_app',{useUnifiedTopology:true});
+mongoose.connect(DATA_BASES, {useUnifiedTopology:true});
 const db=mongoose.connection;
 db.on("error",console.error.bind(console,"connection error:"));
 db.once("open",function(){
