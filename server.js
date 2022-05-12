@@ -3,10 +3,14 @@ const app = express();
 const cookieParser = require("cookie-parser");
 const sessions = require('express-session');
 
+const oneDay = 1000 * 60 * 60 * 24;
 app.use(sessions({
     secret: "thisismysecrret",
     saveUninitialized:true,
-    resave: false
+    resave: false,
+    cookie: {
+        maxAge: oneDay
+    }
 }));
 
 const cors = require('cors');

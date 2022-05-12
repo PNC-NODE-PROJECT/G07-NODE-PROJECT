@@ -2,17 +2,16 @@
 const USER_ID = 'userId';
 // localStorage.setItem(QUIZ_ID_KEYS, '');
 localStorage.setItem(USER_ID, '');
-const URLS = 'http://localhost:' + 3000;
 
 var key = '';
-axios.get(URLS+'/user/session/stored')
+axios.get('/user/session/stored')
 .then((result)=>{
     key = result.data
 })
 
 var userTemp = '';
 function getValueFromUser(){
-    axios.get(URLS+'/user/id/'+key)
+    axios.get('/user/id/'+key)
     .then((result)=>{
         userTemp = result.data._id 
         let firstN = result.data.first_name

@@ -1,7 +1,6 @@
 if (!localStorage['userId']) {
     window.location.href = '../register/register.html';
 }
-const URL = 'http://localhost:' + 3000;
 // Get Quiz ID from localStorage
 const QUIZ_ID_KEY = 'playQuizId';
 const USER_CORRECT = 'usercorrect';
@@ -14,7 +13,7 @@ let dom_incorrect = document.getElementById("incorrect");
 
 
 function getQuestion() {
-    axios.get(URL + '/quiz/' + quiz_id)
+    axios.get('/quiz/' + quiz_id)
         .then((result) => {
             displayWrongeRightAnswers(result.data)
             return result.data;

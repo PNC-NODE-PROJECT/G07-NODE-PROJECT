@@ -2,7 +2,6 @@ if (!localStorage['userId']) {
     window.location.href = '../register/register.html';
 }
 
-const URL = 'http://localhost:' + 3000;
 // Get Quiz ID from localStorage
 const KEY_ID_QUIZ = 'playQuizId';
 var quizId = localStorage.getItem(KEY_ID_QUIZ);
@@ -143,7 +142,7 @@ function questionContainer(temp_answers) {
 
 // GET ALL QUIZ FROM DATABASE
 function getQuizValue() {
-    axios.get(URL + '/quiz/' + quizId)
+    axios.get('/quiz/' + quizId)
         .then((result) => {
             temp_answers = result.data;
             questionContainer(temp_answers);
@@ -153,7 +152,7 @@ function getQuizValue() {
 }
 // GET TITLE OF QUIZ FROM DATABASE
 function getQuizTitle() {
-    axios.get(URL + '/quiz/title/' + quizId)
+    axios.get('/quiz/title/' + quizId)
         .then((result) => {
             titleQuiz = result.data.title;
         })
@@ -167,9 +166,9 @@ getQuizTitle();
 function addQuestion() {
     // Update Quiz
     let data = { "title": titleInput.value }
-    axios.put(URL + '/quiz/' + quizId, data)
+    axios.put('/quiz/' + quizId, data)
     // add quetion to database
-    axios.post(URL + '/quiz/question', temp_answers)
+    axios.post('/quiz/question', temp_answers)
     window.location.href = "../view_all_quizzes/view_all_quizzes.html";
 }
 
@@ -181,7 +180,7 @@ function addQuiz(e) {
     let warining_text = alert.children[0];
     if (titleInput.value != "") {
         alert.style.display = "none";
-        axios.post(URL + '/quiz/create', data)
+        axios.post('/quiz/create', data)
             .then((result) => {
                 quizId = result.data._id;
                 show(questionForm);
@@ -386,19 +385,19 @@ function updateQuestion() {
 function updateQuiz() {
     // Update Quiz title
     let data = { "title": titleInput.value }
-    axios.put(URL + '/quiz/' + quizId, data)
+    axios.put('/quiz/' + quizId, data)
     // delete quetion in database
     for (let id of listIdToDelete) {
-        axios.delete(URL + '/quiz/question/' + id)
+        axios.delete('/quiz/question/' + id)
     }
     // edit quetion to database
     for (let item of temp_answers) {
         let questionId = item._id;
-        axios.put(URL + '/quiz/question/' + questionId, item)
+        axios.put('/quiz/question/' + questionId, item)
         if (item._id === '') {
             delete item._id
             // post new answer to database
-            axios.post(URL + '/quiz/question', item)
+            axios.post('/quiz/question', item)
         }
     }
     window.location.href = "../view_all_quizzes/view_all_quizzes.html";
@@ -406,7 +405,7 @@ function updateQuiz() {
 
 function resetQuiz() {
     if(temp_answers.length==0){
-        axios.delete(URL+"/quiz/" + quizId)
+        axios.delete("/quiz/" + quizId)
     }
     temp_answers = [];
     window.location.href = "/";
