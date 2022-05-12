@@ -536,6 +536,19 @@ button {
     display: none;
 }
 
+
+#no_history {
+    display: none;
+}
+#no_history div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#no_history div h2{
+    color: #ff0000;
+}
+
 /* Generate code  */
 #codeGenerate {
     width: 60%;
