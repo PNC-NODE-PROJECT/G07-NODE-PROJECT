@@ -1,13 +1,7 @@
-// const QUIZ_ID_KEYS = 'playQuizId';
-const USER_ID = 'userId';
-// localStorage.setItem(QUIZ_ID_KEYS, '');
-localStorage.setItem(USER_ID, '');
-
-var key = '';
-axios.get('/user/session/stored')
-.then((result)=>{
-    key = result.data
-})
+if (!localStorage['userId']) {
+    window.location.href = '../register/register.html';
+}
+var key = localStorage['userId'];
 
 var userTemp = '';
 function getValueFromUser(){

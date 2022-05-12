@@ -71,7 +71,7 @@ function loginAccount() {
     let data = getValueFromSignIn();
     axios.post('/user/login', data)
         .then((result) => {
-            window.location.href = '/'
+            window.location.href = '/';
         })
 }
 

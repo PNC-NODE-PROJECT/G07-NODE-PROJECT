@@ -54,6 +54,10 @@ app.use('/user', userRouter);
 app.use('/score',sessionChecker, scoreRouter);
 
 app.use(express.static("public"));
+
 app.use(function(req, res, next) {
-    res.status(404).redirect('/public/404/index.html');
+    if(!req.session.userId){
+        res.status(404).redirect('/public/404/index.html');
+    }
+    res.status(404).redirect('/public');
 });

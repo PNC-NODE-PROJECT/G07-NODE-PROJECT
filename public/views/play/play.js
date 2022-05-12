@@ -268,7 +268,7 @@ axios.get('/user/id/'+localStorage['userId'])
 
 function sendScoreByEmail(){
     let data = {"email": userEmail, "score": quizResult, "totalScore": totalScore, "title": quizTitle}
-    axios.post(URL+'/quiz/send/score/', data);
+    axios.post('/quiz/send/score/', data);
 }
 
 
