@@ -1,4 +1,3 @@
-const URL = 'http://localhost:3000';
 let userId = localStorage.getItem('userId');
 let validEmail = document.getElementById("validEmail");
 
@@ -54,11 +53,11 @@ function getValueFromSignIn() {
 function registerAccount(e) {
     // e.preventDefault();
     let data = getValueFromSignUp();
-    axios.get('http://localhost:' + 3000 + '/user/email/' + data.email).then((result) => {
+    axios.get('/user/email/' + data.email).then((result) => {
         if (result.data != "") {
             validEmail.style.display = "block";
         } else {
-            axios.post(URL + '/user/register', data)
+            axios.post('/user/register', data)
                 .then((result) => {
                     if (checkIsValidInput()) {
                         window.location.href = '/views/register/register.html'
@@ -70,7 +69,7 @@ function registerAccount(e) {
 
 function loginAccount() {
     let data = getValueFromSignIn();
-    axios.post(URL + '/user/login', data)
+    axios.post('/user/login', data)
         .then((result) => {
             window.location.href = '/'
         })
@@ -78,13 +77,13 @@ function loginAccount() {
 
 function logoutAccount() {
     localStorage.setItem("userId", '');
-    axios.get(URL + "/user/logout")
+    axios.get("/user/logout")
 }
 
 
 let user = {};
 if(userId!==''){
-    axios.get(URL + '/user/id/' + userId)
+    axios.get('/user/id/' + userId)
     .then((result) => {
         user = result.data;
     })
@@ -123,6 +122,7 @@ let userInfo = document.getElementsByClassName('user_info');
 let btnSignIn = document.getElementById('login');
 let btnSignUp = document.getElementById('sign_in');
 let btnLogout = document.getElementById('logout');
+let item_action_header = document.getElementById("item_action_header")
 
 btnSignUp.addEventListener('click', registerAccount);
 btnSignIn.addEventListener('click', loginAccount);
@@ -133,7 +133,8 @@ linkSignup.addEventListener('click', showSignup);
 
 hide(signupForm);
 if(userId!==''){
-    setTimeout(listUserInfo, 100)
+    setTimeout(listUserInfo, 100);
+    item_action_header.style.display = "flex";
     hide(loginForm)
 } else {
     hide(userForm)

@@ -144,3 +144,72 @@ input {
     align-items: center
 }
 
+
+/* From uiverse.io */
+
+#item_action_header{
+    display: none;
+}
+.button_style {
+    /* --color: #560bad; */
+
+    font-family: sans-serif;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    width: 7em;
+    line-height: 2.3em;
+    position: relative;
+    overflow: hidden;
+    transition: color .5s;
+    background: var(--editColor);
+    z-index: 1;
+    font-size: 17px;
+    /* border-radius: 6px; */
+    font-weight: 500;
+    color: #fff;
+    background-color: #0099ff;
+}
+
+.button_style:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    background: #7ac2f1ce;
+    height: 150px;
+    width: 200px;
+    border-radius: 50%;
+}
+
+.button_style:before {
+    top: 100%;
+    left: 100%;
+    transition: all .7s;
+}
+
+.button_style:hover {
+    color: #fff;
+}
+
+.button_style:hover:before {
+    top: -30px;
+    left: -30px;
+}
+
+
+.btn_none_bg {
+    background: none;
+    display: flex;
+    width: 100px;
+    justify-content: space-evenly;
+}
+.btn_none_bg i {
+    font-size: xx-large;
+}
+.btn_none_bg:hover {
+    color: #029affce;
+    background: none;
+}
+.btn_none_bg:before{
+    background: none;
+}

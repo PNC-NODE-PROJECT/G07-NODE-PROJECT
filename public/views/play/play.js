@@ -7,7 +7,6 @@ if(window.performance.navigation.type == 1){
     window.location.href = '/';
 }
 
-const URL = 'http://localhost:' + 3000;
 // Get Quiz ID from localStorage
 const QUIZ_ID_KEY = 'playQuizId';
 const USER_CORRECT = 'usercorrect';
@@ -46,13 +45,13 @@ const quizmb = document.getElementById("quizzes");
 
 
 function saveScore(data) {
-    axios.post(URL + '/score/', data)
+    axios.post('/score/', data)
         .then((result) => {
             return result.data;
         })
 }
 function getQuestion() {
-    axios.get(URL + '/quiz/' + quiz_id)
+    axios.get('/quiz/' + quiz_id)
         .then((result) => {
             createDomPlay(result.data)
             return result.data;
@@ -262,7 +261,7 @@ function playQuiz() {
 }
 playQuiz()
 
-axios.get(URL+'/user/id/'+localStorage['userId'])
+axios.get('/user/id/'+localStorage['userId'])
 .then((result)=>{
     userEmail = result.data.email;
 })

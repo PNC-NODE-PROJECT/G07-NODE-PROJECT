@@ -10,23 +10,22 @@ let userId = localStorage['userId'];
 const container = document.getElementById("container");
 const quizmb = document.getElementById("quizzes");
 
-let URL = 'http://localhost:' + 3000;
 
 function getAllQuizzes() {
 
-    axios.get(URL + '/quiz')
+    axios.get('/quiz')
         .then((result) => {
             for (let item of result.data) {
                 let quizID = item._id;
                 let title = item.title;
-                axios.get("http://localhost:3000/quiz/" + quizID)
+                axios.get("/quiz/" + quizID)
                     .then((result) => {
                         let quizzes = result.data;
 
                         if (quizzes.length > 0) {
                             displayAllQuizzes(quizzes, title, quizID)
                         } else {
-                            axios.delete("http://localhost:3000/quiz/" + quizID)
+                            axios.delete("/quiz/" + quizID)
                         }
                     })
             }
@@ -198,7 +197,7 @@ function deletQuiz(e) {
     }
     let quizID = e.target.parentNode.id
     if (confirm("Are you sure to delete this quiz? ")) {
-        axios.delete("http://localhost:3000/quiz/" + quizID)
+        axios.delete("/quiz/" + quizID)
             .then((result) => {
                 getAllQuizzes();
             })
@@ -215,7 +214,7 @@ function showGenerateCon(){
     window.onbeforeunload = function() {
         let codegenerate = copyText.textContent ;
         console.log(codegenerate)
-        axios.delete("http://localhost:3000/quiz/code/" + codegenerate)
+        axios.delete("/quiz/code/" + codegenerate)
         .then((result)=>{
             console.log(result)
         })
@@ -230,7 +229,7 @@ function sendCodeToDb(e){
     if (e.target.className === 'bi bi-share-fill h4') {
         let idOfQuiz = e.target.parentNode.nextSibling.id
         let data = {"code": copyText.textContent, "quizID": idOfQuiz}
-        axios.post(URL+'/quiz/code', data);
+        axios.post('/quiz/code', data);
     }
 }
 
@@ -246,7 +245,7 @@ function copyCode() {
 }
 
 function playQuizWithCode(){
-    axios.get(URL+'/quiz/code/'+ inputCode.value)
+    axios.get('/quiz/code/'+ inputCode.value)
     .then((result)=>{
         localStorage.setItem(QUIZ_ID_KEY, result.data.quizID);
         if(result.data.quizID){

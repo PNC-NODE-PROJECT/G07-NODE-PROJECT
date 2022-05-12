@@ -5,7 +5,7 @@ if (!localStorage['userId']) {
 let userId = localStorage.getItem("userId")
 let history = document.getElementById('history')
 function getScore() {
-    axios.get("http://localhost:3000/score/" + userId)
+    axios.get("/score/" + userId)
         .then((result) => {
             createDomScore(result.data)
             return result.data;
@@ -57,7 +57,8 @@ function deleteScoreHistory(e) {
     // console.log(dd)
     let historyID = e.target.id;
     if (window.confirm("Are you sure to delete this history ?")) {
-        axios.delete("http://localhost:3000/score/" + historyID)
+
+        axios.delete("/score/" + historyID)
             .then((result) => {
                 console.log(result);
             })
