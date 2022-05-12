@@ -132,7 +132,7 @@ linkSignup.addEventListener('click', showSignup);
 
 
 hide(signupForm);
-if(userId!=''){
+if(userId!==''){
     setTimeout(listUserInfo, 100)
     hide(loginForm)
 } else {

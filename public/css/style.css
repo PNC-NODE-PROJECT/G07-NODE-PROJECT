@@ -359,15 +359,7 @@ background: rgba(12, 225, 12, 0.91);}
 button {
     cursor: pointer;
 }
-div {
-    /* To avoid from copy text  */
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
+
 /* ++++++++++++++++++++++++ VALIDATION INPUT +++++++++++++++++++++ */
 .alert {
     background: #fd938c;

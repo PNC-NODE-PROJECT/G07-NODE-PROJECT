@@ -57,13 +57,10 @@ function deleteScoreHistory(e) {
     // console.log(dd)
     let historyID = e.target.id;
     if (window.confirm("Are you sure to delete this history ?")) {
-
         axios.delete("http://localhost:3000/score/" + historyID)
             .then((result) => {
                 console.log(result);
-
             })
         getScore()
     }
-
 }

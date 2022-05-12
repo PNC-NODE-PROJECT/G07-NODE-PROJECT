@@ -3,16 +3,20 @@ const app = express();
 const cookieParser = require("cookie-parser");
 const sessions = require('express-session');
 
-app.use(sessions({
-    secret: "thisismysecrret",
-    saveUninitialized:true,
-    resave: false
-}));
-
 const cors = require('cors');
 const PORT = process.env.PORT || 3000
 app.use(cors({origin: '*'}));
 app.use(express.json())
+
+const oneDay = 1000 * 60 * 60 * 24;
+app.use(sessions({
+    secret: "thisismysecrret",
+    saveUninitialized:true,
+    resave: false,
+    cookie: {
+        maxAge: oneDay
+    }
+}));
 
 // parsing the incoming data
 app.use(express.json());

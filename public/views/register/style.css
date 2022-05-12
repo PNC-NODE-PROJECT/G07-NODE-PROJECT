@@ -10,8 +10,6 @@ body{
 }
 
 .container {
-    /* min-height: 100vh; */
-    /* background-color: #e3e9ee; */
     display: flex;
     justify-content: center;
     align-items: center
