@@ -1,10 +1,12 @@
 var nodemailer = require('nodemailer');
+const EMAIL = process.env.EMAIL;
+const PASS_WORD = process.env.PASS_WORD;
 
- var transporter = nodemailer.createTransport({
+var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'facebook2pointzero@gmail.com',
-      pass: '@studentPNC'
+      user: "facebook2pointzero@gmail.com",
+      pass: "@studentPNC"
     }
 });
 
@@ -21,7 +23,7 @@ function sendScore(title, score, totalScore, toUser){
         from: 'QuiZ App',
         to: toUser,
         subject: 'Result of your ' + title + ' Online Quiz',
-        text: keyWordOfResult(totalScore, score) + ' you got: ' + score + '/'+totalScore,
+        text: keyWordOfResult(totalScore, score) + ' you got: ' + score + '/'+totalScore +" scores",
     };
     return mailOptions;
 }

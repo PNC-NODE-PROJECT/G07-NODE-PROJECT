@@ -122,6 +122,7 @@ let userInfo = document.getElementsByClassName('user_info');
 let btnSignIn = document.getElementById('login');
 let btnSignUp = document.getElementById('sign_in');
 let btnLogout = document.getElementById('logout');
+let item_action_header = document.getElementById("item_action_header")
 
 btnSignUp.addEventListener('click', registerAccount);
 btnSignIn.addEventListener('click', loginAccount);
@@ -131,8 +132,9 @@ linkSignup.addEventListener('click', showSignup);
 
 
 hide(signupForm);
-if(userId!=''){
-    setTimeout(listUserInfo, 100)
+if(userId!==''){
+    setTimeout(listUserInfo, 100);
+    item_action_header.style.display = "flex";
     hide(loginForm)
 } else {
     hide(userForm)

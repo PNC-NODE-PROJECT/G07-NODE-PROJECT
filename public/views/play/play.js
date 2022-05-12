@@ -119,14 +119,11 @@ function createDomPlay(result) {
             indexOfAn += 1;
         }
     }
-
     // update progress bar
     progress.value = indexToPlay + 1;
     progress.max = result.length;
     mainQuizContaier.appendChild(bodyQuiz);
 }
-
-
 
 let numberOfClick = 0;
 let preindex = null;
@@ -156,9 +153,6 @@ function clickAnswer(e) {
             } else {
                 result.style.display = "block";
                 // TO STOP USER FROM REFRESH PAGE 
-                window.onbeforeunload = function() {
-                    sendScoreByEmail();
-                }
                 item_action_header.style.display = "flex";
                 // container.style.display = "block"
                 document.getElementById("view_answer").style.display = "block";
@@ -257,9 +251,7 @@ function displayWrongeRightAnswers(quizzes) {
             list_group.appendChild(list_group_item);
             i++
         }
-
     }
-
 }
 function saveUserAnwerToLocalStorage(userCorrectAnswer) {
     localStorage.setItem(USER_CORRECT, JSON.stringify(userCorrectAnswer));

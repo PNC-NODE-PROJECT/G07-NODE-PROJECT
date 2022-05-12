@@ -61,9 +61,7 @@ function deleteScoreHistory(e) {
         axios.delete("/score/" + historyID)
             .then((result) => {
                 console.log(result);
-
             })
         getScore()
     }
-
 }
