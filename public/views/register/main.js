@@ -85,7 +85,7 @@ function logoutAccount() {
 
 
 let user = {};
-if(userId!==''){
+if(userId!=''){
     axios.get('/user/id/' + userId)
     .then((result) => {
         user = result.data;

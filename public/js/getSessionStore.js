@@ -1,4 +1,6 @@
 axios.get('/user/session/stored')
 .then((result)=>{
-    localStorage.setItem('userId', result.data);
+    if(result.data.length>0){
+        localStorage.setItem('userId', result.data);
+    }
 })
