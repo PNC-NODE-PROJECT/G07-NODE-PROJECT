@@ -1,4 +1,5 @@
 if (!localStorage['userId']) {
+    let userId = localStorage['userId'] = '';
     window.location.href = '../register/register.html';
 }
 var key = localStorage['userId'];

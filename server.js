@@ -45,7 +45,6 @@ app.listen(PORT, () => {
     console.log('http://localhost:' + PORT);
 })
 
-
 const itemRouter = require('./routes/quiz_route');
 const userRouter = require('./routes/user_route');
 const scoreRouter = require('./routes/score_route');

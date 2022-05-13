@@ -1,4 +1,4 @@
-let userId = localStorage.getItem('userId');
+let userId = localStorage['userId'];
 let validEmail = document.getElementById("validEmail");
 
 function hide(e) {
@@ -71,7 +71,6 @@ async function loginAccount() {
     let data = getValueFromSignIn();
     await axios.post('/user/login', data)
     .then((result) => {
-        // window.location.href = '/';
         localStorage.setItem('userId', result.data);
         window.location.href = '/public/index.html'
     })
@@ -85,11 +84,13 @@ function logoutAccount() {
 
 
 let user = {};
-if(userId!=''){
-    axios.get('/user/id/' + userId)
-    .then((result) => {
-        user = result.data;
-    })
+async function getUserId(){
+    if(userId.length!==0){
+       await axios.get('/user/id/' + userId)
+        .then((result) => {
+            user = result.data;
+        })
+    }
 }
 
 function listUserInfo() {
@@ -136,7 +137,8 @@ linkSignup.addEventListener('click', showSignup);
 
 hide(signupForm);
 if(userId!==''){
-    setTimeout(listUserInfo, 100);
+    getUserId();
+    setTimeout(listUserInfo, 500);
     item_action_header.style.display = "flex";
     hide(loginForm)
 } else {

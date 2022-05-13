@@ -56,7 +56,7 @@ const sessionChecker = (req, res, next) => {
 }
 
 // +++++++++++++ GET USER BY ID++++++++++++++//
-router.get('/id/:id',sessionChecker, (req, res)=>{
+router.get('/id/:id', (req, res)=>{
     userModel.findOne({"_id": req.params.id})
     .then((result)=>{
         res.send(result);
