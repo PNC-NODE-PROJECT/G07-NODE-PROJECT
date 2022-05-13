@@ -4,15 +4,6 @@ const model = require("../model/quiz_model");
 
 const userModel = model.userModel;
 
-// ++++++++++ CHECK USER HAS LOGIN OR NOT ++++++++++ //
-const sessionChecker = (req, res, next) => {
-    if(!req.session.userId){
-        res.redirect('public/views/register/register.html')
-    }else{
-        next();
-    }
-}
-
 // +++++++++++++ CREATE A NEW USER ++++++++++++++//
 router.post("/register", (req, res) => {
     const user = {"first_name": req.body.first_name,
@@ -37,7 +28,7 @@ router.post("/login", (req, res) => {
                 let userId  = result[0]._id.toHexString();
                 req.session.userId = userId;
                 console.log('Session stored');
-                res.send('Successfull');
+                res.send(userId);
             }else{
                 console.log('Session not store');
             }
@@ -54,6 +45,15 @@ router.get('/email/:email', (req, res)=>{
         res.send(result);
     })
 })
+
+// ++++++++++ CHECK USER HAS LOGIN OR NOT ++++++++++ //
+const sessionChecker = (req, res, next) => {
+    if(!req.session.userId){
+        res.redirect('public/views/register/register.html')
+    }else{
+        next();
+    }
+}
 
 // +++++++++++++ GET USER BY ID++++++++++++++//
 router.get('/id/:id',sessionChecker, (req, res)=>{

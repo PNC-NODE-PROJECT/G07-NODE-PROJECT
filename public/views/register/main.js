@@ -67,12 +67,15 @@ function registerAccount(e) {
     })
 }
 
-function loginAccount() {
+async function loginAccount() {
     let data = getValueFromSignIn();
-    axios.post('/user/login', data)
-        .then((result) => {
-            window.location.href = '/';
-        })
+    await axios.post('/user/login', data)
+    .then((result) => {
+        // window.location.href = '/';
+        localStorage.setItem('userId', result.data);
+        window.location.href = '/public/index.html'
+    })
+    window.location.href = '/'
 }
 
 function logoutAccount() {

@@ -16,6 +16,7 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
+    <script src="js/getSessionStore.js" defer></script>
     <script src="main.js" defer></script>
     <!-- <script src="../../js/main.js" defer></script> -->
 </head>
@@ -70,7 +71,7 @@
             </div>
         </div>
     </form>
-    <form class="container" id="signin_form">
+    <div class="container" id="signin_form">
         <div class="card">
             <div class="main active">
                 <div class="top-div">
@@ -84,14 +85,14 @@
                 </div>
                 <small class="form-text text-danger " style="display: none;" id="validSignIn">* This email is
                     already had an account !!!</small>
-                <div class="buttons"> <button type="submit" class="next-btn" id="login">Login</button> </div>
+                <div class="buttons"> <button class="next-btn" id="login">Login</button> </div>
             </div>
 
             <div class="sign-in">
                 <p>Don't have an account?<a href="#" id="link_signup"> Sign up</a></p>
             </div>
         </div>
-    </form>
+    </div>
     <form class="container" id="account_user">
         <div class="card">
             <div class="main active">
