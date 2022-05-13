@@ -41,10 +41,9 @@ app.get('/', sessionChecker, (req,res) => {
     res.sendFile('public',{root:__dirname})
 });
 
-// app.listen(PORT, () => {
-//     console.log('http://localhost:' + PORT);
-// })
-app.listen(PORT, "192.168.24.99");
+app.listen(PORT, () => {
+    console.log('http://localhost:' + PORT);
+})
 
 
 const itemRouter = require('./routes/quiz_route');
